@@ -1,11 +1,11 @@
 Package: photosearcher
-Title: What the Package Does (One Line, Title Case)
+Title: Searches FLickr for photographs and their metadata
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Nathan",
+           family = "Fox",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
+           email = "nf2g13@soton.ac.uk")
 Description: What the package does (one paragraph).
 License: What license it uses
 Encoding: UTF-8
@@ -13,7 +13,9 @@ LazyData: true
 Imports: 
     RCurl,
     xml2,
-    httr
+    httr,
+    XML,
+    dplyr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
 URL: https://github.com/nfox29/photosearcher
