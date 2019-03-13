@@ -7,30 +7,19 @@
 #'
 #' @examples
 #' location_tags(woe_id = 35356)
-
-
-location_tags <- function(woe_id = NULL){
-
-  if(is.null(woe_id)==TRUE){
-    stop('provide woe_id')
+location_tags <- function(woe_id = NULL) {
+  if (is.null(woe_id) == TRUE) {
+    stop("provide woe_id")
   }
 
   woe_id <- "35356"
-  get_tags <- paste("https://api.flickr.com/services/rest/?method=flickr.places.tagsForPlace&api_key=",api_key,"&woe_id=",woe_id,sep="")
+  get_tags <- paste("https://api.flickr.com/services/rest/?method=flickr.places.tagsForPlace&api_key=", api_key, "&woe_id=", woe_id, sep = "")
 
-  #this new one works here
+  # this new one works here
   tag_xml <- search_url(base_url = get_tags)
 
-  if(!is.null(tag_xml)){
-
+  if (!is.null(tag_xml)) {
     tag_atts <- xml2::xml_find_all(tag_xml, "//tag", ns = xml2::xml_ns(tag_xml))
     tags <- data.frame(unlist(xml2::as_list(tag_atts)))
-
-    }
-
+  }
 }
-
-
-
-
-
