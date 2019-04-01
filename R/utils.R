@@ -1,4 +1,5 @@
-################## get data ########
+#' @noRd
+
 search_url <- function(base_url = base_url) {
 
   # get total number of results

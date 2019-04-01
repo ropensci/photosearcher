@@ -7,15 +7,17 @@
 #'
 #' @examples
 #' related_terms(term = "car")
-#' 
+#'
 #' related_terms(term = "monkey")
-#' 
+#'
 #' related_terms(term = "river")
 related_terms <-
   function(term = NULL) {
     if (is.null(term) == TRUE) {
       stop("provide a term")
     }
+
+    term <- gsub(" ", "+", trimws(term))
 
     baseURL <- paste("https://api.flickr.com/services/rest/?method=flickr.tags.getRelated&api_key=", api_key, "&tag=", term, sep = "")
 
