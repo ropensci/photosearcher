@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
-#' 
+#'
 #' photo_search(min_taken = "20001-01", max_taken = "2010-01-01", text = "mountain", bbox = NULL, has_geo = NULL)
 photo_search <-
   function(min_taken = "2019-01-01",
@@ -45,7 +45,7 @@ photo_search <-
         "&max_taken_date=", as.character(maxdate),
         ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
         ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-        "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o",
+        "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
         "&page=", i,
         "&format=", "rest",
         sep = ""
@@ -101,7 +101,7 @@ photo_search <-
               "&max_taken_date=", as.character(maxdate),
               ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
               ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-              "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o",
+              "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
               "&page=", i,
               "&format=", "rest",
               sep = ""
@@ -162,7 +162,7 @@ photo_search <-
           "&max_taken_date=", as.character(maxdate),
           ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
           ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-          "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o",
+          "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
           "&page=", i,
           "&format=", "rest",
           sep = ""
@@ -193,7 +193,7 @@ photo_search <-
                 "&max_taken_date=", as.character(maxdate),
                 ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
                 ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-                "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o",
+                "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
                 "&page=", i,
                 "&format=", "rest",
                 sep = ""
