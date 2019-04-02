@@ -45,7 +45,7 @@ photo_search <-
         "&max_taken_date=", as.character(maxdate),
         ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
         ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-        "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
+        "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
         "&page=", i,
         "&format=", "rest",
         sep = ""
@@ -101,7 +101,7 @@ photo_search <-
               "&max_taken_date=", as.character(maxdate),
               ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
               ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-              "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
+              "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
               "&page=", i,
               "&format=", "rest",
               sep = ""
@@ -162,7 +162,7 @@ photo_search <-
           "&max_taken_date=", as.character(maxdate),
           ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
           ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-          "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
+          "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
           "&page=", i,
           "&format=", "rest",
           sep = ""
@@ -193,7 +193,7 @@ photo_search <-
                 "&max_taken_date=", as.character(maxdate),
                 ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
                 ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-                "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_comments,count_faves",
+                "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
                 "&page=", i,
                 "&format=", "rest",
                 sep = ""
