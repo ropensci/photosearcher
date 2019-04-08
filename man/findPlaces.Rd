@@ -17,7 +17,9 @@ A dataframe of places including woe_id to be used in location_tags
 Find correct location informatio for a given place
 }
 \examples{
+\dontrun{
 find_place(place = "New York")
 
 find_place(place = "England")
+}
 }

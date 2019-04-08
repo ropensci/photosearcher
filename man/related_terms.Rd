@@ -16,9 +16,11 @@ List of terms most associated with input term.
 Title
 }
 \examples{
+\dontrun{
 related_terms(term = "car")
 
 related_terms(term = "monkey")
 
 related_terms(term = "river")
+}
 }
