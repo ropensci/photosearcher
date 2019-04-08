@@ -9,9 +9,11 @@ download_images <- function(photo_search_results = NULL, saveDir = "downloaded_i
 
     photo_image <- photo_search_results$id[i]
 
-    z <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=", api_key, "&photo_id=", photo_image, sep="")
+    z <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=",api_key,"&photo_id=",photo_image,sep="")
 
-    photo_xml <- xml2::read_xml(z)
+    photo_xml <- search_url(z)
+
+    if (!is.null(photo_xml)) {
 
     download_atts <- xml2::xml_find_all(photo_xml, "//sizes", ns = xml2::xml_ns(photo_xml))
 
@@ -19,7 +21,7 @@ download_images <- function(photo_search_results = NULL, saveDir = "downloaded_i
 
     if ((tmp_df$candownload) == 0) {
 
-      warning("No permission to download image ", to_download)
+      warning("No permission to download image ", photo_image)
 
     } else {
 
@@ -34,6 +36,8 @@ download_images <- function(photo_search_results = NULL, saveDir = "downloaded_i
         destfile = file.path(saveDir, basename(to_download)),
         mode = "wb"
       )
+
+    }
 
     }
 
