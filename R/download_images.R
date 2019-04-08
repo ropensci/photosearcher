@@ -1,13 +1,13 @@
-download_images <- function(photo_search_results = NULL, saveDir = "downloaded_images"){
+download_images <- function(photo_id = NULL, saveDir = "downloaded_images"){
 
   if (!dir.exists(saveDir)) {
     message(paste("saveDir", saveDir, "does not exist, I will create it for you"))
     dir.create(saveDir, recursive = TRUE)
   }
 
-  for (i in 1:nrow(photo_search_results)) {
+  for (i in 1:length(photo_id)) {
 
-    photo_image <- photo_search_results$id[i]
+    photo_image <- photo_id[i]
 
     z <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=",api_key,"&photo_id=",photo_image,sep="")
 
