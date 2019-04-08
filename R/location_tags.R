@@ -6,11 +6,15 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' location_tags(woe_id = 35356)
+#' }
 location_tags <- function(woe_id = NULL) {
   if (is.null(woe_id) == TRUE) {
     stop("provide woe_id")
   }
+
+  api_key <- as.character(get_key())
 
   woe_id <- "35356"
   get_tags <- paste("https://api.flickr.com/services/rest/?method=flickr.places.tagsForPlace&api_key=", api_key, "&woe_id=", woe_id, sep = "")

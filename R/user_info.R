@@ -6,13 +6,17 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' user_info(user_id = "8017836@N02")
-#' 
+#'
 #' user_info(user_id = c("11763518@N00", "39745335@N06", "104939923@N02"))
+#' }
 user_info <- function(user_id = NULL) {
   if (is.null(user_id) == TRUE) {
     stop("provide user id")
   }
+
+  api_key <- as.character(get_key())
 
   id_tmp <- NULL
   id_info <- NULL

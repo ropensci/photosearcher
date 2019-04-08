@@ -6,16 +6,20 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' related_terms(term = "car")
 #'
 #' related_terms(term = "monkey")
 #'
 #' related_terms(term = "river")
+#' }
 related_terms <-
   function(term = NULL) {
     if (is.null(term) == TRUE) {
       stop("provide a term")
     }
+
+    api_key <- as.character(get_key())
 
     term <- gsub(" ", "+", trimws(term))
 

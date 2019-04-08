@@ -1,5 +1,7 @@
 download_images <- function(photo_id = NULL, saveDir = "downloaded_images"){
 
+  api_key <- as.character(get_key())
+
   if (!dir.exists(saveDir)) {
     message(paste("saveDir", saveDir, "does not exist, I will create it for you"))
     dir.create(saveDir, recursive = TRUE)

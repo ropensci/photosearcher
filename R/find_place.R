@@ -7,10 +7,15 @@
 #' @name findPlaces
 #'
 #' @examples
+#' \dontrun{
 #' find_place(place = "New York")
-#' 
+#'
 #' find_place(place = "England")
+#' }
 find_place <- function(place = NULL) {
+
+  api_key <- as.character(get_key())
+
   place <- gsub(" ", "+", trimws(place))
 
   place_url <- paste("https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=", api_key, "&query=", place, sep = "")
