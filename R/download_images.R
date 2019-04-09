@@ -1,5 +1,9 @@
 download_images <- function(photo_id = NULL, saveDir = "downloaded_images"){
 
+  if (is.null(photo_id) == TRUE) {
+    stop("provide a photo id")
+  }
+
   api_key <- as.character(get_key())
 
   if (!dir.exists(saveDir)) {
@@ -33,7 +37,7 @@ download_images <- function(photo_id = NULL, saveDir = "downloaded_images"){
 
       to_download <- tmp_df$source[nrow(tmp_df)]
 
-      download.file(
+      utils::download.file(
         url = to_download,
         destfile = file.path(saveDir, basename(to_download)),
         mode = "wb"

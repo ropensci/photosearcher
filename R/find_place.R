@@ -14,6 +14,10 @@
 #' }
 find_place <- function(place = NULL) {
 
+  if (is.null(place) == TRUE) {
+    stop("provide a place")
+  }
+
   api_key <- as.character(get_key())
 
   place <- gsub(" ", "+", trimws(place))

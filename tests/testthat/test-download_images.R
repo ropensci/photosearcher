@@ -1,6 +1,5 @@
 context("test-download_images")
 
-#not sure on test for this
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("fails correctly", {
+  expect_error(download_images(), "provide a photo id")
 })
