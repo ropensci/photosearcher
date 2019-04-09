@@ -8,9 +8,9 @@
 #' @examples
 #' \dontrun{
 #' related_terms(term = "car")
-#'
+#' 
 #' related_terms(term = "monkey")
-#'
+#' 
 #' related_terms(term = "river")
 #' }
 related_terms <-

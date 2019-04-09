@@ -3,7 +3,8 @@
 #' @param min_taken String, minimum date of photograph for search provide as "YYYY-MM-DD".
 #' @param max_taken String, maximum date of photograph for search provide as "YYYY-MM-DD".
 #' @param text String, text to be searched.
-#' @param bbox String, optional bounding box of search area provide as "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
+#' @param bbox String, optional bounding box of search area provide as:
+#'             "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param has_geo Logical, arguement for whether returned photos need to be georeference.
 #'
 #' @return Output will be a dataframe consisting of 54 variables including; latitude and longitude of photograph, photograph tags and image urls
@@ -11,9 +12,17 @@
 #'
 #' @examples
 #' \dontrun{
-#' photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
+#' photo_search(min_taken = "2019-01-01",
+#'              max_taken = "2019-01-02",
+#'              text = "tree",
+#'              bbox = "-13.623047,47.279229,3.251953,60.630102",
+#'              has_geo = TRUE)
 #'
-#' photo_search(min_taken = "2001-01", max_taken = "2010-01-01", text = "mountain", bbox = NULL, has_geo = NULL)
+#' photo_search(min_taken = "2001-01",
+#'              max_taken = "2010-01-01",
+#'              text = "mountain",
+#'              bbox = NULL,
+#'              has_geo = NULL)
 #' }
 photo_search <-
   function(min_taken = "2019-01-01",
@@ -38,7 +47,7 @@ photo_search <-
     # create dfs so large searches can be subset dynamically
     date_df <- data.frame(mindate = mindate, maxdate = maxdate)
 
-    #get or save the api_key
+    # get or save the api_key
     api_key <- as.character(get_key())
 
     # start while loop - until all dates are looped through

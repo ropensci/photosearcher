@@ -9,11 +9,10 @@
 #' @examples
 #' \dontrun{
 #' find_place(place = "New York")
-#'
+#' 
 #' find_place(place = "England")
 #' }
 find_place <- function(place = NULL) {
-
   if (is.null(place) == TRUE) {
     stop("provide a place")
   }

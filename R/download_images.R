@@ -1,5 +1,18 @@
-download_images <- function(photo_id = NULL, saveDir = "downloaded_images"){
-
+#' download_images
+#'
+#' @param photo_id id of pgoto to dowload, can be single id, list or column for phot_search outputs
+#' @param saveDir name of directory for photos to be saved in - if it doesnt exisit it will be created
+#'
+#' @return jpeg image saved as the name of the photo id
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' download_images(photo_id = 123, saveDir = "images")
+#' 
+#' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
+#' }
+download_images <- function(photo_id = NULL, saveDir = "downloaded_images") {
   if (is.null(photo_id) == TRUE) {
     stop("provide a photo id")
   }
@@ -12,41 +25,32 @@ download_images <- function(photo_id = NULL, saveDir = "downloaded_images"){
   }
 
   for (i in 1:length(photo_id)) {
-
     photo_image <- photo_id[i]
 
-    z <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=",api_key,"&photo_id=",photo_image,sep="")
+    z <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=", api_key, "&photo_id=", photo_image, sep = "")
 
     photo_xml <- search_url(z)
 
     if (!is.null(photo_xml)) {
+      download_atts <- xml2::xml_find_all(photo_xml, "//sizes", ns = xml2::xml_ns(photo_xml))
 
-    download_atts <- xml2::xml_find_all(photo_xml, "//sizes", ns = xml2::xml_ns(photo_xml))
+      tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(download_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
 
-    tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(download_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+      if ((tmp_df$candownload) == 0) {
+        warning("No permission to download image ", photo_image)
+      } else {
+        photo_url <- xml2::xml_find_all(photo_xml, "//size", ns = xml2::xml_ns(photo_xml))
 
-    if ((tmp_df$candownload) == 0) {
+        tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_url), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
 
-      warning("No permission to download image ", photo_image)
+        to_download <- tmp_df$source[nrow(tmp_df)]
 
-    } else {
-
-      photo_url <- xml2::xml_find_all(photo_xml, "//size", ns = xml2::xml_ns(photo_xml))
-
-      tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_url), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
-
-      to_download <- tmp_df$source[nrow(tmp_df)]
-
-      utils::download.file(
-        url = to_download,
-        destfile = file.path(saveDir, basename(to_download)),
-        mode = "wb"
-      )
-
+        utils::download.file(
+          url = to_download,
+          destfile = file.path(saveDir, basename(to_download)),
+          mode = "wb"
+        )
+      }
     }
-
-    }
-
   }
-
 }
