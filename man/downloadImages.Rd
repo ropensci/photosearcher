@@ -31,10 +31,12 @@ Using the data returned from the
 
 uk_trees <- photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
 
-downloadImages(photo_search_results = uk_trees,
-               licenses = c(6:10),
-               saveDir = tempdir(),
-               max_quality = 2)
-
+downloadImages(
+  photo_search_results = uk_trees,
+  licenses = c(6:10),
+  saveDir = tempdir(),
+  max_quality = 2
+)
 }
+
 }
