@@ -12,7 +12,8 @@ photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
 
 \item{tags}{String, tags to filter by.}
 
-\item{bbox}{String, optional bounding box of search area provide as "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
+\item{bbox}{String, optional bounding box of search area provide as:
+"minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
 
 \item{has_geo}{Logical, arguement for whether returned photos need to be georeference.}
 
@@ -21,7 +22,7 @@ photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
 \item{max_taken}{String, maximum date of photograph for search provide as "YYYY-MM-DD".}
 }
 \value{
-Output will be a dataframe consisting of 54 variables including; lattitude and longitude of photograph, photograph tags and image urls
+Output will be a dataframe consisting of 54 variables including; latitude and longitude of photograph, photograph tags and image urls
 }
 \description{
 photo_search
@@ -29,5 +30,11 @@ photo_search
 \examples{
 photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
 
-photo_search(min_taken = "20001-01", max_taken = "2010-01-01", text = "mountain", bbox = NULL, has_geo = NULL)
+\dontrun{
+photo_search(min_taken = "2019-01-01",
+             max_taken = "2019-01-02",
+             text = "tree",
+             bbox = "-13.623047,47.279229,3.251953,60.630102",
+             has_geo = TRUE)
+}
 }

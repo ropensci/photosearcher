@@ -1,4 +1,6 @@
-################## get data ########
+#' @noRd
+
+# search url
 search_url <- function(base_url = base_url) {
 
   # get total number of results
@@ -14,7 +16,7 @@ search_url <- function(base_url = base_url) {
   }
 
   if (r$status_code != 200) {
-    warning("Status code:", r$status, " for ", base_url, " - message: ", content(r, "text"))
+    warning("Status code:", r$status, " for ", base_url, " - message: ", httr::content(r, "text"))
   }
 
   error <- tryCatch({

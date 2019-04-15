@@ -4,23 +4,31 @@
 #' @param max_taken String, maximum date of photograph for search provide as "YYYY-MM-DD".
 #' @param text String, text to be searched.
 #' @param tags String, tags to filter by.
-#' @param bbox String, optional bounding box of search area provide as "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
+#' @param bbox String, optional bounding box of search area provide as:
+#'             "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param has_geo Logical, arguement for whether returned photos need to be georeference.
 #'
-#' @return Output will be a dataframe consisting of 54 variables including; lattitude and longitude of photograph, photograph tags and image urls
+#' @return Output will be a dataframe consisting of 54 variables including; latitude and longitude of photograph, photograph tags and image urls
 #' @export
 #'
 #' @examples
 #' photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
 #'
-#' photo_search(min_taken = "20001-01", max_taken = "2010-01-01", text = "mountain", bbox = NULL, has_geo = NULL)
+#' \dontrun{
+#' photo_search(min_taken = "2019-01-01",
+#'              max_taken = "2019-01-02",
+#'              text = "tree",
+#'              bbox = "-13.623047,47.279229,3.251953,60.630102",
+#'              has_geo = TRUE)
+#' }
+
 photo_search <-
   function(mindate = "2019-01-01",
-             maxdate = "2019-01-01",
-             text = NULL,
-             tags = NULL,
-             bbox = NULL,
-             has_geo = TRUE) {
+           maxdate = "2019-01-01",
+           text = NULL,
+           tags = NULL,
+           bbox = NULL,
+           has_geo = TRUE) {
 
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(' ', '+', trimws(tags))
@@ -28,8 +36,19 @@ photo_search <-
     pics <- NULL
     spatial_df <- NULL
 
+    if (is.null(mindate) == TRUE) {
+      stop("provide a min date")
+    }
+
+    if (is.null(maxdate) == TRUE) {
+      stop("provide a max date")
+    }
+
     # create dfs so large searches can be subset dynamically
     date_df <- data.frame(mindate = mindate, maxdate = maxdate)
+
+    # get or save the api_key
+    api_key <- as.character(get_key())
 
     # start while loop - until all dates are looped through
     while (nrow(date_df) > 0) {
@@ -41,15 +60,14 @@ photo_search <-
       # rest page to 1
       i <- 1
 
-      # url but new util doesnt work here
       base_url <- get_url(mindate = mindate,
-              maxdate = maxdate,
-              api_key = api_key,
-              page = i,
-              text = text,
-              tags = tags,
-              bbox = bbox,
-              has_geo = has_geo)
+                          maxdate = maxdate,
+                          api_key = api_key,
+                          page = i,
+                          text = text,
+                          tags = tags,
+                          bbox = bbox,
+                          has_geo = has_geo)
 
       photo_xml <- search_url(base_url = base_url)
 
@@ -94,7 +112,7 @@ photo_search <-
           # loop thru pages of photos and save the list in a DF
           for (i in c(1:total_pages)) {
 
-            # url but new util doesnt work here
+
             base_url <- get_url(mindate = mindate,
                                 maxdate = maxdate,
                                 api_key = api_key,
@@ -153,6 +171,7 @@ photo_search <-
         i <- 1
 
         # url
+
         base_url <- get_url(mindate = mindate,
                             maxdate = maxdate,
                             api_key = api_key,
@@ -181,6 +200,7 @@ photo_search <-
             for (i in c(1:total_pages)) {
 
               # url
+
               base_url <- get_url(mindate = mindate,
                                   maxdate = maxdate,
                                   api_key = api_key,
@@ -189,6 +209,7 @@ photo_search <-
                                   tags = tags,
                                   bbox = bbox,
                                   has_geo = has_geo)
+
 
               # this new one works here
               photo_xml <- search_url(base_url = base_url)

@@ -16,7 +16,9 @@ Dataframe of users publically available infromation including; hometown and occu
 Title
 }
 \examples{
+\dontrun{
 user_info(user_id = "8017836@N02")
 
 user_info(user_id = c("11763518@N00", "39745335@N06", "104939923@N02"))
+}
 }

@@ -16,5 +16,7 @@ List of the top 100 tags associated with the woe_id.
 location_tags
 }
 \examples{
+\dontrun{
 location_tags(woe_id = 35356)
+}
 }
