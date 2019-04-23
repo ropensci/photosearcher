@@ -14,7 +14,8 @@ photo_search(min_taken = "2019-01-01", max_taken = "2019-01-01",
 
 \item{text}{String, text to be searched.}
 
-\item{bbox}{String, optional bounding box of search area provide as "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
+\item{bbox}{String, optional bounding box of search area provide as:
+"minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
 
 \item{has_geo}{Logical, arguement for whether returned photos need to be georeference.}
 }
@@ -26,8 +27,16 @@ photo_search
 }
 \examples{
 \dontrun{
-photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
+photo_search(min_taken = "2019-01-01",
+             max_taken = "2019-01-02",
+             text = "tree",
+             bbox = "-13.623047,47.279229,3.251953,60.630102",
+             has_geo = TRUE)
 
-photo_search(min_taken = "2001-01", max_taken = "2010-01-01", text = "mountain", bbox = NULL, has_geo = NULL)
+photo_search(min_taken = "2001-01",
+             max_taken = "2010-01-01",
+             text = "mountain",
+             bbox = NULL,
+             has_geo = NULL)
 }
 }
