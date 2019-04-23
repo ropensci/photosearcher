@@ -10,7 +10,8 @@ user_info(user_id = NULL)
 \item{user_id}{String, the id of the user you wihs to obtain information for.}
 }
 \value{
-Dataframe of users publically available infromation including; hometown and occupation
+Dataframe of users publically available infromation including;
+hometown and occupation
 }
 \description{
 Title

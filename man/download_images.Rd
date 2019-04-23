@@ -7,9 +7,11 @@
 download_images(photo_id = NULL, saveDir = "downloaded_images")
 }
 \arguments{
-\item{photo_id}{id of pgoto to dowload, can be single id, list or column for phot_search outputs}
+\item{photo_id}{id of pgoto to dowload, can be single id, list or column for
+phot_search outputs}
 
-\item{saveDir}{name of directory for photos to be saved in - if it doesnt exisit it will be created}
+\item{saveDir}{name of directory for photos to be saved in - if it doesnt
+exisit it will be created}
 }
 \value{
 jpeg image saved as the name of the photo id

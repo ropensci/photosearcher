@@ -6,6 +6,10 @@ photosearcher
 
 The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API.
 
+Before using the package users should sign uo for an API key from the [Flickr development page](https://www.flickr.com/services/apps/create/).
+
+The Flickr website offers full [API Documentation](https://www.flickr.com/services/api/) for all of its call methods.
+
 Installation
 ------------
 

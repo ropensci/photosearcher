@@ -40,14 +40,6 @@ photo_search <-
     pics <- NULL
     spatial_df <- NULL
 
-    if (is.null(mindate) == TRUE) {
-      stop("provide a min date")
-    }
-
-    if (is.null(maxdate) == TRUE) {
-      stop("provide a max date")
-    }
-
     # create dfs so large searches can be subset dynamically
     date_df <- data.frame(mindate = mindate, maxdate = maxdate)
 
