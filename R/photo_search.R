@@ -16,11 +16,12 @@
 #' @export
 #'
 #' @examples
-#' photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
-#'
 #' \dontrun{
-#' photo_search(min_taken = "2019-01-01",
-#'              max_taken = "2019-01-02",
+#' photo_search(mindate = "2019-01-01", maxdate = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
+#'
+#'
+#' photo_search(mindate = "2019-01-01",
+#'              maxdate = "2019-01-02",
 #'              text = "tree",
 #'              bbox = "-13.623047,47.279229,3.251953,60.630102",
 #'              has_geo = TRUE)
