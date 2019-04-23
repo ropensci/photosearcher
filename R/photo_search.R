@@ -3,6 +3,7 @@
 #' @param min_taken String, minimum date of photograph for search provide as "YYYY-MM-DD".
 #' @param max_taken String, maximum date of photograph for search provide as "YYYY-MM-DD".
 #' @param text String, text to be searched.
+#' @param tags String, tags to filter by.
 #' @param bbox String, optional bounding box of search area provide as:
 #'             "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param has_geo Logical, arguement for whether returned photos need to be georeference.
@@ -11,28 +12,27 @@
 #' @export
 #'
 #' @examples
+#' photo_search(min_taken = "2019-01-01", max_taken = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
+#'
 #' \dontrun{
 #' photo_search(min_taken = "2019-01-01",
 #'              max_taken = "2019-01-02",
 #'              text = "tree",
 #'              bbox = "-13.623047,47.279229,3.251953,60.630102",
 #'              has_geo = TRUE)
-#'
-#' photo_search(min_taken = "2001-01",
-#'              max_taken = "2010-01-01",
-#'              text = "mountain",
-#'              bbox = NULL,
-#'              has_geo = NULL)
 #' }
+
 photo_search <-
-  function(min_taken = "2019-01-01",
-             max_taken = "2019-01-01",
-             text = NULL,
-             bbox = NULL,
-             has_geo = TRUE) {
+  function(mindate = "2019-01-01",
+           maxdate = "2019-01-01",
+           text = NULL,
+           tags = NULL,
+           bbox = NULL,
+           has_geo = TRUE) {
+
     text <- gsub(" ", "+", trimws(text))
-    mindate <- min_taken
-    maxdate <- max_taken
+    tags <- gsub(' ', '+', trimws(tags))
+    tags <- paste(tags, collapse=",")
     pics <- NULL
     spatial_df <- NULL
 
@@ -60,18 +60,14 @@ photo_search <-
       # rest page to 1
       i <- 1
 
-      # url but new util doesnt work here
-      base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
-        "&text=", text,
-        "&min_taken_date=", as.character(mindate),
-        "&max_taken_date=", as.character(maxdate),
-        ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
-        ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-        "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
-        "&page=", i,
-        "&format=", "rest",
-        sep = ""
-      )
+      base_url <- get_url(mindate = mindate,
+                          maxdate = maxdate,
+                          api_key = api_key,
+                          page = i,
+                          text = text,
+                          tags = tags,
+                          bbox = bbox,
+                          has_geo = has_geo)
 
       photo_xml <- search_url(base_url = base_url)
 
@@ -116,18 +112,15 @@ photo_search <-
           # loop thru pages of photos and save the list in a DF
           for (i in c(1:total_pages)) {
 
-            # url but new util doesnt work here
-            base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
-              "&text=", text,
-              "&min_taken_date=", as.character(mindate),
-              "&max_taken_date=", as.character(maxdate),
-              ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
-              ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-              "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
-              "&page=", i,
-              "&format=", "rest",
-              sep = ""
-            )
+
+            base_url <- get_url(mindate = mindate,
+                                maxdate = maxdate,
+                                api_key = api_key,
+                                page = i,
+                                text = text,
+                                tags = tags,
+                                bbox = bbox,
+                                has_geo = has_geo)
 
             # this new one works here
             photo_xml <- search_url(base_url = base_url)
@@ -178,17 +171,15 @@ photo_search <-
         i <- 1
 
         # url
-        base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
-          "&text=", text,
-          "&min_taken_date=", as.character(mindate),
-          "&max_taken_date=", as.character(maxdate),
-          ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
-          ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-          "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
-          "&page=", i,
-          "&format=", "rest",
-          sep = ""
-        )
+
+        base_url <- get_url(mindate = mindate,
+                            maxdate = maxdate,
+                            api_key = api_key,
+                            page = i,
+                            text = text,
+                            tags = tags,
+                            bbox = bbox,
+                            has_geo = has_geo)
 
         # this new one works here
         photo_xml <- search_url(base_url = base_url)
@@ -209,17 +200,16 @@ photo_search <-
             for (i in c(1:total_pages)) {
 
               # url
-              base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
-                "&text=", text,
-                "&min_taken_date=", as.character(mindate),
-                "&max_taken_date=", as.character(maxdate),
-                ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
-                ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-                "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
-                "&page=", i,
-                "&format=", "rest",
-                sep = ""
-              )
+
+              base_url <- get_url(mindate = mindate,
+                                  maxdate = maxdate,
+                                  api_key = api_key,
+                                  page = i,
+                                  text = text,
+                                  tags = tags,
+                                  bbox = bbox,
+                                  has_geo = has_geo)
+
 
               # this new one works here
               photo_xml <- search_url(base_url = base_url)
