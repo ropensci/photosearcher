@@ -1,14 +1,18 @@
 #' photo_search
 #'
-#' @param min_taken String, minimum date of photograph for search provide as "YYYY-MM-DD".
-#' @param max_taken String, maximum date of photograph for search provide as "YYYY-MM-DD".
+#' @param min_taken String, minimum date of photograph for search provide as
+#'   "YYYY-MM-DD".
+#' @param max_taken String, maximum date of photograph for search provide as
+#'   "YYYY-MM-DD".
 #' @param text String, text to be searched.
 #' @param tags String, tags to filter by.
 #' @param bbox String, optional bounding box of search area provide as:
-#'             "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
-#' @param has_geo Logical, arguement for whether returned photos need to be georeference.
+#'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
+#' @param has_geo Logical, arguement for whether returned photos need to be
+#'   georeference.
 #'
-#' @return Output will be a dataframe consisting of 54 variables including; latitude and longitude of photograph, photograph tags and image urls
+#' @return Output will be a dataframe consisting of 54 variables including;
+#'   latitude and longitude of photograph, photograph tags and image urls
 #' @export
 #'
 #' @examples

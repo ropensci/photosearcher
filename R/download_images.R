@@ -1,7 +1,9 @@
 #' download_images
 #'
-#' @param photo_id id of pgoto to dowload, can be single id, list or column for phot_search outputs
-#' @param saveDir name of directory for photos to be saved in - if it doesnt exisit it will be created
+#' @param photo_id id of pgoto to dowload, can be single id, list or column for
+#'   phot_search outputs
+#' @param saveDir name of directory for photos to be saved in - if it doesnt
+#'   exisit it will be created
 #'
 #' @return jpeg image saved as the name of the photo id
 #' @export
@@ -9,7 +11,7 @@
 #' @examples
 #' \dontrun{
 #' download_images(photo_id = 123, saveDir = "images")
-#' 
+#'
 #' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
 #' }
 download_images <- function(photo_id = NULL, saveDir = "downloaded_images") {
