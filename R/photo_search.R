@@ -1,23 +1,52 @@
 #' photo_search
 #'
+#' Takes user defined search query and return the image metadata for all those
+#' that match search terms. Uses the flickr.photos.search API method from the
+#' Flickr API. This search method requires a limiting factor to prevent
+#' parameterless searches - to enure this is met the function requires both a
+#' minimum and a maximum date that searched photographs were taken on. See
+#' \url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
+#' information on the API method.
+#'
+#' Note: if this is the first function of the package you use you will be prompted to enter your API
+#' key. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will
+#' then be saved as a .Rda file and be called to when using any other function.
+#'
 #' @param min_taken String, minimum date of photograph for search provide as
 #'   "YYYY-MM-DD".
 #' @param max_taken String, maximum date of photograph for search provide as
 #'   "YYYY-MM-DD".
-#' @param text String, text to be searched.
-#' @param tags String, tags to filter by.
+#' @param text String, optional text to be searched.
+#' @param tags String, optional tags to filter by.
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
-#' @param has_geo Logical, arguement for whether returned photos need to be
-#'   georeference.
+#' @param has_geo Logical, optional arguement for whether returned photos need
+#'   to be georeference.
 #'
-#' @return Output will be a dataframe consisting of 54 variables including;
-#'   latitude and longitude of photograph, photograph tags and image urls
+#' @return Output will be a dataframe consisting of 57 variables including;
+#'   latitude and longitude of photograph, date and time it was taken,
+#'   associated tags and image urls.
+#'
+#'   Full list of variables returned: id, owner, secret, server, farm, title,
+#'   ispublic, isfriend, isfamily, license, datetaken, datetakengranularity,
+#'   datetakenunknown, count_views, count_comments, count_faves, tags, latitude,
+#'   longitude, accuracy, context, place_id, woeid, geo_is_family,
+#'   geo_is_friend, geo_is_contact, geo_is_public, url_sq, height_sq, width_sq,
+#'   url_t, height_t, width_t, url_s, height_s,	width_s	url_q, height_q,
+#'   width_q, url_m, height_m, width_m, url_n, height_n, width_n, url_z,
+#'   height_z, width_z, url_c, height_c, width_c, url_l, height_l, width_l,
+#'   url_o, height_o, width_o.
+#'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' photo_search(mindate = "2019-01-01", maxdate = "2019-01-02", text = "tree", bbox = "-13.623047,47.279229,3.251953,60.630102", has_geo = TRUE)
+#' photo_search(mindate = "2019-01-01",
+#'              maxdate = "2019-01-02",
+#'              text = "tree",
+#'              bbox = "-13.623047,47.279229,3.251953,60.630102",
+#'              has_geo = TRUE)
 #'
 #'
 #' photo_search(mindate = "2019-01-01",

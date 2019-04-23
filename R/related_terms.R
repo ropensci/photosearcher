@@ -1,4 +1,14 @@
-#' Title
+#' related_terms
+#'
+#' Takes user defined term and returns the top tags related to the term.
+#' Uses the flickr.tags.getRelated API method from the Flickr API. See
+#' \url{https://www.flickr.com/services/api/flickr.tags.getRelated.html} for
+#' more information on the API method.
+#'
+#' Note: if this is the first function of the package you use you will be
+#' prompted to enter your API key. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will
+#' then be saved as a .Rda file and be called to when using any other function.
 #'
 #' @param term String, term to search.
 #'
@@ -8,9 +18,9 @@
 #' @examples
 #' \dontrun{
 #' related_terms(term = "car")
-#' 
+#'
 #' related_terms(term = "monkey")
-#' 
+#'
 #' related_terms(term = "river")
 #' }
 related_terms <-

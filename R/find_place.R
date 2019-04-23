@@ -1,15 +1,28 @@
 #' Find correct location informatio for a given place
 #'
+#' Takes user defined location and returns location data for the search. Uses
+#' the flickr.places.find API method from the Flickr API. See
+#' \url{https://www.flickr.com/services/api/flickr.places.find.html} for more
+#' information on the API method.
+#'
+#' Note: if this is the first function of the package you use you will be
+#' prompted to enter your API key. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will
+#' then be saved as a .Rda file and be called to when using any other function.
+#'
 #' @param place Text string describing the place for the query
 #'
-#' @return A dataframe of places including woe_id to be used in location_tags
+#' @return A dataframe information on locations that share the name with the
+#'   search location. Full list of returned data: place_id, woeid, latitude,
+#'   longitude and place_url
+
 #' @export
 #' @name findPlaces
 #'
 #' @examples
 #' \dontrun{
 #' find_place(place = "New York")
-#' 
+#'
 #' find_place(place = "England")
 #' }
 find_place <- function(place = NULL) {

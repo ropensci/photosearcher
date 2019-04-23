@@ -13,7 +13,16 @@ location_tags(woe_id = NULL)
 List of the top 100 tags associated with the woe_id.
 }
 \description{
-location_tags
+Takes user defined location and returns the top tags related to the location.
+Uses the flickr.places.tagsForPlace API method from the Flickr API. See
+\url{https://www.flickr.com/services/api/flickr.places.tagsForPlace.html} for
+more information on the API method.
+}
+\details{
+Note: if this is the first function of the package you use you will be
+prompted to enter your API key. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. The API key will
+then be saved as a .Rda file and be called to when using any other function.
 }
 \examples{
 \dontrun{

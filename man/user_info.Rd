@@ -2,7 +2,7 @@
 % Please edit documentation in R/user_info.R
 \name{user_info}
 \alias{user_info}
-\title{Title}
+\title{User_info}
 \usage{
 user_info(user_id = NULL)
 }
@@ -10,11 +10,24 @@ user_info(user_id = NULL)
 \item{user_id}{String, the id of the user you wihs to obtain information for.}
 }
 \value{
-Dataframe of users publically available infromation including;
-hometown and occupation
+Dataframe of 19 variables from the searched users publically
+available infromation including; hometown and occupation. Full list of
+returned variables: id, nsid	join_date, occupation, hometown, showcase_set,
+showcase_set_title, first_name, last_name, profile_description,
+website	city, country, facebook, twitter, tumblr, Instagram, pinterest,
+email
 }
 \description{
-Title
+Takes user defined FLickr user ID and returns data regarding their profile.
+Uses the flickr.profile.getProfile API method from the Flickr API. See
+\url{https://www.flickr.com/services/api/flickr.profile.getProfile.html} for
+more information on the API method.
+}
+\details{
+Note: if this is the first function of the package you use you will be
+prompted to enter your API key. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. The API key will
+then be saved as a .Rda file and be called to when using any other function.
 }
 \examples{
 \dontrun{

@@ -14,10 +14,21 @@ phot_search outputs}
 exisit it will be created}
 }
 \value{
-jpeg image saved as the name of the photo id
+jpeg image saved as the name of the photo id in given save directory
 }
 \description{
-download_images
+Downloads images based on their FLickr id. Uses the flickr.photos.getSizes
+API method from the Flickr API to test whether you have permission to
+download an image. See
+\url{https://www.flickr.com/services/api/flickr.photos.getSizes.html} for more
+information on the API method. If permission is available the image is
+downloaded and saved as a .jpeg in a given save directory.
+}
+\details{
+Note: if this is the first function of the package you use you will be prompted to enter your API
+key. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. The API key will
+then be saved as a .Rda file and be called to when using any other function
 }
 \examples{
 \dontrun{

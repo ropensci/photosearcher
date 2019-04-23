@@ -1,9 +1,23 @@
-#' Title
+#' User_info
+#'
+#' Takes user defined FLickr user ID and returns data regarding their profile.
+#' Uses the flickr.profile.getProfile API method from the Flickr API. See
+#' \url{https://www.flickr.com/services/api/flickr.profile.getProfile.html} for
+#' more information on the API method.
+#'
+#' Note: if this is the first function of the package you use you will be
+#' prompted to enter your API key. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will
+#' then be saved as a .Rda file and be called to when using any other function.
 #'
 #' @param user_id String, the id of the user you wihs to obtain information for.
 #'
-#' @return Dataframe of users publically available infromation including;
-#'   hometown and occupation
+#' @return Dataframe of 19 variables from the searched users publically
+#'   available infromation including; hometown and occupation. Full list of
+#'   returned variables: id, nsid	join_date, occupation, hometown, showcase_set,
+#'   showcase_set_title, first_name, last_name, profile_description,
+#'   website	city, country, facebook, twitter, tumblr, Instagram, pinterest,
+#'   email
 #' @export
 #'
 #' @examples
@@ -22,8 +36,7 @@ user_info <- function(user_id = NULL) {
   id_tmp <- NULL
   id_info <- NULL
 
-  if (length(user_id) > 0) {
-    for (i in user_id) {
+  for (i in user_id) {
       get_info <- paste("https://api.flickr.com/services/rest/?method=flickr.profile.getProfile&api_key=", api_key, "&user_id=", i, sep = "")
 
       user_xml <- search_url(base_url = get_info)
@@ -38,7 +51,7 @@ user_info <- function(user_id = NULL) {
     }
 
     id_info <- dplyr::bind_rows(id_info, id_tmp)
-  }
+
 
   return(id_info)
 }

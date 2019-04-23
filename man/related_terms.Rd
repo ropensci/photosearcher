@@ -2,7 +2,7 @@
 % Please edit documentation in R/related_terms.R
 \name{related_terms}
 \alias{related_terms}
-\title{Title}
+\title{related_terms}
 \usage{
 related_terms(term = NULL)
 }
@@ -13,7 +13,16 @@ related_terms(term = NULL)
 List of terms most associated with input term.
 }
 \description{
-Title
+Takes user defined term and returns the top tags related to the term.
+Uses the flickr.tags.getRelated API method from the Flickr API. See
+\url{https://www.flickr.com/services/api/flickr.tags.getRelated.html} for
+more information on the API method.
+}
+\details{
+Note: if this is the first function of the package you use you will be
+prompted to enter your API key. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. The API key will
+then be saved as a .Rda file and be called to when using any other function.
 }
 \examples{
 \dontrun{
