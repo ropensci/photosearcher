@@ -10,7 +10,7 @@ Description: Queries the Flick API to return photograph metadata as well as the 
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports:
+Imports: 
     xml2,
     httr,
     dplyr,
@@ -19,6 +19,7 @@ RoxygenNote: 6.1.0
 URL: https://github.com/nfox29/photosearcher
 BugReports: https://github.com/nfox29/photosearcher/issues
 Suggests: 
-    testthat,
+    httptest,
     knitr,
-    roxygen2
+    roxygen2,
+    testthat

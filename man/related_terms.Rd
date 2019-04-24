@@ -4,10 +4,13 @@
 \alias{related_terms}
 \title{related_terms}
 \usage{
-related_terms(term = NULL)
+related_terms(term = NULL, api_key = NULL)
 }
 \arguments{
 \item{term}{String, term to search.}
+
+\item{api_key}{String, optional method for supplying your API key if you do not
+wish for it to be saved in the environment or as a .Rda}
 }
 \value{
 List of terms most associated with input term.
@@ -19,10 +22,11 @@ Uses the flickr.tags.getRelated API method from the Flickr API. See
 more information on the API method.
 }
 \details{
-Note: if this is the first function of the package you use you will be
-prompted to enter your API key. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. The API key will
-then be saved as a .Rda file and be called to when using any other function.
+Note: if this is the first function of the package and you do not enter you
+API key in the arguement api_key you use you will be prompted to enter your
+API key. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. The API key will then
+be saved as a .Rda file and be called to when using any other function.
 }
 \examples{
 \dontrun{

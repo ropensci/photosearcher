@@ -4,10 +4,13 @@
 \alias{location_tags}
 \title{location_tags}
 \usage{
-location_tags(woe_id = NULL)
+location_tags(woe_id = NULL, api_key = NULL)
 }
 \arguments{
 \item{woe_id}{Numeric, a "Where on Earth" location tag.}
+
+\item{api_key}{String, optional method for supplying your API key if you do not
+wish for it to be saved in the environment or as a .Rda}
 }
 \value{
 List of the top 100 tags associated with the woe_id.
@@ -19,10 +22,11 @@ Uses the flickr.places.tagsForPlace API method from the Flickr API. See
 more information on the API method.
 }
 \details{
-Note: if this is the first function of the package you use you will be
-prompted to enter your API key. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. The API key will
-then be saved as a .Rda file and be called to when using any other function.
+'Note: if this is the first function of the package and you do not enter you
+API key in the arguement api_key you use you will be prompted to enter your
+API key. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. The API key will then
+be saved as a .Rda file and be called to when using any other function.
 }
 \examples{
 \dontrun{

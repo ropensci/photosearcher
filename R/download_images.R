@@ -7,15 +7,18 @@
 #' information on the API method. If permission is available the image is
 #' downloaded and saved as a .jpeg in a given save directory.
 #'
-#' Note: if this is the first function of the package you use you will be prompted to enter your API
-#' key. API keys are avialable from
-#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will
-#' then be saved as a .Rda file and be called to when using any other function
+#' Note: if this is the first function of the package and you do not enter you
+#' API key in the arguement api_key you use you will be prompted to enter your
+#' API key. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will then
+#' be saved as a .Rda file and be called to when using any other function.
 #'
 #' @param photo_id id of pgoto to dowload, can be single id, list or column for
 #'   phot_search outputs
 #' @param saveDir name of directory for photos to be saved in - if it doesnt
 #'   exisit it will be created
+#' @param api_key String, optional method for adding your API key if you do not
+#'  wish for it to be saved in the environment or as a .Rda
 #'
 #' @return jpeg image saved as the name of the photo id in given save directory
 #' @export
@@ -26,12 +29,17 @@
 #'
 #' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
 #' }
-download_images <- function(photo_id = NULL, saveDir = "downloaded_images") {
+download_images <- function(photo_id = NULL, saveDir = "downloaded_images", api_key = NULL) {
   if (is.null(photo_id) == TRUE) {
     stop("provide a photo id")
   }
 
-  api_key <- as.character(get_key())
+  # get or save the api_key
+  if (!is.null(api_key)){
+    api_key <- api_key
+  } else {
+    api_key <- as.character(get_key())
+  }
 
   if (!dir.exists(saveDir)) {
     message(paste("saveDir", saveDir, "does not exist, I will create it for you"))

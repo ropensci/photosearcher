@@ -5,19 +5,22 @@
 #' \url{https://www.flickr.com/services/api/flickr.profile.getProfile.html} for
 #' more information on the API method.
 #'
-#' Note: if this is the first function of the package you use you will be
-#' prompted to enter your API key. API keys are avialable from
-#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will
-#' then be saved as a .Rda file and be called to when using any other function.
+#' Note: if this is the first function of the package and you do not enter you
+#' API key in the arguement api_key you use you will be prompted to enter your
+#' API key. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will then
+#' be saved as a .Rda file and be called to when using any other function.
 #'
 #' @param user_id String, the id of the user you wihs to obtain information for.
+#' @param api_key String, optional method for supplying your API key if you do not
+#'  wish for it to be saved in the environment or as a .Rda
 #'
-#' @return Dataframe of 19 variables from the searched users publically
+#' @return Dataframe of 18 variables from the searched users publically
 #'   available infromation including; hometown and occupation. Full list of
-#'   returned variables: id, nsid	join_date, occupation, hometown, showcase_set,
+#'   returned variables: id, nsid,	join_date, occupation, hometown, showcase_set,
 #'   showcase_set_title, first_name, last_name, profile_description,
-#'   website	city, country, facebook, twitter, tumblr, Instagram, pinterest,
-#'   email
+#'   website	city, country, facebook, twitter, tumblr, Instagram, pinterest
+#'
 #' @export
 #'
 #' @examples
@@ -26,12 +29,17 @@
 #'
 #' user_info(user_id = c("11763518@N00", "39745335@N06", "104939923@N02"))
 #' }
-user_info <- function(user_id = NULL) {
+user_info <- function(user_id = NULL, api_key = NULL) {
   if (is.null(user_id) == TRUE) {
     stop("provide user id")
   }
 
-  api_key <- as.character(get_key())
+  # get or save the api_key
+  if (!is.null(api_key)){
+    api_key <- api_key
+  } else {
+    api_key <- as.character(get_key())
+  }
 
   id_tmp <- NULL
   id_info <- NULL

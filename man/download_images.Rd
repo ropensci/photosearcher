@@ -4,7 +4,8 @@
 \alias{download_images}
 \title{download_images}
 \usage{
-download_images(photo_id = NULL, saveDir = "downloaded_images")
+download_images(photo_id = NULL, saveDir = "downloaded_images",
+  api_key = NULL)
 }
 \arguments{
 \item{photo_id}{id of pgoto to dowload, can be single id, list or column for
@@ -12,6 +13,9 @@ phot_search outputs}
 
 \item{saveDir}{name of directory for photos to be saved in - if it doesnt
 exisit it will be created}
+
+\item{api_key}{String, optional method for adding your API key if you do not
+wish for it to be saved in the environment or as a .Rda}
 }
 \value{
 jpeg image saved as the name of the photo id in given save directory
@@ -25,10 +29,11 @@ information on the API method. If permission is available the image is
 downloaded and saved as a .jpeg in a given save directory.
 }
 \details{
-Note: if this is the first function of the package you use you will be prompted to enter your API
-key. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. The API key will
-then be saved as a .Rda file and be called to when using any other function
+Note: if this is the first function of the package and you do not enter you
+API key in the arguement api_key you use you will be prompted to enter your
+API key. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. The API key will then
+be saved as a .Rda file and be called to when using any other function.
 }
 \examples{
 \dontrun{

@@ -55,3 +55,4 @@ get_url <-   function(mindate = "2019-01-01",
   )
   return(base_url)
 }
+
