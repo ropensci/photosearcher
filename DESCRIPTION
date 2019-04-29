@@ -22,4 +22,6 @@ Suggests:
     httptest,
     knitr,
     roxygen2,
-    testthat
+    testthat,
+    rmarkdown
+VignetteBuilder: knitr

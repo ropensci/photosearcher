@@ -1,0 +1,36 @@
+---
+title: "photosearcher"
+author: "Nathan Fox"
+date: "19-29-04"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{photosearcher}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette provides an overview of the R package `photosearcher`.
+
+### Search for photographs and their metadata
+
+```{r}
+  #search for all images tagged trains on the 1st of January 2019
+  library(photosearcher)
+
+
+  trains <- photo_search(mindate = "2019-01-01", maxdate = "2019-01-01", text = "train",   api_key = "3863b3b3d95341cff763f05e989012b7")
+  
+  #display first few returned variables for first image
+  trains[1, 1:7]
+```
+
+### Download images
+
+```{r}
+  #download the image tagged as a train
+  download_images(photo_id = 32369673897, api_key = "3863b3b3d95341cff763f05e989012b7")
+
+
+```
+
+![Snowman Map](https://raw.githubusercontent.com/AugustT/FlickrAPI_EABhackathon/master/images/snowmen.png?raw=true "Title")
