@@ -14,9 +14,9 @@
 #'\url{https://www.flickr.com/services/apps/create/apply}. The API key will then
 #'be saved as a .Rda file and be called to when using any other function.
 #'
-#'@param min_taken String, minimum date of photograph for search provide as
+#'@param mindate String, minimum date of photograph for search provide as
 #'  "YYYY-MM-DD".
-#'@param max_taken String, maximum date of photograph for search provide as
+#'@param maxdate String, maximum date of photograph for search provide as
 #'  "YYYY-MM-DD".
 #'@param text String, optional text to be searched.
 #'@param tags String, optional tags to filter by.
