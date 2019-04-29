@@ -9,6 +9,12 @@ photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
   api_key = NULL)
 }
 \arguments{
+\item{mindate}{String, minimum date of photograph for search provide as
+"YYYY-MM-DD".}
+
+\item{maxdate}{String, maximum date of photograph for search provide as
+"YYYY-MM-DD".}
+
 \item{text}{String, optional text to be searched.}
 
 \item{tags}{String, optional tags to filter by.}
@@ -21,12 +27,6 @@ be georeference.}
 
 \item{api_key}{String, optional method for supplying your API key if you do not
 wish for it to be saved in the environment or as a .Rda}
-
-\item{min_taken}{String, minimum date of photograph for search provide as
-"YYYY-MM-DD".}
-
-\item{max_taken}{String, maximum date of photograph for search provide as
-"YYYY-MM-DD".}
 }
 \value{
 Output will be a dataframe consisting of 57 variables including;
