@@ -22,6 +22,6 @@ Suggests:
     httptest,
     knitr,
     roxygen2,
-    testthat,
+    testthat (>= 2.1.0),
     rmarkdown
 VignetteBuilder: knitr

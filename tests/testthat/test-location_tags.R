@@ -6,9 +6,8 @@ test_that("fails correctly", {
 
 
 test_that("output is correct", {
-  loc_test <- location_tags(woe_id = 35356, api_key = "3863b3b3d95341cff763f05e989012b7")
+  loc_test <- location_tags(woe_id = 35356, api_key = test_key)
 
   expect_is(loc_test, "data.frame")
   expect_equal(nrow(loc_test), 100)
-
 })

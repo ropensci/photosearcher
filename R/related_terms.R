@@ -21,9 +21,9 @@
 #' @examples
 #' \dontrun{
 #' related_terms(term = "car")
-#'
+#' 
 #' related_terms(term = "monkey")
-#'
+#' 
 #' related_terms(term = "river")
 #' }
 related_terms <-
@@ -33,7 +33,7 @@ related_terms <-
     }
 
     # get or save the api_key
-    if (!is.null(api_key)){
+    if (!is.null(api_key)) {
       api_key <- api_key
     } else {
       api_key <- as.character(get_key())

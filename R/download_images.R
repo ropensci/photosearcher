@@ -26,7 +26,7 @@
 #' @examples
 #' \dontrun{
 #' download_images(photo_id = 123, saveDir = "images")
-#'
+#' 
 #' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
 #' }
 download_images <- function(photo_id = NULL, saveDir = "downloaded_images", api_key = NULL) {
@@ -35,7 +35,7 @@ download_images <- function(photo_id = NULL, saveDir = "downloaded_images", api_
   }
 
   # get or save the api_key
-  if (!is.null(api_key)){
+  if (!is.null(api_key)) {
     api_key <- api_key
   } else {
     api_key <- as.character(get_key())

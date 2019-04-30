@@ -11,26 +11,36 @@ vignette: >
 
 This vignette provides an overview of the R package `photosearcher`.
 
-### Search for photographs and their metadata
-
+###Search for photographs and their metadata
 ```{r}
-  #search for all images tagged trains on the 1st of January 2019
+  #Search for all images tagged trains on the 1st of January 2019
   library(photosearcher)
 
 
   trains <- photo_search(mindate = "2019-01-01", maxdate = "2019-01-01", text = "train",   api_key = "3863b3b3d95341cff763f05e989012b7")
   
-  #display first few returned variables for first image
+  #Display first few returned variables for first image
   trains[1, 1:7]
 ```
 
-### Download images
+###Get a flickr users data
 
 ```{r}
-  #download the image tagged as a train
-  download_images(photo_id = 32369673897, api_key = "3863b3b3d95341cff763f05e989012b7")
+  #Find a users hometown
+  user <- user_info(user_id = "22299651@N07", api_key = "3863b3b3d95341cff763f05e989012b7")
+  
+  user$hometown
+ 
+```
 
+
+###Get the top tags for location
+
+```{r}
+  #Find the tags for Southampton, UK
+  location <- location_tags(woe_id = 35356, api_key =    "3863b3b3d95341cff763f05e989012b7")
+
+  head(location)
 
 ```
 
-![Snowman Map](https://raw.githubusercontent.com/AugustT/FlickrAPI_EABhackathon/master/images/snowmen.png?raw=true "Title")

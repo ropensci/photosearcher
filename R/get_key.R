@@ -17,6 +17,3 @@ get_key <- function() {
 
   return(api_key)
 }
-
-
-# try making as case_when

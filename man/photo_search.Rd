@@ -60,17 +60,22 @@ be saved as a .Rda file and be called to when using any other function.
 }
 \examples{
 \dontrun{
-photo_search(mindate = "2019-01-01",
-             maxdate = "2019-01-02",
-             text = "tree",
-             bbox = "-13.623047,47.279229,3.251953,60.630102",
-             has_geo = TRUE)
+photo_search(
+  mindate = "2019-01-01",
+  maxdate = "2019-01-02",
+  text = "tree",
+  bbox = "-13.623047,47.279229,3.251953,60.630102",
+  has_geo = TRUE
+)
 
 
-photo_search(mindate = "2019-01-01",
-             maxdate = "2019-01-02",
-             text = "tree",
-             bbox = "-13.623047,47.279229,3.251953,60.630102",
-             has_geo = TRUE)
+photo_search(
+  mindate = "2019-01-01",
+  maxdate = "2019-01-02",
+  text = "tree",
+  bbox = "-13.623047,47.279229,3.251953,60.630102",
+  has_geo = TRUE
+)
 }
+
 }

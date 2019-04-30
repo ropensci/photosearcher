@@ -25,7 +25,7 @@
 #' @examples
 #' \dontrun{
 #' find_place(place = "New York")
-#'
+#' 
 #' find_place(place = "England")
 #' }
 find_place <- function(place = NULL, api_key = NULL) {
@@ -34,7 +34,7 @@ find_place <- function(place = NULL, api_key = NULL) {
   }
 
   # get or save the api_key
-  if (!is.null(api_key)){
+  if (!is.null(api_key)) {
     api_key <- api_key
   } else {
     api_key <- as.character(get_key())

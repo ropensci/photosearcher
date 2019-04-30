@@ -5,8 +5,7 @@ test_that("fails correctly", {
 })
 
 test_that("output is correct", {
-  term_test <- related_terms(term = "tree", api_key = "3863b3b3d95341cff763f05e989012b7")
+  term_test <- related_terms(term = "tree", api_key = test_key)
 
   expect_is(term_test, "data.frame")
-
 })

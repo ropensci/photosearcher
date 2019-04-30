@@ -26,7 +26,7 @@
 #' @examples
 #' \dontrun{
 #' user_info(user_id = "8017836@N02")
-#'
+#' 
 #' user_info(user_id = c("11763518@N00", "39745335@N06", "104939923@N02"))
 #' }
 user_info <- function(user_id = NULL, api_key = NULL) {
@@ -35,7 +35,7 @@ user_info <- function(user_id = NULL, api_key = NULL) {
   }
 
   # get or save the api_key
-  if (!is.null(api_key)){
+  if (!is.null(api_key)) {
     api_key <- api_key
   } else {
     api_key <- as.character(get_key())
@@ -45,20 +45,20 @@ user_info <- function(user_id = NULL, api_key = NULL) {
   id_info <- NULL
 
   for (i in user_id) {
-      get_info <- paste("https://api.flickr.com/services/rest/?method=flickr.profile.getProfile&api_key=", api_key, "&user_id=", i, sep = "")
+    get_info <- paste("https://api.flickr.com/services/rest/?method=flickr.profile.getProfile&api_key=", api_key, "&user_id=", i, sep = "")
 
-      user_xml <- search_url(base_url = get_info)
+    user_xml <- search_url(base_url = get_info)
 
-      if (!is.null(user_xml)) {
-        user_atts <- xml2::xml_find_all(user_xml, "//profile", ns = xml2::xml_ns(user_xml))
-        tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(user_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+    if (!is.null(user_xml)) {
+      user_atts <- xml2::xml_find_all(user_xml, "//profile", ns = xml2::xml_ns(user_xml))
+      tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(user_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
 
-        id_tmp <- dplyr::bind_rows(id_tmp, tmp_df)
-        tmp_df <- NULL
-      }
+      id_tmp <- dplyr::bind_rows(id_tmp, tmp_df)
+      tmp_df <- NULL
     }
+  }
 
-    id_info <- dplyr::bind_rows(id_info, id_tmp)
+  id_info <- dplyr::bind_rows(id_info, id_tmp)
 
 
   return(id_info)
