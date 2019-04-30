@@ -24,5 +24,6 @@ Suggests:
     knitr,
     roxygen2,
     testthat (>= 2.1.0),
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr

@@ -17,7 +17,7 @@ This vignette provides an overview of the R package `photosearcher`.
   library(photosearcher)
 
 
-  trains <- photo_search(mindate = "2019-01-01", maxdate = "2019-01-01", text = "train", api_key = "3863b3b3d95341cff763f05e989012b7")
+  trains <- photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",   text = "train", api_key = "3863b3b3d95341cff763f05e989012b7")
   
   #Display first few returned variables for first image
   trains[1, 1:7]

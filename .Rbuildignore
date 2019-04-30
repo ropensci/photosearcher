@@ -2,3 +2,4 @@
 ^README\.Rmd$
 ^photosearcher\.Rproj$
 ^\.Rproj\.user$
+^codecov\.yml$
