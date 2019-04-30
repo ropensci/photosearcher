@@ -6,7 +6,7 @@ Authors@R:
            person("Francesca", "Mancini", role = c("aut")),
            person("Laura", "Graham", role = c("aut")),
            person("Louis", "Sutter", role = c("aut")),
-           person("Tom", "August", role = c("aut"))
+           person("Tom", "August", role = c("aut")))
 Description: Queries the Flick API to return photograph metadata as well as the ability to download the images as jpegs.
 License: GPL
 Encoding: UTF-8
