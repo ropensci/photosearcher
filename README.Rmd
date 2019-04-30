@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API. More information can be found on the [package website](https://nfox29.github.io/photosearcher/).
 
+This package should be used within accordance of the [Flickr API terms of use](https://www.flickr.com/help/terms/api).
+
 ## Installation
 
 You can install the released version of photosearcher from github with:
@@ -55,9 +57,9 @@ These are a few basic example of the main photo_search function:
              tags = "lake"
              has_geo = FALSE)
 ```
-When the arguement `has_geo` is `TRUE`all images will contain latitude and longitude infomation. These can be plotted using other pakcages at user preference. Here, the images of UK foxes are plotted using `ggplot2`. 
+When the arguement `has_geo` is `TRUE`all images will contain latitude and longitude infomation. These can be plotted using other packages at user preference. Here, the images of UK foxes are plotted using `ggplot2`. 
 
-[Foxes]()
+![Foxes](https://github.com/nfox29/photosearcher/blob/master/images/foxes.png?raw=true)
 
 ##Downloading images
 ```{r eval=FALSE}
@@ -65,7 +67,7 @@ When the arguement `has_geo` is `TRUE`all images will contain latitude and longi
   download_images(photo_id = foxes$id, saveDir = "Fox images")
 
   #Download a specific images based off its id
-download_images(photo_id = 47416147181)
+  download_images(photo_id = 47416147181)
 ```
 The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded, but will produce a warning to let know the ID numbers of those skipped. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The `photo_search` function provides the licence information for each image.
 
