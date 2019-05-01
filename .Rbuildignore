@@ -3,3 +3,4 @@
 ^photosearcher\.Rproj$
 ^\.Rproj\.user$
 ^codecov\.yml$
+^codemeta\.json$

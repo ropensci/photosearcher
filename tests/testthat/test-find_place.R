@@ -5,6 +5,8 @@ test_that("fails correctly", {
 })
 
 test_that("output is correct", {
+  skip_on_cran()
+
   place_test <- find_place(place = "france", api_key = test_key)
 
   expect_is(place_test, "data.frame")

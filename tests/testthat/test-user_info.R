@@ -5,6 +5,8 @@ test_that("fails correctly", {
 })
 
 test_that("output is correct", {
+  skip_on_cran()
+
   user_test <- user_info(user_id = "33816646@N06", api_key = test_key)
 
   expect_is(user_test, "data.frame")
