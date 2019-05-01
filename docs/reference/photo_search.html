@@ -127,7 +127,7 @@ information on the API method.</p>
 
     <pre class="usage"><span class='fu'>photo_search</span>(<span class='kw'>mindate</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>, <span class='kw'>maxdate</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>,
   <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='no'>api_key</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,37 +157,41 @@ information on the API method.</p>
     </tr>
     <tr>
       <th>has_geo</th>
-      <td><p>Logical, optional arguement for whether returned photos need to
-be georeference.</p></td>
+      <td><p>Logical, optional arguement for whether returned photos need
+to be georeference.</p></td>
     </tr>
     <tr>
       <th>api_key</th>
-      <td><p>String, optional method for supplying your API key if you do not
-wish for it to be saved in the environment or as a .Rda</p></td>
+      <td><p>String, if you have used the save_key function the api_key
+argument is automatically filled. If not api_key can be used optionally to
+supplying your API key if you do not wish for it to be saved in the
+environment or as a .Rda</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Output will be a dataframe consisting of 57 variables including;
-latitude and longitude of photograph, date and time it was taken, associated
-tags and image urls.</p>
+latitude and longitude of photograph, date and time it was taken,
+associated tags and image urls.</p>
 <p>Full list of variables returned: id, owner, secret, server, farm, title,
 ispublic, isfriend, isfamily, license, datetaken, datetakengranularity,
 datetakenunknown, count_views, count_comments, count_faves, tags, latitude,
-longitude, accuracy, context, place_id, woeid, geo_is_family, geo_is_friend,
-geo_is_contact, geo_is_public, url_sq, height_sq, width_sq, url_t, height_t,
-width_t, url_s, height_s,	width_s	url_q, height_q, width_q, url_m, height_m,
-width_m, url_n, height_n, width_n, url_z, height_z, width_z, url_c,
-height_c, width_c, url_l, height_l, width_l, url_o, height_o, width_o.</p>
+longitude, accuracy, context, place_id, woeid, geo_is_family,
+geo_is_friend, geo_is_contact, geo_is_public, url_sq, height_sq, width_sq,
+url_t, height_t, width_t, url_s, height_s,	width_s	url_q, height_q,
+width_q, url_m, height_m, width_m, url_n, height_n, width_n, url_z,
+height_z, width_z, url_c, height_c, width_c, url_l, height_l, width_l,
+url_o, height_o, width_o.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note: if this is the first function of the package and you do not enter you
 API key in the arguement api_key you use you will be prompted to enter your
-API key. API keys are avialable from
-<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. The API key will then
-be saved as a .Rda file and be called to when using any other function.</p>
+API key or save it using the save_key function. API keys are avialable from
+<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. Using the save_key
+function will save your key as a .Rda file which can then be called to when
+using any other function.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

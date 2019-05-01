@@ -130,8 +130,10 @@ more information on the API method.</p>
     </tr>
     <tr>
       <th>api_key</th>
-      <td><p>String, optional method for supplying your API key if you do not
-wish for it to be saved in the environment or as a .Rda</p></td>
+      <td><p>String, if you have used the save_key function the api_key
+argument is automatically filled. If not api_key can be used optionally to
+supplying your API key if you do not wish for it to be saved in the
+environment or as a .Rda</p></td>
     </tr>
     </table>
     
@@ -141,11 +143,12 @@ wish for it to be saved in the environment or as a .Rda</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>'Note: if this is the first function of the package and you do not enter you
+    <p>Note: if this is the first function of the package and you do not enter you
 API key in the arguement api_key you use you will be prompted to enter your
-API key. API keys are avialable from
-<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. The API key will then
-be saved as a .Rda file and be called to when using any other function.</p>
+API key or save it using the save_key function. API keys are avialable from
+<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. Using the save_key
+function will save your key as a .Rda file which can then be called to when
+using any other function.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

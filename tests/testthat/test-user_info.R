@@ -13,3 +13,10 @@ test_that("output is correct", {
   # expect_equal(ncol(user_test), 18)
   expect_equal(nrow(user_test), 1)
 })
+
+test_that("invalid API keys fails correctly", {
+  expect_error(user_info(api_key = NULL, user_id = "33816646@N06"), "Enter API key or save using the save_key function")
+
+  skip_on_cran()
+  expect_error(user_info(api_key = "notarealkey", user_id = "33816646@N06"))
+})

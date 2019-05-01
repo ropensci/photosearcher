@@ -21,3 +21,10 @@ test_that("output is correct", {
   expect_is(large_search, "data.frame")
   expect_equal(ncol(large_search), 57)
 })
+
+test_that("invalid API keys fails correctly", {
+  expect_error(photo_search(api_key = NULL), "Enter API key or save using the save_key function")
+
+  skip_on_cran()
+  expect_error(photo_search(api_key = "notarealkey"))
+})

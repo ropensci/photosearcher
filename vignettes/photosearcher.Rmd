@@ -11,6 +11,13 @@ vignette: >
 
 This vignette provides an overview of the functions in R package `photosearcher`.
 
+## Saving your key
+The first time you use this package save your API key and it will automatically be used by all other functions.
+```{r eval=FALSE}
+  #Save your key
+  save_key(api_key = "your API key")
+```
+
 ## Searching for photographs
 These are a few basic example of the main photo_search function:
 ```{r eval=FALSE}

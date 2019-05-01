@@ -32,6 +32,13 @@ devtools::install_github("nfox29/photosearcher")
 ## Getting and API key
 Before using the package users should sign uo for an API key from the [Flickr development page](https://www.flickr.com/services/apps/create/). The first function of the package you use you will be prompted to enter your API key. The API key will then be saved as a .Rda file and be called to when using any other function
 
+## Saving your key
+The first time you use this package save your API key and it will automatically be used by all other functions.
+```{r eval=FALSE}
+  #Save your key
+  save_key(api_key = "your API key")
+```
+
 ## Package functions
 The package currently focuses on the ability to use the Flickr API to search for images and their metadata throught the flickr.photos.search method. The package does however supporst a number of other Flickr API call methods inlcuding the flickr.tags.getRelated and flickr.places.tagsForPlace methods. The Flickr website offers full [API Documentation](https://www.flickr.com/services/api/) for all of its call methods.
 

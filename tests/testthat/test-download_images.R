@@ -19,3 +19,10 @@ test_that("output is correct", {
 test_that("warnings are given", {
   expect_warning(download_images(photo_id = 46556758351, saveDir = "test_images", api_key = test_key), "No permission to download image 46556758351")
 })
+
+test_that("invalid API keys fails correctly", {
+  expect_error(download_images(api_key = NULL, photo_id = 47259127482), "Enter API key or save using the save_key function")
+
+  skip_on_cran()
+  expect_error(download_images(api_key = "notarealkey", photo_id = 47259127482))
+})

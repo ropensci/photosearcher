@@ -4,13 +4,15 @@
 \alias{user_info}
 \title{User_info}
 \usage{
-user_info(user_id = NULL, api_key = NULL)
+user_info(user_id = NULL, api_key = api_key)
 }
 \arguments{
 \item{user_id}{String, the id of the user you wihs to obtain information for.}
 
-\item{api_key}{String, optional method for supplying your API key if you do not
-wish for it to be saved in the environment or as a .Rda}
+\item{api_key}{String, if you have used the save_key function the api_key
+argument is automatically filled. If not api_key can be used optionally to
+supplying your API key if you do not wish for it to be saved in the
+environment or as a .Rda}
 }
 \value{
 Dataframe of 18 variables from the searched users publically
@@ -28,9 +30,10 @@ more information on the API method.
 \details{
 Note: if this is the first function of the package and you do not enter you
 API key in the arguement api_key you use you will be prompted to enter your
-API key. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. The API key will then
-be saved as a .Rda file and be called to when using any other function.
+API key or save it using the save_key function. API keys are avialable from
+\url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
+function will save your key as a .Rda file which can then be called to when
+using any other function.
 }
 \examples{
 \dontrun{

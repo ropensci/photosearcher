@@ -92,6 +92,13 @@
 <a href="#getting-and-api-key" class="anchor"></a>Getting and API key</h2>
 <p>Before using the package users should sign uo for an API key from the <a href="https://www.flickr.com/services/apps/create/">Flickr development page</a>. The first function of the package you use you will be prompted to enter your API key. The API key will then be saved as a .Rda file and be called to when using any other function</p>
 </div>
+<div id="saving-your-key" class="section level2">
+<h2 class="hasAnchor">
+<a href="#saving-your-key" class="anchor"></a>Saving your key</h2>
+<p>The first time you use this package save your API key and it will automatically be used by all other functions.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">  <span class="co">#Save your key</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw"><a href="reference/save_key.html">save_key</a></span>(<span class="dt">api_key =</span> <span class="st">"your API key"</span>)</a></code></pre></div>
+</div>
 <div id="package-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package-functions" class="anchor"></a>Package functions</h2>
@@ -101,12 +108,12 @@
 <h2 class="hasAnchor">
 <a href="#searching-for-photo" class="anchor"></a>Searching for photo</h2>
 <p>Here is a quick example of how to search for images</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">  <span class="co">#Search for photos of rock climbing betwee 2010 and 2019 in the UK</span></a>
-<a class="sourceLine" id="cb2-2" title="2">  foxes &lt;-<span class="st"> </span><span class="kw"><a href="reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2010-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-3" title="3">             <span class="dt">maxdate =</span> <span class="st">"2018-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-4" title="4">             <span class="dt">text =</span> <span class="st">"rock climbing"</span>,</a>
-<a class="sourceLine" id="cb2-5" title="5">             <span class="dt">bbox =</span> <span class="st">"-12.875977,49.210420,2.636719,59.977005"</span>,</a>
-<a class="sourceLine" id="cb2-6" title="6">             <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)  </a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">  <span class="co">#Search for photos of rock climbing betwee 2010 and 2019 in the UK</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  foxes &lt;-<span class="st"> </span><span class="kw"><a href="reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2010-01-01"</span>,</a>
+<a class="sourceLine" id="cb3-3" title="3">             <span class="dt">maxdate =</span> <span class="st">"2018-01-01"</span>,</a>
+<a class="sourceLine" id="cb3-4" title="4">             <span class="dt">text =</span> <span class="st">"rock climbing"</span>,</a>
+<a class="sourceLine" id="cb3-5" title="5">             <span class="dt">bbox =</span> <span class="st">"-12.875977,49.210420,2.636719,59.977005"</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6">             <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)  </a></code></pre></div>
 <p>When the arguement <code>has_geo</code> is <code>TRUE</code> all images will contain latitude and longitude infomation. These can be plotted using other packages at user preference. Here, the images of UK foxes are plotted using <code>ggplot2</code>.</p>
 <div class="figure">
 <img src="https://github.com/nfox29/photosearcher/blob/master/images/rock_climbing.png?raw=true" alt="Rock climbing"><p class="caption">Rock climbing</p>

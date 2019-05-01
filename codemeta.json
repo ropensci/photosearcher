@@ -171,7 +171,7 @@
     }
   ],
   "readme": "https://github.com/nfox29/photosearcher/blob/master/README.md",
-  "fileSize": "53.893KB",
+  "fileSize": "62.228KB",
   "contIntegration": [
     "https://travis-ci.org/nfox29/photosearcher",
     "https://codecov.io/gh/nfox29/photosearcher?branch=master"

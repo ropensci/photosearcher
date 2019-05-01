@@ -9,16 +9,19 @@
 #'
 #' Note: if this is the first function of the package and you do not enter you
 #' API key in the arguement api_key you use you will be prompted to enter your
-#' API key. API keys are avialable from
-#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will then
-#' be saved as a .Rda file and be called to when using any other function.
+#' API key or save it using the save_key function. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
+#' function will save your key as a .Rda file which can then be called to when
+#' using any other function.
 #'
 #' @param photo_id id of pgoto to dowload, can be single id, list or column for
 #'   phot_search outputs
 #' @param saveDir name of directory for photos to be saved in - if it doesnt
 #'   exisit it will be created
-#' @param api_key String, optional method for adding your API key if you do not
-#'  wish for it to be saved in the environment or as a .Rda
+#' @param api_key String, if you have used the save_key function the api_key
+#'   argument is automatically filled. If not api_key can be used optionally to
+#'   supplying your API key if you do not wish for it to be saved in the
+#'   environment or as a .Rda
 #'
 #' @return jpeg image saved as the name of the photo id in given save directory
 #' @export
@@ -26,7 +29,7 @@
 #' @examples
 #' \dontrun{
 #' download_images(photo_id = 123, saveDir = "images")
-#' 
+#'
 #' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
 #' }
 download_images <- function(photo_id = NULL, saveDir = "downloaded_images", api_key = NULL) {
@@ -35,12 +38,14 @@ download_images <- function(photo_id = NULL, saveDir = "downloaded_images", api_
   }
 
   # get or save the api_key
-  if (!is.null(api_key)) {
-    api_key <- api_key
-  } else {
-    api_key <- as.character(get_key())
+  if (is.null(api_key)) {
+    stop("Enter API key or save using the save_key function")
   }
 
+  #check for vailid key
+  check_key(key = api_key)
+
+  #create saveDir
   if (!dir.exists(saveDir)) {
     message(paste("saveDir", saveDir, "does not exist, I will create it for you"))
     dir.create(saveDir, recursive = TRUE)

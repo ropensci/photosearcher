@@ -54,3 +54,33 @@ get_url <- function(mindate = "2019-01-01",
   )
   return(base_url)
 }
+
+#check for valid key
+check_key <- function(key = api_key){
+
+  base_url = paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", key, sep = "")
+
+  photo_xml <- search_url(base_url = base_url)
+  pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
+  warn <- as.character(unlist(pages_data))
+
+  if ((warn[2]) == ("Invalid API Key (Key has invalid format)")){
+    stop("Invalid API Key (Key has invalid format)")
+  }
+
+}
+
+#check for valid bbox
+check_bbox <- function(bb = bbox, key = api_key){
+
+  base_url = paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", key,"&bbox=", bb, sep = "")
+
+  photo_xml <- search_url(base_url = base_url)
+  pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
+  warn <- as.character(unlist(pages_data))
+
+  if ((warn[2]) == ("Not a valid bounding box")){
+    stop("Not a valid bounding box")
+  }
+
+}

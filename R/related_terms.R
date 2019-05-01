@@ -7,13 +7,16 @@
 #'
 #' Note: if this is the first function of the package and you do not enter you
 #' API key in the arguement api_key you use you will be prompted to enter your
-#' API key. API keys are avialable from
-#' \url{https://www.flickr.com/services/apps/create/apply}. The API key will then
-#' be saved as a .Rda file and be called to when using any other function.
+#' API key or save it using the save_key function. API keys are avialable from
+#' \url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
+#' function will save your key as a .Rda file which can then be called to when
+#' using any other function.
 #'
 #' @param term String, term to search.
-#' @param api_key String, optional method for supplying your API key if you do not
-#'  wish for it to be saved in the environment or as a .Rda
+#' @param api_key String, if you have used the save_key function the api_key
+#'   argument is automatically filled. If not api_key can be used optionally to
+#'   supplying your API key if you do not wish for it to be saved in the
+#'   environment or as a .Rda
 #'
 #' @return List of terms most associated with input term.
 #' @export
@@ -21,9 +24,9 @@
 #' @examples
 #' \dontrun{
 #' related_terms(term = "car")
-#' 
+#'
 #' related_terms(term = "monkey")
-#' 
+#'
 #' related_terms(term = "river")
 #' }
 related_terms <-
@@ -33,11 +36,12 @@ related_terms <-
     }
 
     # get or save the api_key
-    if (!is.null(api_key)) {
-      api_key <- api_key
-    } else {
-      api_key <- as.character(get_key())
+    if (is.null(api_key)) {
+      stop("Enter API key or save using the save_key function")
     }
+
+    #check for vailid key
+    check_key(key = api_key)
 
     term <- gsub(" ", "+", trimws(term))
 

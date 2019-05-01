@@ -37,6 +37,16 @@ The first function of the package you use you will be prompted to enter
 your API key. The API key will then be saved as a .Rda file and be
 called to when using any other function
 
+## Saving your key
+
+The first time you use this package save your API key and it will
+automatically be used by all other functions.
+
+``` r
+  #Save your key
+  save_key(api_key = "your API key")
+```
+
 ## Package functions
 
 The package currently focuses on the ability to use the Flickr API to
