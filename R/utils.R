@@ -39,13 +39,20 @@ get_url <- function(mindate = "2019-01-01",
                     text = NULL,
                     tags = NULL,
                     bbox = NULL,
+                    woeid = NULL,
                     has_geo = TRUE) {
+
+  if(!is.null(bbox) & !is.null(woeid)){
+    stop("Specify location as either woe_id or bbox, not both.")
+  }
+
   base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
     "&text=", text,
     "&tags=", tags,
     "&min_taken_date=", as.character(mindate),
     "&max_taken_date=", as.character(maxdate),
     ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
+    ifelse(!(is.null(woeid)), paste0("&woe_id=", woeid), ""),
     ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
     "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
     "&page=", page,
