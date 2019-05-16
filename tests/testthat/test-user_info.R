@@ -6,8 +6,8 @@ test_that("fails correctly", {
 
 test_that("output is correct", {
   skip_on_cran()
-
-  user_test <- user_info(user_id = "33816646@N06", api_key = test_key)
+  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
+  user_test <- user_info(user_id = "33816646@N06")
 
   expect_is(user_test, "data.frame")
   # expect_equal(ncol(user_test), 18)
@@ -15,8 +15,12 @@ test_that("output is correct", {
 })
 
 test_that("invalid API keys fails correctly", {
-  expect_error(user_info(api_key = NULL, user_id = "33816646@N06"), "Enter API key or save using the save_key function")
+  if(file.exists("api_key.txt")) {
+    file.remove("api_key.txt")
+  }
+  expect_error(user_info(user_id = "33816646@N06"), "Enter API key or save using the save_key function")
 
   skip_on_cran()
-  expect_error(user_info(api_key = "notarealkey", user_id = "33816646@N06"))
+  write.table("notarealkey", file = "api_key.txt")
+  expect_error(user_info(user_id = "33816646@N06"))
 })

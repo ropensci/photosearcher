@@ -6,15 +6,19 @@ test_that("fails correctly", {
 
 test_that("output is correct", {
   skip_on_cran()
-
-  term_test <- related_terms(term = "tree", api_key = test_key)
+  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
+  term_test <- related_terms(term = "tree")
 
   expect_is(term_test, "data.frame")
 })
 
 test_that("invalid API keys fails correctly", {
-  expect_error(related_terms(api_key = NULL, term = "tree"), "Enter API key or save using the save_key function")
+  if(file.exists("api_key.txt")) {
+    file.remove("api_key.txt")
+  }
+  expect_error(related_terms(term = "tree"), "Enter API key or save using the save_key function")
 
   skip_on_cran()
-  expect_error(related_terms(api_key = "notarealkey", term = "tree"))
+  write.table("notarealkey", file = "api_key.txt")
+  expect_error(related_terms(term = "tree"))
 })
