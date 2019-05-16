@@ -5,15 +5,10 @@
 \alias{find_place}
 \title{Find correct location informatio for a given place}
 \usage{
-find_place(place = NULL, api_key = NULL)
+find_place(place = NULL)
 }
 \arguments{
 \item{place}{Text string describing the place for the query}
-
-\item{api_key}{String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda}
 }
 \value{
 A dataframe information on locations that share the name with the

@@ -13,10 +13,6 @@
 #' using any other function.
 #'
 #' @param term String, term to search.
-#' @param api_key String, if you have used the save_key function the api_key
-#'   argument is automatically filled. If not api_key can be used optionally to
-#'   supplying your API key if you do not wish for it to be saved in the
-#'   environment or as a .Rda
 #'
 #' @return List of terms most associated with input term.
 #' @export
@@ -30,18 +26,14 @@
 #' related_terms(term = "river")
 #' }
 related_terms <-
-  function(term = NULL, api_key = NULL) {
+  function(term = NULL) {
     if (is.null(term) == TRUE) {
       stop("provide a term")
     }
 
-    # get or save the api_key
-    if (is.null(api_key)) {
-      stop("Enter API key or save using the save_key function")
-    }
-
-    #check for vailid key
-    check_key(key = api_key)
+    # this checks for the presence of a key, if no key it prompts the user to create one,
+    # it then checks the validity of the key
+    api_key <- create_and_check_key()
 
     term <- gsub(" ", "+", trimws(term))
 

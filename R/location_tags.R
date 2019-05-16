@@ -13,10 +13,6 @@
 #' using any other function.
 #'
 #' @param woe_id Numeric, a "Where on Earth" location tag.
-#' @param api_key String, if you have used the save_key function the api_key
-#'   argument is automatically filled. If not api_key can be used optionally to
-#'   supplying your API key if you do not wish for it to be saved in the
-#'   environment or as a .Rda
 #'
 #' @return List of the top 100 tags associated with the woe_id.
 #' @export
@@ -25,18 +21,14 @@
 #' \dontrun{
 #' location_tags(woe_id = 35356)
 #' }
-location_tags <- function(woe_id = NULL, api_key = NULL) {
+location_tags <- function(woe_id = NULL) {
   if (is.null(woe_id) == TRUE) {
     stop("provide woe_id")
   }
 
-  # get or save the api_key
-  if (is.null(api_key)) {
-    stop("Enter API key or save using the save_key function")
-  }
-
-  #check for vailid key
-  check_key(key = api_key)
+  # this checks for the presence of a key, if no key it prompts the user to create one,
+  # it then checks the validity of the key
+  api_key <- create_and_check_key()
 
   get_tags <- paste("https://api.flickr.com/services/rest/?method=flickr.places.tagsForPlace&api_key=", api_key, "&woe_id=", woe_id, sep = "")
 

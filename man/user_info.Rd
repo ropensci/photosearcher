@@ -4,15 +4,10 @@
 \alias{user_info}
 \title{User_info}
 \usage{
-user_info(user_id = NULL, api_key = api_key)
+user_info(user_id = NULL)
 }
 \arguments{
 \item{user_id}{String, the id of the user you wihs to obtain information for.}
-
-\item{api_key}{String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda}
 }
 \value{
 Dataframe of 18 variables from the searched users publically

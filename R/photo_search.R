@@ -25,11 +25,6 @@
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param has_geo Logical, optional arguement for whether returned photos need
 #'   to be georeference.
-#' @param api_key String, if you have used the save_key function the api_key
-#'   argument is automatically filled. If not api_key can be used optionally to
-#'   supplying your API key if you do not wish for it to be saved in the
-#'   environment or as a .Rda
-#'
 #'
 #' @return Output will be a dataframe consisting of 57 variables including;
 #'   latitude and longitude of photograph, date and time it was taken,

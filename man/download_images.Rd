@@ -4,8 +4,7 @@
 \alias{download_images}
 \title{download_images}
 \usage{
-download_images(photo_id = NULL, saveDir = "downloaded_images",
-  api_key = NULL)
+download_images(photo_id = NULL, saveDir = "downloaded_images")
 }
 \arguments{
 \item{photo_id}{id of pgoto to dowload, can be single id, list or column for
@@ -13,11 +12,6 @@ phot_search outputs}
 
 \item{saveDir}{name of directory for photos to be saved in - if it doesnt
 exisit it will be created}
-
-\item{api_key}{String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda}
 }
 \value{
 jpeg image saved as the name of the photo id in given save directory
