@@ -28,34 +28,30 @@
 #'
 #' user_info(user_id = c("11763518@N00", "39745335@N06", "104939923@N02"))
 #' }
-user_info <- function(user_id = NULL) {
-  if (is.null(user_id) == TRUE) {
-    stop("provide user id")
-  }
+user_info <- function(user_id) {
 
   # this checks for the presence of a key, if no key it prompts the user to create one,
   # it then checks the validity of the key
   api_key <- create_and_check_key()
 
-  id_tmp <- NULL
-  id_info <- NULL
-
-  for (i in user_id) {
-    get_info <- paste("https://api.flickr.com/services/rest/?method=flickr.profile.getProfile&api_key=", api_key, "&user_id=", i, sep = "")
-
-    user_xml <- search_url(base_url = get_info)
-
-    if (!is.null(user_xml)) {
-      user_atts <- xml2::xml_find_all(user_xml, "//profile", ns = xml2::xml_ns(user_xml))
-      tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(user_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
-
-      id_tmp <- dplyr::bind_rows(id_tmp, tmp_df)
-      tmp_df <- NULL
-    }
-  }
-
-  id_info <- dplyr::bind_rows(id_info, id_tmp)
-
+  id_info <- dplyr::bind_rows(lapply(user_id, function(x) user_info_single(x, api_key)))
 
   return(id_info)
+}
+
+#' @noRd
+# get a single user's info (for use in a vectorised function)
+user_info_single <- function(user_id, api_key) {
+  get_info <- paste("https://api.flickr.com/services/rest/?method=flickr.profile.getProfile&api_key=", api_key, "&user_id=", user_id, sep = "")
+
+  user_xml <- search_url(base_url = get_info)
+
+  if (!is.null(user_xml)) {
+    user_atts <- xml2::xml_find_all(user_xml, "//profile", ns = xml2::xml_ns(user_xml))
+    out <- dplyr::bind_rows(lapply(xml2::xml_attrs(user_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+  }
+  else {
+    out <- NULL
+  }
+  return(out)
 }

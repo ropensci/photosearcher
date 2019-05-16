@@ -4,7 +4,7 @@
 \alias{user_info}
 \title{User_info}
 \usage{
-user_info(user_id = NULL)
+user_info(user_id)
 }
 \arguments{
 \item{user_id}{String, the id of the user you wihs to obtain information for.}
