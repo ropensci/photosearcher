@@ -83,19 +83,9 @@ photo_search <-
     # create dfs so large searches can be subset dynamically
     date_df <- data.frame(mindate = mindate, maxdate = maxdate)
 
-    # get or save the api_key
-    if (!file.exists("api_key.txt")) {
-      if(interactive()) {
-        create_key()
-      } else {
-        stop("Visit https://www.flickr.com/services/apps/create/ to create an API key and save in api_key.txt")
-      }
-    }
-
-    api_key <- read.table("api_key.txt", stringsAsFactors = FALSE)[1,1]
-
-    #check for valid key
-    check_key(key = api_key)
+    # this checks for the presence of a key, if no key it prompts the user to create one,
+    # it then checks the validity of the key
+    api_key <- create_and_check_key()
 
     #check for vailid bbox
     if (!is.null(bbox)){
