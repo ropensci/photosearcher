@@ -73,8 +73,7 @@ photo_search <-
              text = NULL,
              tags = NULL,
              bbox = NULL,
-             has_geo = TRUE,
-             api_key = api_key) {
+             has_geo = TRUE) {
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(" ", "+", trimws(tags))
     tags <- paste(tags, collapse = ",")
@@ -85,11 +84,13 @@ photo_search <-
     date_df <- data.frame(mindate = mindate, maxdate = maxdate)
 
     # get or save the api_key
-    if (is.null(api_key)) {
-    stop("Enter API key or save using the save_key function")
+    if (!file.exists("api_key.txt")) {
+      create_key()
     }
 
-    #check for vailid key
+    api_key <- read.table("api_key.txt", stringsAsFactors = FALSE)[1,1]
+
+    #check for valid key
     check_key(key = api_key)
 
     #check for vailid bbox

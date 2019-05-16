@@ -65,7 +65,7 @@ check_key <- function(key = api_key){
   warn <- as.character(unlist(pages_data))
 
   if ((warn[2]) == ("Invalid API Key (Key has invalid format)")){
-    stop("Invalid API Key (Key has invalid format)")
+    stop("Invalid API Key: correct this in api_key.txt")
   }
 
 }
@@ -83,4 +83,26 @@ check_bbox <- function(bb = bbox, key = api_key){
     stop("Not a valid bounding box")
   }
 
+}
+
+# for the todo bullet points
+ui_todo <- function (x, .envir = parent.frame())
+{
+  x <- glue::glue_collapse(x, "\n")
+  x <- glue::glue(x, .envir = .envir)
+  bullet <- paste0(crayon::red(clisymbols::symbol$bullet), " ")
+  x <- gsub("\n", paste0("\n", "  "), x)
+  x <- paste0(crayon::red(clisymbols::symbol$bullet), x)
+  lines <- paste0(x, "\n")
+  cat(lines, sep = "")
+
+}
+
+# create API key
+create_key <- function() {
+  url <- "https://www.flickr.com/services/apps/create/"
+  ui_todo(" Create a Flickr API key at https://www.flickr.com/services/apps/create/")
+  utils::browseURL(url)
+  ui_todo(" Enter your Flickr API key (in quotations)")
+  utils::file.edit("api_key.txt")
 }
