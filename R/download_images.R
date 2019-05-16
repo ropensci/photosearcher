@@ -18,10 +18,6 @@
 #'   phot_search outputs
 #' @param saveDir name of directory for photos to be saved in - if it doesnt
 #'   exisit it will be created
-#' @param api_key String, if you have used the save_key function the api_key
-#'   argument is automatically filled. If not api_key can be used optionally to
-#'   supplying your API key if you do not wish for it to be saved in the
-#'   environment or as a .Rda
 #'
 #' @return jpeg image saved as the name of the photo id in given save directory
 #' @export
@@ -32,18 +28,14 @@
 #'
 #' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
 #' }
-download_images <- function(photo_id = NULL, saveDir = "downloaded_images", api_key = NULL) {
+download_images <- function(photo_id = NULL, saveDir = "downloaded_images") {
   if (is.null(photo_id) == TRUE) {
     stop("provide a photo id")
   }
 
-  # get or save the api_key
-  if (is.null(api_key)) {
-    stop("Enter API key or save using the save_key function")
-  }
-
-  #check for vailid key
-  check_key(key = api_key)
+  # this checks for the presence of a key, if no key it prompts the user to create one,
+  # it then checks the validity of the key
+  api_key <- create_and_check_key()
 
   #create saveDir
   if (!dir.exists(saveDir)) {

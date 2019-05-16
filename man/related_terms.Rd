@@ -4,15 +4,10 @@
 \alias{related_terms}
 \title{related_terms}
 \usage{
-related_terms(term = NULL, api_key = NULL)
+related_terms(term = NULL)
 }
 \arguments{
 \item{term}{String, term to search.}
-
-\item{api_key}{String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda}
 }
 \value{
 List of terms most associated with input term.

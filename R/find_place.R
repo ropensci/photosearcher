@@ -13,10 +13,6 @@
 #' using any other function.
 #'
 #' @param place Text string describing the place for the query
-#' @param api_key String, if you have used the save_key function the api_key
-#'   argument is automatically filled. If not api_key can be used optionally to
-#'   supplying your API key if you do not wish for it to be saved in the
-#'   environment or as a .Rda
 #'
 #' @return A dataframe information on locations that share the name with the
 #'   search location. Nine variables are returned: place_id, woeid, latitude,
@@ -31,19 +27,14 @@
 #'
 #' find_place(place = "England")
 #' }
-find_place <- function(place = NULL, api_key = NULL) {
+find_place <- function(place = NULL) {
   if (is.null(place) == TRUE) {
     stop("provide a place")
   }
 
-  # get or save the api_key
-  if (is.null(api_key)) {
-    stop("Enter API key or save using the save_key function")
-  }
-
-  #check for vailid key
-  check_key(key = api_key)
-
+  # this checks for the presence of a key, if no key it prompts the user to create one,
+  # it then checks the validity of the key
+  api_key <- create_and_check_key()
 
   place <- gsub(" ", "+", trimws(place))
 

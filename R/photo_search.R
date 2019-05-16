@@ -27,11 +27,6 @@
 #'   of bbox. Use function find_place to obtain woe_id for a place.
 #' @param has_geo Logical, optional arguement for whether returned photos need
 #'   to be georeference.
-#' @param api_key String, if you have used the save_key function the api_key
-#'   argument is automatically filled. If not api_key can be used optionally to
-#'   supplying your API key if you do not wish for it to be saved in the
-#'   environment or as a .Rda
-#'
 #'
 #' @return Output will be a dataframe consisting of 57 variables including;
 #'   latitude and longitude of photograph, date and time it was taken,
@@ -86,15 +81,9 @@ photo_search <-
     # create dfs so large searches can be subset dynamically
     date_df <- data.frame(mindate = mindate, maxdate = maxdate)
 
-    # get or save the api_key
-    if (!file.exists("api_key.txt")) {
-      create_key()
-    }
-
-    api_key <- read.table("api_key.txt", stringsAsFactors = FALSE)[1,1]
-
-    #check for valid key
-    check_key(key = api_key)
+    # this checks for the presence of a key, if no key it prompts the user to create one,
+    # it then checks the validity of the key
+    api_key <- create_and_check_key()
 
     # check that bbox and woeid are not both present
 

@@ -4,15 +4,10 @@
 \alias{location_tags}
 \title{location_tags}
 \usage{
-location_tags(woe_id = NULL, api_key = NULL)
+location_tags(woe_id = NULL)
 }
 \arguments{
 \item{woe_id}{Numeric, a "Where on Earth" location tag.}
-
-\item{api_key}{String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda}
 }
 \value{
 List of the top 100 tags associated with the woe_id.

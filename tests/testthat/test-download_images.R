@@ -9,7 +9,8 @@ test_that("output is correct", {
   skip_on_travis()
   skip_on_cran()
 
-  download_test <- download_images(photo_id = 47259127482, saveDir = "test_images", api_key = test_key)
+  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
+  download_test <- download_images(photo_id = 47259127482, saveDir = "test_images")
 
   expect_equal(file.exists(".\\test_images\\47259127482_05d7096ed3_o.jpg"), TRUE)
 
@@ -17,12 +18,18 @@ test_that("output is correct", {
 })
 
 test_that("warnings are given", {
-  expect_warning(download_images(photo_id = 46556758351, saveDir = "test_images", api_key = test_key), "No permission to download image 46556758351")
+  expect_warning(download_images(photo_id = 46556758351, saveDir = "test_images"), "No permission to download image 46556758351")
 })
 
 test_that("invalid API keys fails correctly", {
-  expect_error(download_images(api_key = NULL, photo_id = 47259127482), "Enter API key or save using the save_key function")
+
+  # if(file.exists("api_key.txt")) {
+  #   file.remove("api_key.txt")
+  # }
+  #
+  # expect_error(download_images(photo_id = 47259127482), "Visit https://www.flickr.com/services/apps/create/ to create an API key and save in api_key.txt")
 
   skip_on_cran()
-  expect_error(download_images(api_key = "notarealkey", photo_id = 47259127482))
+  write.table("notarealkey", file = "api_key.txt")
+  expect_error(download_images(photo_id = 47259127482), "Invalid API Key: correct this in api_key.txt")
 })

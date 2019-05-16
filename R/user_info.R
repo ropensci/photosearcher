@@ -13,10 +13,6 @@
 #' using any other function.
 #'
 #' @param user_id String, the id of the user you wihs to obtain information for.
-#' @param api_key String, if you have used the save_key function the api_key
-#'   argument is automatically filled. If not api_key can be used optionally to
-#'   supplying your API key if you do not wish for it to be saved in the
-#'   environment or as a .Rda
 #'
 #' @return Dataframe of 18 variables from the searched users publically
 #'   available infromation including; hometown and occupation. Full list of
@@ -32,18 +28,14 @@
 #'
 #' user_info(user_id = c("11763518@N00", "39745335@N06", "104939923@N02"))
 #' }
-user_info <- function(user_id = NULL, api_key = api_key) {
+user_info <- function(user_id = NULL) {
   if (is.null(user_id) == TRUE) {
     stop("provide user id")
   }
 
-  # get or save the api_key
-  if (is.null(api_key)) {
-    stop("Enter API key or save using the save_key function")
-  }
-
-  #check for vailid key
-  check_key(key = api_key)
+  # this checks for the presence of a key, if no key it prompts the user to create one,
+  # it then checks the validity of the key
+  api_key <- create_and_check_key()
 
   id_tmp <- NULL
   id_info <- NULL

@@ -62,20 +62,6 @@ get_url <- function(mindate = "2019-01-01",
   return(base_url)
 }
 
-#check for valid key
-check_key <- function(key = api_key){
-
-  base_url = paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", key, sep = "")
-
-  photo_xml <- search_url(base_url = base_url)
-  pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
-  warn <- as.character(unlist(pages_data))
-
-  if ((warn[2]) == ("Invalid API Key (Key has invalid format)")){
-    stop("Invalid API Key: correct this in api_key.txt")
-  }
-
-}
 
 #check for valid bbox
 check_bbox <- function(bb = bbox, key = api_key){
@@ -105,11 +91,27 @@ ui_todo <- function (x, .envir = parent.frame())
 
 }
 
-# create API key
-create_key <- function() {
-  url <- "https://www.flickr.com/services/apps/create/"
-  ui_todo(" Create a Flickr API key at https://www.flickr.com/services/apps/create/")
-  utils::browseURL(url)
-  ui_todo(" Enter your Flickr API key (in quotations)")
-  utils::file.edit("api_key.txt")
+# this checks for the presence of a key, if no key it prompts the user to create one, it then checks the validity of the key
+create_and_check_key <- function() {
+  if(!file.exists("api_key.txt")) {
+    url <- "https://www.flickr.com/services/apps/create/"
+    ui_todo(" Create a Flickr API key at https://www.flickr.com/services/apps/create/")
+    utils::browseURL(url)
+    ui_todo(" Enter your Flickr API key (in quotations)")
+    utils::file.edit("api_key.txt")
+  }
+
+  api_key <- read.table("api_key.txt", stringsAsFactors = FALSE)[1,1]
+
+  base_url = paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, sep = "")
+
+  photo_xml <- search_url(base_url = base_url)
+  pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
+  warn <- as.character(unlist(pages_data))
+
+  if ((warn[2]) == ("Invalid API Key (Key has invalid format)")){
+    stop("Invalid API Key: correct this in api_key.txt")
+  }
+
+  return(api_key)
 }

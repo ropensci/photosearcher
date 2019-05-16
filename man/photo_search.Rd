@@ -5,8 +5,7 @@
 \title{photo_search}
 \usage{
 photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
-  text = NULL, tags = NULL, bbox = NULL, has_geo = TRUE,
-  api_key = api_key)
+  text = NULL, tags = NULL, bbox = NULL, has_geo = TRUE)
 }
 \arguments{
 \item{mindate}{String, minimum date of photograph for search provide as
@@ -24,11 +23,6 @@ photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
 
 \item{has_geo}{Logical, optional arguement for whether returned photos need
 to be georeference.}
-
-\item{api_key}{String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda}
 }
 \value{
 Output will be a dataframe consisting of 57 variables including;
