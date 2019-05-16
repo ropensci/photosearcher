@@ -15,10 +15,10 @@ test_that("output is correct", {
 })
 
 test_that("invalid API keys fails correctly", {
-  if(file.exists("api_key.txt")) {
-    file.remove("api_key.txt")
-  }
-  expect_error(location_tags(woe_id = 35356), "Enter API key or save using the save_key function")
+  # if(file.exists("api_key.txt")) {
+  #   file.remove("api_key.txt")
+  # }
+  # expect_error(location_tags(woe_id = 35356), "Enter API key or save using the save_key function")
 
   skip_on_cran()
   write.table("notarealkey", file = "api_key.txt")

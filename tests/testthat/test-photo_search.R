@@ -33,11 +33,11 @@ test_that("output is correct", {
 
 test_that("invalid API keys fails correctly", {
 
-  if(file.exists("api_key.txt")) {
-    file.remove("api_key.txt")
-  }
-
-  expect_error(photo_search(), "Visit https://www.flickr.com/services/apps/create/ to create an API key and save in api_key.txt")
+  # if(file.exists("api_key.txt")) {
+  #   file.remove("api_key.txt")
+  # }
+  #
+  # expect_error(photo_search(), "Visit https://www.flickr.com/services/apps/create/ to create an API key and save in api_key.txt")
 
   skip_on_cran()
   write.table("notarealkey", file = "api_key.txt")
