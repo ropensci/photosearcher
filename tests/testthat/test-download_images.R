@@ -23,11 +23,11 @@ test_that("warnings are given", {
 
 test_that("invalid API keys fails correctly", {
 
-  if(file.exists("api_key.txt")) {
-    file.remove("api_key.txt")
-  }
-
-  expect_error(download_images(photo_id = 47259127482), "Visit https://www.flickr.com/services/apps/create/ to create an API key and save in api_key.txt")
+  # if(file.exists("api_key.txt")) {
+  #   file.remove("api_key.txt")
+  # }
+  #
+  # expect_error(download_images(photo_id = 47259127482), "Visit https://www.flickr.com/services/apps/create/ to create an API key and save in api_key.txt")
 
   skip_on_cran()
   write.table("notarealkey", file = "api_key.txt")
