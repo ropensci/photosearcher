@@ -5,7 +5,8 @@
 \title{photo_search}
 \usage{
 photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
-  text = NULL, tags = NULL, bbox = NULL, has_geo = TRUE)
+  text = NULL, tags = NULL, bbox = NULL, woeid = NULL,
+  has_geo = TRUE)
 }
 \arguments{
 \item{mindate}{String, minimum date of photograph for search provide as
@@ -20,6 +21,9 @@ photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
 
 \item{bbox}{String, optional bounding box of search area provide as:
 "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
+
+\item{woeid}{String, optional "where on earth identifier" can be supplied instead
+of bbox. Use function find_place to obtain woe_id for a place.}
 
 \item{has_geo}{Logical, optional arguement for whether returned photos need
 to be georeference.}
