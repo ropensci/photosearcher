@@ -85,7 +85,11 @@ photo_search <-
 
     # get or save the api_key
     if (!file.exists("api_key.txt")) {
-      create_key()
+      if(interactive()) {
+        create_key()
+      } else {
+        stop("Visit https://www.flickr.com/services/apps/create/ to create an API key and save in api_key.txt")
+      }
     }
 
     api_key <- read.table("api_key.txt", stringsAsFactors = FALSE)[1,1]
