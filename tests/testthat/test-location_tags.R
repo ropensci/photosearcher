@@ -1,17 +1,12 @@
 context("test-location_tags")
 
-test_that("fails correctly", {
-  expect_error(location_tags(), "provide woe_id")
-})
-
-
 test_that("output is correct", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   loc_test <- location_tags(woe_id = 35356)
 
-  expect_is(loc_test, "data.frame")
-  expect_equal(nrow(loc_test), 100)
+  expect_is(loc_test, "character")
+  expect_equal(length(loc_test), 100)
 })
 
 test_that("invalid API keys fails correctly", {

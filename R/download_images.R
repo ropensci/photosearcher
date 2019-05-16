@@ -1,25 +1,20 @@
 #' download_images
 #'
-#' Downloads images based on their FLickr id. Uses the flickr.photos.getSizes
-#' API method from the Flickr API to test whether you have permission to
-#' download an image. See
+#' Downloads images based on their Flickr ID. Uses the flickr.photos.getSizes API method
+#' from the Flickr API to test whether you have permission to download an image. See
 #' \url{https://www.flickr.com/services/api/flickr.photos.getSizes.html} for more
-#' information on the API method. If permission is available the image is
-#' downloaded and saved as a .jpeg in a given save directory.
+#' information on the API method. If permission is available the image is downloaded and
+#' saved as a .jpeg in a given save directory.
 #'
-#' Note: if this is the first function of the package and you do not enter you
-#' API key in the arguement api_key you use you will be prompted to enter your
-#' API key or save it using the save_key function. API keys are avialable from
-#' \url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-#' function will save your key as a .Rda file which can then be called to when
-#' using any other function.
+#' @param photo_id numeric. id of photo to dowload, can be single id, list or column for
+#'   photo_search outputs
+#' @param saveDir character. name of directory for photos to be saved in. This will be
+#'   created if it doesn't exist.
 #'
-#' @param photo_id id of pgoto to dowload, can be single id, list or column for
-#'   phot_search outputs
-#' @param saveDir name of directory for photos to be saved in - if it doesnt
-#'   exisit it will be created
+#' @param quiet logical. If TRUE, suppress status messages (if any), and the progress bar.
 #'
-#' @return jpeg image saved as the name of the photo id in given save directory
+#' @return character. A vector of the images that the user does not have permission to
+#'   download. Images will be saved to \code{saveDir}.
 #' @export
 #'
 #' @examples
@@ -28,10 +23,7 @@
 #'
 #' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
 #' }
-download_images <- function(photo_id = NULL, saveDir = "downloaded_images") {
-  if (is.null(photo_id) == TRUE) {
-    stop("provide a photo id")
-  }
+download_images <- function(photo_id, saveDir = "downloaded_images", quiet = FALSE) {
 
   # this checks for the presence of a key, if no key it prompts the user to create one,
   # it then checks the validity of the key
@@ -43,33 +35,38 @@ download_images <- function(photo_id = NULL, saveDir = "downloaded_images") {
     dir.create(saveDir, recursive = TRUE)
   }
 
-  for (i in 1:length(photo_id)) {
-    photo_image <- photo_id[i]
+  out <- sapply(photo_id, function(x) download_image_single(x, saveDir, api_key, quiet))
+  out <- out[out!=0]
+}
 
-    z <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=", api_key, "&photo_id=", photo_image, sep = "")
 
-    photo_xml <- search_url(z)
+#' @noRd
+download_image_single <- function(photo_id, saveDir, api_key, quiet) {
 
-    if (!is.null(photo_xml)) {
-      download_atts <- xml2::xml_find_all(photo_xml, "//sizes", ns = xml2::xml_ns(photo_xml))
+  z <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=", api_key, "&photo_id=", photo_id, sep = "")
 
-      tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(download_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+  photo_xml <- search_url(z)
 
-      if ((tmp_df$candownload) == 0) {
-        warning("No permission to download image ", photo_image)
-      } else {
-        photo_url <- xml2::xml_find_all(photo_xml, "//size", ns = xml2::xml_ns(photo_xml))
+  if (!is.null(photo_xml)) {
+    download_atts <- xml2::xml_find_all(photo_xml, "//sizes", ns = xml2::xml_ns(photo_xml))
 
-        tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_url), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+    tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(download_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
 
-        to_download <- tmp_df$source[nrow(tmp_df)]
+    if ((tmp_df$candownload) == 0) {
+      warning("No permission to download image ", photo_id)
+    } else {
+      photo_url <- xml2::xml_find_all(photo_xml, "//size", ns = xml2::xml_ns(photo_xml))
 
-        utils::download.file(
-          url = to_download,
-          destfile = file.path(saveDir, basename(to_download)),
-          mode = "wb"
-        )
-      }
+      tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_url), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+
+      to_download <- tmp_df$source[nrow(tmp_df)]
+
+      utils::download.file(
+        url = to_download,
+        destfile = file.path(saveDir, basename(to_download)),
+        mode = "wb",
+        quiet = quiet
+      )
     }
   }
 }

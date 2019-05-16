@@ -2,33 +2,26 @@
 % Please edit documentation in R/user_info.R
 \name{user_info}
 \alias{user_info}
-\title{User_info}
+\title{Get user information}
 \usage{
 user_info(user_id)
 }
 \arguments{
-\item{user_id}{String, the id of the user you wihs to obtain information for.}
+\item{user_id}{character. The id of the user you wish to obtain information for.}
 }
 \value{
-Dataframe of 18 variables from the searched users publically
-available infromation including; hometown and occupation. Full list of
-returned variables: id, nsid,	join_date, occupation, hometown, showcase_set,
+data.frame. Dataframe of 18 variables from the searched users publically
+available information: id, nsid,	join_date, occupation, hometown, showcase_set,
 showcase_set_title, first_name, last_name, profile_description,
 website	city, country, facebook, twitter, tumblr, Instagram, pinterest
 }
 \description{
-Takes user defined FLickr user ID and returns data regarding their profile.
+Takes Flickr user ID and returns the profile data.
+}
+\details{
 Uses the flickr.profile.getProfile API method from the Flickr API. See
 \url{https://www.flickr.com/services/api/flickr.profile.getProfile.html} for
 more information on the API method.
-}
-\details{
-Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.
 }
 \examples{
 \dontrun{

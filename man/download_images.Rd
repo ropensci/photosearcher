@@ -4,33 +4,27 @@
 \alias{download_images}
 \title{download_images}
 \usage{
-download_images(photo_id = NULL, saveDir = "downloaded_images")
+download_images(photo_id, saveDir = "downloaded_images", quiet = FALSE)
 }
 \arguments{
-\item{photo_id}{id of pgoto to dowload, can be single id, list or column for
-phot_search outputs}
+\item{photo_id}{numeric. id of photo to dowload, can be single id, list or column for
+photo_search outputs}
 
-\item{saveDir}{name of directory for photos to be saved in - if it doesnt
-exisit it will be created}
+\item{saveDir}{character. name of directory for photos to be saved in. This will be
+created if it doesn't exist.}
+
+\item{quiet}{logical. If TRUE, suppress status messages (if any), and the progress bar.}
 }
 \value{
-jpeg image saved as the name of the photo id in given save directory
+character. A vector of the images that the user does not have permission to
+download. Images will be saved to \code{saveDir}.
 }
 \description{
-Downloads images based on their FLickr id. Uses the flickr.photos.getSizes
-API method from the Flickr API to test whether you have permission to
-download an image. See
+Downloads images based on their Flickr ID. Uses the flickr.photos.getSizes API method
+from the Flickr API to test whether you have permission to download an image. See
 \url{https://www.flickr.com/services/api/flickr.photos.getSizes.html} for more
-information on the API method. If permission is available the image is
-downloaded and saved as a .jpeg in a given save directory.
-}
-\details{
-Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.
+information on the API method. If permission is available the image is downloaded and
+saved as a .jpeg in a given save directory.
 }
 \examples{
 \dontrun{

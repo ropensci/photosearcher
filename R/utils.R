@@ -1,7 +1,7 @@
 #' @noRd
 
 # search url
-search_url <- function(base_url = base_url) {
+search_url <- function(base_url) {
 
   # get total number of results
   r <- httr::GET(paste(base_url))
@@ -32,14 +32,14 @@ search_url <- function(base_url = base_url) {
 }
 
 # build search url
-get_url <- function(mindate = "2019-01-01",
-                    maxdate = "2019-01-01",
+get_url <- function(mindate,
+                    maxdate,
                     api_key,
                     page,
-                    text = NULL,
-                    tags = NULL,
-                    bbox = NULL,
-                    has_geo = TRUE) {
+                    text,
+                    tags,
+                    bbox,
+                    has_geo) {
   base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
     "&text=", text,
     "&tags=", tags,
@@ -106,3 +106,5 @@ create_and_check_key <- function() {
 
   return(api_key)
 }
+
+
