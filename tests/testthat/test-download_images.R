@@ -1,12 +1,6 @@
 context("test-download_images")
 
-test_that("fails correctly", {
-  expect_error(download_images(), "provide a photo id")
-})
-
-
 test_that("output is correct", {
-  skip_on_travis()
   skip_on_cran()
 
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
@@ -18,7 +12,7 @@ test_that("output is correct", {
 })
 
 test_that("warnings are given", {
-  skip_on_travis()
+  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   expect_warning(download_images(photo_id = 46556758351, saveDir = "test_images"), "No permission to download image 46556758351")
 })
 

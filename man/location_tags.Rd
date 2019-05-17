@@ -2,29 +2,21 @@
 % Please edit documentation in R/location_tags.R
 \name{location_tags}
 \alias{location_tags}
-\title{location_tags}
+\title{Get top tags for a location}
 \usage{
-location_tags(woe_id = NULL)
+location_tags(woe_id)
 }
 \arguments{
-\item{woe_id}{Numeric, a "Where on Earth" location tag.}
+\item{woe_id}{numeric. a "Where on Earth" location tag.}
 }
 \value{
-List of the top 100 tags associated with the woe_id.
+character. List of the top 100 tags associated with the woe_id.
 }
 \description{
 Takes user defined location and returns the top tags related to the location.
 Uses the flickr.places.tagsForPlace API method from the Flickr API. See
 \url{https://www.flickr.com/services/api/flickr.places.tagsForPlace.html} for
 more information on the API method.
-}
-\details{
-Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.
 }
 \examples{
 \dontrun{

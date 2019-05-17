@@ -2,34 +2,38 @@
 % Please edit documentation in R/photo_search.R
 \name{photo_search}
 \alias{photo_search}
-\title{photo_search}
+\title{Search for photo metadata}
 \usage{
 photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
   text = NULL, tags = NULL, bbox = NULL, woeid = NULL,
   has_geo = TRUE)
 }
 \arguments{
-\item{mindate}{String, minimum date of photograph for search provide as
+\item{mindate}{character. Minimum date of photograph for search provided as
 "YYYY-MM-DD".}
 
-\item{maxdate}{String, maximum date of photograph for search provide as
+\item{maxdate}{character. Maximum date of photograph for search provided as
 "YYYY-MM-DD".}
 
-\item{text}{String, optional text to be searched.}
+\item{text}{character. Optional text to be searched.}
 
-\item{tags}{String, optional tags to filter by.}
+\item{tags}{character. Optional tags to filter by.}
 
-\item{bbox}{String, optional bounding box of search area provide as:
-"minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
+\item{bbox}{character. Optional bounding box of search area provide as:
+\code{minimum_longitude, minimum_latitude, maximum_longitude, maximum_latitude}.}
 
+<<<<<<< HEAD
 \item{woeid}{String, optional "where on earth identifier" can be supplied instead
 of bbox. Use function find_place to obtain woe_id for a place.}
 
 \item{has_geo}{Logical, optional arguement for whether returned photos need
+=======
+\item{has_geo}{logical. Optional arguement for whether returned photos need
+>>>>>>> upstream/master
 to be georeference.}
 }
 \value{
-Output will be a dataframe consisting of 57 variables including;
+data.frame. Output consists of 57 variables including;
 latitude and longitude of photograph, date and time it was taken,
 associated tags and image urls.
 
@@ -44,21 +48,14 @@ height_z, width_z, url_c, height_c, width_c, url_l, height_l, width_l,
 url_o, height_o, width_o.
 }
 \description{
-Takes user defined search query and return the image metadata for all those
-that match search terms. Uses the flickr.photos.search API method from the
-Flickr API. This search method requires a limiting factor to prevent
-parameterless searches - to enure this is met the function requires both a
-minimum and a maximum date that searched photographs were taken on. See
-\url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
-information on the API method.
+Returns image metadata for photos matching the search terms.
 }
 \details{
-Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.
+Uses the flickr.photos.search API method from the Flickr API. This search method
+requires a limiting factor to prevent parameterless searches - to enure this is met the
+function requires both a minimum and a maximum date that searched photographs were
+taken on. See \url{https://www.flickr.com/services/api/flickr.photos.search.html} for
+more information on the API method.
 }
 \examples{
 \dontrun{

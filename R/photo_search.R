@@ -1,24 +1,18 @@
-#' photo_search
+#' Search for photo metadata
 #'
-#' Takes user defined search query and return the image metadata for all those
-#' that match search terms. Uses the flickr.photos.search API method from the
-#' Flickr API. This search method requires a limiting factor to prevent
-#' parameterless searches - to enure this is met the function requires both a
-#' minimum and a maximum date that searched photographs were taken on. See
-#' \url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
-#' information on the API method.
+#' Returns image metadata for photos matching the search terms.
 #'
-#' Note: if this is the first function of the package and you do not enter you
-#' API key in the arguement api_key you use you will be prompted to enter your
-#' API key or save it using the save_key function. API keys are avialable from
-#' \url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-#' function will save your key as a .Rda file which can then be called to when
-#' using any other function.
+#' Uses the flickr.photos.search API method from the Flickr API. This search method
+#' requires a limiting factor to prevent parameterless searches - to enure this is met the
+#' function requires both a minimum and a maximum date that searched photographs were
+#' taken on. See \url{https://www.flickr.com/services/api/flickr.photos.search.html} for
+#' more information on the API method.
 #'
-#' @param mindate String, minimum date of photograph for search provide as
+#' @param mindate character. Minimum date of photograph for search provided as
 #'   "YYYY-MM-DD".
-#' @param maxdate String, maximum date of photograph for search provide as
+#' @param maxdate character. Maximum date of photograph for search provided as
 #'   "YYYY-MM-DD".
+#'
 #' @param text String, optional text to be searched.
 #' @param tags String, optional tags to filter by.
 #' @param bbox String, optional bounding box of search area provide as:
@@ -26,9 +20,8 @@
 #' @param woeid String, optional "where on earth identifier" can be supplied instead
 #'   of bbox. Use function find_place to obtain woe_id for a place.
 #' @param has_geo Logical, optional arguement for whether returned photos need
-#'   to be georeference.
 #'
-#' @return Output will be a dataframe consisting of 57 variables including;
+#' @return data.frame. Output consists of 57 variables including;
 #'   latitude and longitude of photograph, date and time it was taken,
 #'   associated tags and image urls.
 #'

@@ -3,15 +3,15 @@
 \name{findPlaces}
 \alias{findPlaces}
 \alias{find_place}
-\title{Find correct location informatio for a given place}
+\title{Find correct location information for a given place}
 \usage{
-find_place(place = NULL)
+find_place(place)
 }
 \arguments{
-\item{place}{Text string describing the place for the query}
+\item{place}{character. The place for the query}
 }
 \value{
-A dataframe information on locations that share the name with the
+data.frame. Information on locations that share the name with the
 search location. Nine variables are returned: place_id, woeid, latitude,
 longitude, place_url, place_type, place_type_id, timezone, woe_name.
 }
@@ -20,14 +20,6 @@ Takes user defined location and returns location data for the search. Uses
 the flickr.places.find API method from the Flickr API. See
 \url{https://www.flickr.com/services/api/flickr.places.find.html} for more
 information on the API method.
-}
-\details{
-Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.
 }
 \examples{
 \dontrun{

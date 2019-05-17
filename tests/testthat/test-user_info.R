@@ -1,9 +1,5 @@
 context("test-user_info")
 
-test_that("fails correctly", {
-  expect_error(user_info(), "provide user id")
-})
-
 test_that("output is correct", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")

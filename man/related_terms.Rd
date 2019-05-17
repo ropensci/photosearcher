@@ -2,29 +2,23 @@
 % Please edit documentation in R/related_terms.R
 \name{related_terms}
 \alias{related_terms}
-\title{related_terms}
+\title{Get related terms}
 \usage{
-related_terms(term = NULL)
+related_terms(term)
 }
 \arguments{
-\item{term}{String, term to search.}
+\item{term}{character. Term to search.}
 }
 \value{
-List of terms most associated with input term.
+character. Tags most associated with input term.
 }
 \description{
-Takes user defined term and returns the top tags related to the term.
+Takes a term and returns the top tags related to that term.
+}
+\details{
 Uses the flickr.tags.getRelated API method from the Flickr API. See
 \url{https://www.flickr.com/services/api/flickr.tags.getRelated.html} for
 more information on the API method.
-}
-\details{
-Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-\url{https://www.flickr.com/services/apps/create/apply}. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.
 }
 \examples{
 \dontrun{
