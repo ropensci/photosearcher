@@ -2,18 +2,19 @@ context("test-download_images")
 
 test_that("output is correct", {
   skip_on_cran()
-
+  tempD <- tempdir()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
-  download_test <- download_images(photo_id = 47259127482, saveDir = "test_images")
+  download_test <- download_images(photo_id = 47259127482,
+                                   saveDir = tempD)
 
-  expect_equal(file.exists(".\\test_images\\47259127482_05d7096ed3_o.jpg"), TRUE)
+  expect_equal(file.exists(file.path(tempD, '47259127482_05d7096ed3_o.jpg')), TRUE)
 
-  file.remove(".\\test_images\\47259127482_05d7096ed3_o.jpg")
+  file.remove(file.path(tempD, '47259127482_05d7096ed3_o.jpg'))
 })
 
 test_that("warnings are given", {
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
-  expect_warning(download_images(photo_id = 46556758351, saveDir = "test_images"), "No permission to download image 46556758351")
+  expect_warning(download_images(photo_id = 46556758351, saveDir = tempD), "No permission to download image 46556758351")
 })
 
 test_that("invalid API keys fails correctly", {
