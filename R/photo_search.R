@@ -17,7 +17,7 @@
 #' @param tags String, optional tags to filter by.
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
-#' @param woeid String, optional "where on earth identifier" can be supplied instead
+#' @param woe_id numeric, optional "where on earth identifier" can be supplied instead
 #'   of bbox. Use function find_place to obtain woe_id for a place.
 #' @param has_geo Logical, optional arguement for whether returned photos need
 #'
@@ -63,7 +63,7 @@ photo_search <-
              text = NULL,
              tags = NULL,
              bbox = NULL,
-             woeid = NULL,
+             woe_id = NULL,
              has_geo = TRUE) {
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(" ", "+", trimws(tags))
@@ -78,9 +78,9 @@ photo_search <-
     # it then checks the validity of the key
     api_key <- create_and_check_key()
 
-    # check that bbox and woeid are not both present
+    # check that bbox and woe_id are not both present
 
-    if(!is.null(bbox) & !is.null(woeid)){
+    if(!is.null(bbox) & !is.null(woe_id)){
       stop("Specify location as either woe_id or bbox, not both.")
     }
 
@@ -107,7 +107,7 @@ photo_search <-
         text = text,
         tags = tags,
         bbox = bbox,
-        woeid = woeid,
+        woe_id = woe_id,
         has_geo = has_geo
       )
 
@@ -162,7 +162,7 @@ photo_search <-
               text = text,
               tags = tags,
               bbox = bbox,
-              woeid = woeid,
+              woe_id = woe_id,
               has_geo = has_geo
             )
 
