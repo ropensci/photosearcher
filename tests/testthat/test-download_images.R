@@ -1,8 +1,9 @@
 context("test-download_images")
 
+tempD <- tempdir()
+
 test_that("output is correct", {
   skip_on_cran()
-  tempD <- tempdir()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   download_test <- download_images(photo_id = 47259127482,
                                    saveDir = tempD)
