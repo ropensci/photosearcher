@@ -83,6 +83,15 @@ ui_todo <- function (x, .envir = parent.frame())
 
 }
 
+# for the info bullet points
+ui_info <- function(x, .envir = parent.frame()) {
+  x <- glue::glue_collapse(x, "\n")
+  x <- glue::glue(x, .envir = .envir)
+  x <- paste0(crayon::yellow(clisymbols::symbol$info), " ", x)
+  lines <- paste0(x, "\n")
+  cat(lines, sep = "")
+}
+
 # this checks for the presence of a key, if no key it prompts the user to create one, it then checks the validity of the key
 create_and_check_key <- function() {
   if(!file.exists("api_key.txt")) {

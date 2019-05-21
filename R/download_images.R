@@ -31,7 +31,7 @@ download_images <- function(photo_id, saveDir = "downloaded_images", quiet = FAL
 
   #create saveDir
   if (!dir.exists(saveDir)) {
-    message(paste("saveDir", saveDir, "does not exist, I will create it for you"))
+    ui_info(paste("saveDir", saveDir, "does not exist, I will create it for you"))
     dir.create(saveDir, recursive = TRUE)
   }
 
