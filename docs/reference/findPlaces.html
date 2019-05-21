@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find correct location informatio for a given place — findPlaces • photosearcher</title>
+<title>Find correct location information for a given place — findPlaces • photosearcher</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Find correct location informatio for a given place — findPlaces" />
+<meta property="og:title" content="Find correct location information for a given place — findPlaces" />
 
 <meta property="og:description" content="Takes user defined location and returns location data for the search. Uses
 the flickr.places.find API method from the Flickr API. See
@@ -105,7 +105,7 @@ information on the API method." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find correct location informatio for a given place</h1>
+    <h1>Find correct location information for a given place</h1>
     <small class="dont-index">Source: <a href='https://github.com/nfox29/photosearcher/blob/master/R/find_place.R'><code>R/find_place.R</code></a></small>
     <div class="hidden name"><code>findPlaces.Rd</code></div>
     </div>
@@ -119,38 +119,22 @@ information on the API method.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>find_place</span>(<span class='kw'>place</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>find_place</span>(<span class='no'>place</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>place</th>
-      <td><p>Text string describing the place for the query</p></td>
-    </tr>
-    <tr>
-      <th>api_key</th>
-      <td><p>String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda</p></td>
+      <td><p>character. The place for the query</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe information on locations that share the name with the
+    <p>data.frame. Information on locations that share the name with the
 search location. Nine variables are returned: place_id, woeid, latitude,
 longitude, place_url, place_type, place_type_id, timezone, woe_name.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -166,8 +150,6 @@ using any other function.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

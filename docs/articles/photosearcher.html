@@ -81,37 +81,31 @@
     
     
 <p>This vignette provides an overview of the functions in R package <code>photosearcher</code>.</p>
-<div id="saving-your-key" class="section level2">
-<h2 class="hasAnchor">
-<a href="#saving-your-key" class="anchor"></a>Saving your key</h2>
-<p>The first time you use this package save your API key and it will automatically be used by all other functions.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">  <span class="co">#Save your key</span></a>
-<a class="sourceLine" id="cb1-2" title="2">  <span class="kw"><a href="../reference/save_key.html">save_key</a></span>(<span class="dt">api_key =</span> <span class="st">"your API key"</span>)</a></code></pre></div>
-</div>
 <div id="searching-for-photographs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#searching-for-photographs" class="anchor"></a>Searching for photographs</h2>
-<p>These are a few basic example of the main photo_search function:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">  <span class="co">#Search for photos of foxes in the UK for the year 2017</span></a>
-<a class="sourceLine" id="cb2-2" title="2">  foxes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2017-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-3" title="3">             <span class="dt">maxdate =</span> <span class="st">"2018-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-4" title="4">             <span class="dt">text =</span> <span class="st">"foxes"</span>,</a>
-<a class="sourceLine" id="cb2-5" title="5">             <span class="dt">bbox =</span> <span class="st">"-12.875977,49.210420,2.636719,59.977005"</span>,</a>
-<a class="sourceLine" id="cb2-6" title="6">             <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)  </a>
-<a class="sourceLine" id="cb2-7" title="7"></a>
-<a class="sourceLine" id="cb2-8" title="8">  <span class="co">#Search for images of trees globally for the 1st of January 2019</span></a>
-<a class="sourceLine" id="cb2-9" title="9">  trees &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2019-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-10" title="10">             <span class="dt">maxdate =</span> <span class="st">"2019-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-11" title="11">             <span class="dt">text =</span> <span class="st">"tree"</span>,</a>
-<a class="sourceLine" id="cb2-12" title="12">             <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-13" title="13"></a>
-<a class="sourceLine" id="cb2-14" title="14">  <span class="co">#Search for images with text mountain and tagged lake</span></a>
-<a class="sourceLine" id="cb2-15" title="15">  moutain_lake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2019-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-16" title="16">             <span class="dt">maxdate =</span> <span class="st">"2019-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-17" title="17">             <span class="dt">text =</span> <span class="st">"mountain"</span>,</a>
-<a class="sourceLine" id="cb2-18" title="18">             <span class="dt">tags =</span> <span class="st">"lake"</span></a>
-<a class="sourceLine" id="cb2-19" title="19">             <span class="dt">has_geo =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p>When the arguement <code>has_geo</code> is <code>TRUE</code> all images will contain latitude and longitude infomation. These can be plotted using other packages at user preference. Here, the images of UK foxes are plotted using <code>ggplot2</code>.</p>
+<p>These are a few basic examples of the main <code><a href="../reference/photo_search.html">photo_search()</a></code> function:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co">#Search for photos of foxes in the UK for the year 2017</span></a>
+<a class="sourceLine" id="cb1-2" title="2">foxes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2017-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-3" title="3">                      <span class="dt">maxdate =</span> <span class="st">"2018-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-4" title="4">                      <span class="dt">text =</span> <span class="st">"foxes"</span>,</a>
+<a class="sourceLine" id="cb1-5" title="5">                      <span class="dt">bbox =</span> <span class="st">"-12.875977,49.210420,2.636719,59.977005"</span>,</a>
+<a class="sourceLine" id="cb1-6" title="6">                      <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)  </a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#Search for images of trees globally for the 1st of January 2019</span></a>
+<a class="sourceLine" id="cb1-9" title="9">trees &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-10" title="10">                      <span class="dt">maxdate =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-11" title="11">                      <span class="dt">text =</span> <span class="st">"tree"</span>,</a>
+<a class="sourceLine" id="cb1-12" title="12">                      <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-13" title="13"></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#Search for images with text mountain and tagged lake</span></a>
+<a class="sourceLine" id="cb1-15" title="15">moutain_lake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-16" title="16">                             <span class="dt">maxdate =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-17" title="17">                             <span class="dt">text =</span> <span class="st">"mountain"</span>,</a>
+<a class="sourceLine" id="cb1-18" title="18">                             <span class="dt">tags =</span> <span class="st">"lake"</span></a>
+<a class="sourceLine" id="cb1-19" title="19">                             <span class="dt">has_geo =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>When <code>has_geo == TRUE</code> only metadata about images with latitude and longitude information will be retrieved.</p>
+<p>Here, the images of UK foxes are plotted using <code>ggplot2</code>.</p>
 <div class="figure">
 <img src="https://github.com/nfox29/photosearcher/blob/master/images/foxes.png?raw=true" alt="Foxes"><p class="caption">Foxes</p>
 </div>
@@ -120,50 +114,50 @@
 <h2 class="hasAnchor">
 <a href="#downloading-images" class="anchor"></a>Downloading images</h2>
 <p>The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it doesnt exists it will be automatically created.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">  <span class="co">#Downloading fox images from photosearch</span></a>
-<a class="sourceLine" id="cb3-2" title="2">  <span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> foxes<span class="op">$</span>id, <span class="dt">saveDir =</span> <span class="st">"Fox images"</span>)</a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4">  <span class="co">#Download a specific images based off its id</span></a>
-<a class="sourceLine" id="cb3-5" title="5">  <span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> <span class="dv">47416147181</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co">#Downloading fox images from photosearch</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> foxes<span class="op">$</span>id, <span class="dt">saveDir =</span> <span class="st">"Fox images"</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#Download a specific images based off its id</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> <span class="dv">47416147181</span>)</a></code></pre></div>
 <p>The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded, but will produce a warning to let know the ID numbers of those skipped. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The <code>photo_search</code> function provides the licence information for each image.</p>
 </div>
 <div id="finding-information-on-a-user" class="section level2">
 <h2 class="hasAnchor">
 <a href="#finding-information-on-a-user" class="anchor"></a>Finding information on a user</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">  <span class="co">#Find a users hometown</span></a>
-<a class="sourceLine" id="cb4-2" title="2">  user &lt;-<span class="st"> </span><span class="kw"><a href="../reference/user_info.html">user_info</a></span>(<span class="dt">user_id =</span> <span class="st">"22299651@N07"</span>)</a>
-<a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4">  user<span class="op">$</span>hometown</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">#Find a users hometown</span></a>
+<a class="sourceLine" id="cb3-2" title="2">user &lt;-<span class="st"> </span><span class="kw"><a href="../reference/user_info.html">user_info</a></span>(<span class="dt">user_id =</span> <span class="st">"22299651@N07"</span>)</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4">user<span class="op">$</span>hometown</a></code></pre></div>
 </div>
 <div id="get-the-top-tags-for-a-location" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-the-top-tags-for-a-location" class="anchor"></a>Get the top tags for a location</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">  <span class="co">#Find the tags for Southampton, UK</span></a>
-<a class="sourceLine" id="cb5-2" title="2">  southampton &lt;-<span class="st"> </span><span class="kw"><a href="../reference/location_tags.html">location_tags</a></span>(<span class="dt">woe_id =</span> <span class="dv">35356</span>)</a>
-<a class="sourceLine" id="cb5-3" title="3">  </a>
-<a class="sourceLine" id="cb5-4" title="4">  <span class="co">#Find the tags for New York state, US</span></a>
-<a class="sourceLine" id="cb5-5" title="5">  new_york &lt;-<span class="st"> </span><span class="kw"><a href="../reference/location_tags.html">location_tags</a></span>(<span class="dt">woe_id =</span>    <span class="dv">2347591</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">#Find the tags for Southampton, UK</span></a>
+<a class="sourceLine" id="cb4-2" title="2">southampton &lt;-<span class="st"> </span><span class="kw"><a href="../reference/location_tags.html">location_tags</a></span>(<span class="dt">woe_id =</span> <span class="dv">35356</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#Find the tags for New York state, US</span></a>
+<a class="sourceLine" id="cb4-5" title="5">new_york &lt;-<span class="st"> </span><span class="kw"><a href="../reference/location_tags.html">location_tags</a></span>(<span class="dt">woe_id =</span>  <span class="dv">2347591</span>)</a></code></pre></div>
 <p>The woe_id arguement is a FLickr specific place identifier. A places woeID can be found using the <code>find_place</code> function or using <a href="http://woeid.rosselliot.co.nz/">online tools</a>.</p>
 </div>
 <div id="find-a-locations-woeid" class="section level2">
 <h2 class="hasAnchor">
 <a href="#find-a-locations-woeid" class="anchor"></a>Find a locations woeID</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">  <span class="co">#Find woeID for Kuala Lumpur</span></a>
-<a class="sourceLine" id="cb6-2" title="2">  kuala_lumpur &lt;-<span class="st"> </span><span class="kw"><a href="../reference/findPlaces.html">find_place</a></span>(<span class="dt">place =</span> <span class="st">"Kuala Lumpur"</span>)</a>
-<a class="sourceLine" id="cb6-3" title="3"></a>
-<a class="sourceLine" id="cb6-4" title="4">  kuala_lumpaur<span class="op">$</span>woeid</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">  <span class="co">#Find woeID for Kuala Lumpur</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  kuala_lumpur &lt;-<span class="st"> </span><span class="kw"><a href="../reference/findPlaces.html">find_place</a></span>(<span class="dt">place =</span> <span class="st">"Kuala Lumpur"</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4">  kuala_lumpaur<span class="op">$</span>woeid</a></code></pre></div>
 </div>
 <div id="finding-tags-most-associated-with-another-tag" class="section level2">
 <h2 class="hasAnchor">
 <a href="#finding-tags-most-associated-with-another-tag" class="anchor"></a>Finding tags most associated with another tag</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">  <span class="co">#Find tags associated with zebra</span></a>
-<a class="sourceLine" id="cb7-2" title="2">  zebra &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"zebra"</span>)</a>
-<a class="sourceLine" id="cb7-3" title="3"></a>
-<a class="sourceLine" id="cb7-4" title="4">  <span class="co">#Find tags most assoicated with hiking</span></a>
-<a class="sourceLine" id="cb7-5" title="5">  hiking &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"hiking"</span>)</a>
-<a class="sourceLine" id="cb7-6" title="6">  </a>
-<a class="sourceLine" id="cb7-7" title="7">  <span class="co">#Find tags most associated with the word church</span></a>
-<a class="sourceLine" id="cb7-8" title="8">  church &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"church"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">  <span class="co">#Find tags associated with zebra</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  zebra &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"zebra"</span>)</a>
+<a class="sourceLine" id="cb6-3" title="3"></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="co">#Find tags most assoicated with hiking</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  hiking &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"hiking"</span>)</a>
+<a class="sourceLine" id="cb6-6" title="6">  </a>
+<a class="sourceLine" id="cb6-7" title="7">  <span class="co">#Find tags most associated with the word church</span></a>
+<a class="sourceLine" id="cb6-8" title="8">  church &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"church"</span>)</a></code></pre></div>
 </div>
   </div>
 
@@ -172,8 +166,7 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#saving-your-key">Saving your key</a></li>
-      <li><a href="#searching-for-photographs">Searching for photographs</a></li>
+<li><a href="#searching-for-photographs">Searching for photographs</a></li>
       <li><a href="#downloading-images">Downloading images</a></li>
       <li><a href="#finding-information-on-a-user">Finding information on a user</a></li>
       <li><a href="#get-the-top-tags-for-a-location">Get the top tags for a location</a></li>

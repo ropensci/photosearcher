@@ -11,67 +11,63 @@ vignette: >
 
 This vignette provides an overview of the functions in R package `photosearcher`.
 
-## Saving your key
-The first time you use this package save your API key and it will automatically be used by all other functions.
-```{r eval=FALSE}
-  #Save your key
-  save_key(api_key = "your API key")
-```
-
 ## Searching for photographs
-These are a few basic example of the main photo_search function:
+These are a few basic examples of the main `photo_search()` function:
+
 ```{r eval=FALSE}
-  #Search for photos of foxes in the UK for the year 2017
-  foxes <- photo_search(mindate = "2017-01-01",
-             maxdate = "2018-01-01",
-             text = "foxes",
-             bbox = "-12.875977,49.210420,2.636719,59.977005",
-             has_geo = TRUE)  
+#Search for photos of foxes in the UK for the year 2017
+foxes <- photo_search(mindate = "2017-01-01",
+                      maxdate = "2018-01-01",
+                      text = "foxes",
+                      bbox = "-12.875977,49.210420,2.636719,59.977005",
+                      has_geo = TRUE)  
 
-  #Search for images of trees globally for the 1st of January 2019
-  trees <- photo_search(mindate = "2019-01-01",
-             maxdate = "2019-01-01",
-             text = "tree",
-             has_geo = TRUE)
+#Search for images of trees globally for the 1st of January 2019
+trees <- photo_search(mindate = "2019-01-01",
+                      maxdate = "2019-01-01",
+                      text = "tree",
+                      has_geo = TRUE)
 
-  #Search for images with text mountain and tagged lake
-  moutain_lake <- photo_search(mindate = "2019-01-01",
-             maxdate = "2019-01-01",
-             text = "mountain",
-             tags = "lake"
-             has_geo = FALSE)
+#Search for images with text mountain and tagged lake
+moutain_lake <- photo_search(mindate = "2019-01-01",
+                             maxdate = "2019-01-01",
+                             text = "mountain",
+                             tags = "lake"
+                             has_geo = FALSE)
 ```
-When the arguement `has_geo` is `TRUE` all images will contain latitude and longitude infomation. These can be plotted using other packages at user preference. Here, the images of UK foxes are plotted using `ggplot2`. 
+
+When `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
+
+Here, the images of UK foxes are plotted using `ggplot2`. 
 
 ![Foxes](https://github.com/nfox29/photosearcher/blob/master/images/foxes.png?raw=true)
 
 ## Downloading images
 The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it doesnt exists it will be automatically created.
 ```{r eval=FALSE}
-  #Downloading fox images from photosearch
-  download_images(photo_id = foxes$id, saveDir = "Fox images")
+#Downloading fox images from photosearch
+download_images(photo_id = foxes$id, saveDir = "Fox images")
 
-  #Download a specific images based off its id
-  download_images(photo_id = 47416147181)
+#Download a specific images based off its id
+download_images(photo_id = 47416147181)
 ```
 The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded, but will produce a warning to let know the ID numbers of those skipped. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The `photo_search` function provides the licence information for each image.
 
 ## Finding information on a user
 ```{r eval=FALSE}
-  #Find a users hometown
-  user <- user_info(user_id = "22299651@N07")
+#Find a users hometown
+user <- user_info(user_id = "22299651@N07")
 
-  user$hometown
+user$hometown
 ```
 
 ## Get the top tags for a location
 ```{r eval=FALSE}
-  #Find the tags for Southampton, UK
-  southampton <- location_tags(woe_id = 35356)
-  
-  #Find the tags for New York state, US
-  new_york <- location_tags(woe_id = 	2347591)
+#Find the tags for Southampton, UK
+southampton <- location_tags(woe_id = 35356)
 
+#Find the tags for New York state, US
+new_york <- location_tags(woe_id = 	2347591)
 ```
 The woe_id arguement is a FLickr specific place identifier. A places woeID can be found using the `find_place` function or using [online tools](http://woeid.rosselliot.co.nz/). 
 

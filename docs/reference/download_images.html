@@ -32,12 +32,11 @@
 
 <meta property="og:title" content="download_images — download_images" />
 
-<meta property="og:description" content="Downloads images based on their FLickr id. Uses the flickr.photos.getSizes
-API method from the Flickr API to test whether you have permission to
-download an image. See
+<meta property="og:description" content="Downloads images based on their Flickr ID. Uses the flickr.photos.getSizes API method
+from the Flickr API to test whether you have permission to download an image. See
 https://www.flickr.com/services/api/flickr.photos.getSizes.html for more
-information on the API method. If permission is available the image is
-downloaded and saved as a .jpeg in a given save directory." />
+information on the API method. If permission is available the image is downloaded and
+saved as a .jpeg in a given save directory." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,52 +113,39 @@ downloaded and saved as a .jpeg in a given save directory." />
 
     <div class="ref-description">
     
-    <p>Downloads images based on their FLickr id. Uses the flickr.photos.getSizes
-API method from the Flickr API to test whether you have permission to
-download an image. See
+    <p>Downloads images based on their Flickr ID. Uses the flickr.photos.getSizes API method
+from the Flickr API to test whether you have permission to download an image. See
 <a href='https://www.flickr.com/services/api/flickr.photos.getSizes.html'>https://www.flickr.com/services/api/flickr.photos.getSizes.html</a> for more
-information on the API method. If permission is available the image is
-downloaded and saved as a .jpeg in a given save directory.</p>
+information on the API method. If permission is available the image is downloaded and
+saved as a .jpeg in a given save directory.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>download_images</span>(<span class='kw'>photo_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>saveDir</span> <span class='kw'>=</span> <span class='st'>"downloaded_images"</span>,
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>download_images</span>(<span class='no'>photo_id</span>, <span class='kw'>saveDir</span> <span class='kw'>=</span> <span class='st'>"downloaded_images"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>photo_id</th>
-      <td><p>id of pgoto to dowload, can be single id, list or column for
-phot_search outputs</p></td>
+      <td><p>numeric. id of photo to dowload, can be single id, list or column for
+photo_search outputs</p></td>
     </tr>
     <tr>
       <th>saveDir</th>
-      <td><p>name of directory for photos to be saved in - if it doesnt
-exisit it will be created</p></td>
+      <td><p>character. name of directory for photos to be saved in. This will be
+created if it doesn't exist.</p></td>
     </tr>
     <tr>
-      <th>api_key</th>
-      <td><p>String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda</p></td>
+      <th>quiet</th>
+      <td><p>logical. If TRUE, suppress status messages (if any), and the progress bar.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>jpeg image saved as the name of the photo id in given save directory</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.</p>
+    <p>character. A vector of the images that the user does not have permission to
+download. Images will be saved to <code>saveDir</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -175,8 +161,6 @@ using any other function.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

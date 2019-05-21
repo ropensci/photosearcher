@@ -6,9 +6,9 @@ test_that("output is correct", {
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   download_test <- download_images(photo_id = 47259127482, saveDir = "test_images")
 
-  expect_equal(file.exists(".\\test_images\\47259127482_05d7096ed3_o.jpg"), TRUE)
+  expect_equal(file.exists("test_images/47259127482_05d7096ed3_o.jpg"), TRUE)
 
-  file.remove(".\\test_images\\47259127482_05d7096ed3_o.jpg")
+  file.remove("test_images/47259127482_05d7096ed3_o.jpg")
 })
 
 test_that("warnings are given", {

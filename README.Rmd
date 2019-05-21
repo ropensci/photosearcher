@@ -40,7 +40,7 @@ The package requires a valid API key from the [Flickr development page](https://
 
 ## Package functions
 
-The package currently focuses on the ability to use the Flickr API to search for images and their metadata throught the flickr.photos.search method. The package does however support a number of other Flickr API call methods including the flickr.tags.getRelated and flickr.places.tagsForPlace methods. The Flickr website offers full [API Documentation](https://www.flickr.com/services/api/) for all of its call methods.
+The package currently focuses on the ability to use the Flickr API to search for images and their metadata through the flickr.photos.search method. The package does however support a number of other Flickr API call methods including the flickr.tags.getRelated and flickr.places.tagsForPlace methods. The Flickr website offers full [API Documentation](https://www.flickr.com/services/api/) for all of its call methods.
 
 ## Searching for photo metadata
 
@@ -58,7 +58,7 @@ rock_climbing <- photo_search(
 )  
 ```
 
-When `has_geo == TRUE` only metadata about images with latitude and longitude infomation will be retrieved. 
+When `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
 
 These can be plotted using other packages at user preference. In the below example, we convert these to an `sf` object and plot using `ggplot2`. 
 

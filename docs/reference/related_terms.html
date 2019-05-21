@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>related_terms — related_terms • photosearcher</title>
+<title>Get related terms — related_terms • photosearcher</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,9 @@
 
 
 
-<meta property="og:title" content="related_terms — related_terms" />
+<meta property="og:title" content="Get related terms — related_terms" />
 
-<meta property="og:description" content="Takes user defined term and returns the top tags related to the term.
-Uses the flickr.tags.getRelated API method from the Flickr API. See
-https://www.flickr.com/services/api/flickr.tags.getRelated.html for
-more information on the API method." />
+<meta property="og:description" content="Takes a term and returns the top tags related to that term." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,50 +102,37 @@ more information on the API method." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>related_terms</h1>
+    <h1>Get related terms</h1>
     <small class="dont-index">Source: <a href='https://github.com/nfox29/photosearcher/blob/master/R/related_terms.R'><code>R/related_terms.R</code></a></small>
     <div class="hidden name"><code>related_terms.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Takes user defined term and returns the top tags related to the term.
-Uses the flickr.tags.getRelated API method from the Flickr API. See
-<a href='https://www.flickr.com/services/api/flickr.tags.getRelated.html'>https://www.flickr.com/services/api/flickr.tags.getRelated.html</a> for
-more information on the API method.</p>
+    <p>Takes a term and returns the top tags related to that term.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>related_terms</span>(<span class='kw'>term</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>related_terms</span>(<span class='no'>term</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>term</th>
-      <td><p>String, term to search.</p></td>
-    </tr>
-    <tr>
-      <th>api_key</th>
-      <td><p>String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda</p></td>
+      <td><p>character. Term to search.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>List of terms most associated with input term.</p>
+    <p>character. Tags most associated with input term.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.</p>
+    <p>Uses the flickr.tags.getRelated API method from the Flickr API. See
+<a href='https://www.flickr.com/services/api/flickr.tags.getRelated.html'>https://www.flickr.com/services/api/flickr.tags.getRelated.html</a> for
+more information on the API method.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

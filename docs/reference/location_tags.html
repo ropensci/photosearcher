@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>location_tags — location_tags • photosearcher</title>
+<title>Get top tags for a location — location_tags • photosearcher</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="location_tags — location_tags" />
+<meta property="og:title" content="Get top tags for a location — location_tags" />
 
 <meta property="og:description" content="Takes user defined location and returns the top tags related to the location.
 Uses the flickr.places.tagsForPlace API method from the Flickr API. See
@@ -105,7 +105,7 @@ more information on the API method." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>location_tags</h1>
+    <h1>Get top tags for a location</h1>
     <small class="dont-index">Source: <a href='https://github.com/nfox29/photosearcher/blob/master/R/location_tags.R'><code>R/location_tags.R</code></a></small>
     <div class="hidden name"><code>location_tags.Rd</code></div>
     </div>
@@ -119,36 +119,20 @@ more information on the API method.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>location_tags</span>(<span class='kw'>woe_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>location_tags</span>(<span class='no'>woe_id</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>woe_id</th>
-      <td><p>Numeric, a "Where on Earth" location tag.</p></td>
-    </tr>
-    <tr>
-      <th>api_key</th>
-      <td><p>String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda</p></td>
+      <td><p>numeric. a "Where on Earth" location tag.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>List of the top 100 tags associated with the woe_id.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.</p>
+    <p>character. List of the top 100 tags associated with the woe_id.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -162,8 +146,6 @@ using any other function.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

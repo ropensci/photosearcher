@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>photo_search — photo_search • photosearcher</title>
+<title>Search for photo metadata — photo_search • photosearcher</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,15 +30,9 @@
 
 
 
-<meta property="og:title" content="photo_search — photo_search" />
+<meta property="og:title" content="Search for photo metadata — photo_search" />
 
-<meta property="og:description" content="Takes user defined search query and return the image metadata for all those
-that match search terms. Uses the flickr.photos.search API method from the
-Flickr API. This search method requires a limiting factor to prevent
-parameterless searches - to enure this is met the function requires both a
-minimum and a maximum date that searched photographs were taken on. See
-https://www.flickr.com/services/api/flickr.photos.search.html for more
-information on the API method." />
+<meta property="og:description" content="Returns image metadata for photos matching the search terms." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,70 +102,56 @@ information on the API method." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>photo_search</h1>
+    <h1>Search for photo metadata</h1>
     <small class="dont-index">Source: <a href='https://github.com/nfox29/photosearcher/blob/master/R/photo_search.R'><code>R/photo_search.R</code></a></small>
     <div class="hidden name"><code>photo_search.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Takes user defined search query and return the image metadata for all those
-that match search terms. Uses the flickr.photos.search API method from the
-Flickr API. This search method requires a limiting factor to prevent
-parameterless searches - to enure this is met the function requires both a
-minimum and a maximum date that searched photographs were taken on. See
-<a href='https://www.flickr.com/services/api/flickr.photos.search.html'>https://www.flickr.com/services/api/flickr.photos.search.html</a> for more
-information on the API method.</p>
+    <p>Returns image metadata for photos matching the search terms.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>photo_search</span>(<span class='kw'>mindate</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>, <span class='kw'>maxdate</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>,
-  <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='no'>api_key</span>)</pre>
+  <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mindate</th>
-      <td><p>String, minimum date of photograph for search provide as
+      <td><p>character. Minimum date of photograph for search provided as
 "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
       <th>maxdate</th>
-      <td><p>String, maximum date of photograph for search provide as
+      <td><p>character. Maximum date of photograph for search provided as
 "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
       <th>text</th>
-      <td><p>String, optional text to be searched.</p></td>
+      <td><p>character. Optional text to be searched.</p></td>
     </tr>
     <tr>
       <th>tags</th>
-      <td><p>String, optional tags to filter by.</p></td>
+      <td><p>character. Optional tags to filter by.</p></td>
     </tr>
     <tr>
       <th>bbox</th>
-      <td><p>String, optional bounding box of search area provide as:
-"minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".</p></td>
+      <td><p>character. Optional bounding box of search area provide as:
+<code>minimum_longitude, minimum_latitude, maximum_longitude, maximum_latitude</code>.</p></td>
     </tr>
     <tr>
       <th>has_geo</th>
-      <td><p>Logical, optional arguement for whether returned photos need
+      <td><p>logical. Optional arguement for whether returned photos need
 to be georeference.</p></td>
-    </tr>
-    <tr>
-      <th>api_key</th>
-      <td><p>String, if you have used the save_key function the api_key
-argument is automatically filled. If not api_key can be used optionally to
-supplying your API key if you do not wish for it to be saved in the
-environment or as a .Rda</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Output will be a dataframe consisting of 57 variables including;
+    <p>data.frame. Output consists of 57 variables including;
 latitude and longitude of photograph, date and time it was taken,
 associated tags and image urls.</p>
 <p>Full list of variables returned: id, owner, secret, server, farm, title,
@@ -186,12 +166,11 @@ url_o, height_o, width_o.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note: if this is the first function of the package and you do not enter you
-API key in the arguement api_key you use you will be prompted to enter your
-API key or save it using the save_key function. API keys are avialable from
-<a href='https://www.flickr.com/services/apps/create/apply'>https://www.flickr.com/services/apps/create/apply</a>. Using the save_key
-function will save your key as a .Rda file which can then be called to when
-using any other function.</p>
+    <p>Uses the flickr.photos.search API method from the Flickr API. This search method
+requires a limiting factor to prevent parameterless searches - to enure this is met the
+function requires both a minimum and a maximum date that searched photographs were
+taken on. See <a href='https://www.flickr.com/services/api/flickr.photos.search.html'>https://www.flickr.com/services/api/flickr.photos.search.html</a> for
+more information on the API method.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
