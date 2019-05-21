@@ -88,11 +88,11 @@ create_and_check_key <- function() {
   if(!file.exists("api_key.txt")) {
     ui_todo("Create a Flickr API key at https://www.flickr.com/services/apps/create/")
     utils::browseURL("https://www.flickr.com/services/apps/create/")
-    ui_todo("Enter your Flickr API key (in quotations)")
-    utils::file.edit("api_key.txt")
+    ui_todo("Enter your Flickr API key:")
+    write.table(readline(), file = "api_key.txt", col.names = FALSE, row.names = FALSE)
   }
 
-  api_key <- utils::read.table("api_key.txt", stringsAsFactors = FALSE)[1,1]
+  api_key <- utils::read.table("api_key.txt", stringsAsFactors = FALSE)
 
   base_url = paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, sep = "")
 
