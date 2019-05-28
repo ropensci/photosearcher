@@ -5,6 +5,12 @@ test_that("fails correctly", {
   expect_error(photo_search(maxdate = NULL))
 })
 
+test_that("bbox + woe_id fails correctly", {
+  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
+  expect_error(photo_search(bbox = "-7.86,54.62,-1.0,58.83", woe_id = 12578048),
+               'Specify location as either woe_id or bbox, not both.')
+})
+
 test_that("output is correct", {
   skip_on_cran()
 
@@ -16,6 +22,10 @@ test_that("output is correct", {
   bbox_test <- photo_search(bbox = "-140.625000,-47.517201,167.695313,69.162558")
   expect_is(bbox_test, "data.frame")
   expect_equal(ncol(bbox_test), 57)
+
+  woeid_test <- photo_search(woe_id = 2347568)
+  expect_is(woeid_test, "data.frame")
+  expect_equal(ncol(woeid_test), 57)
 
   large_search <- photo_search(mindate = "2018-12-20", maxdate = "2019-01-01", text = "lake")
   expect_is(large_search, "data.frame")

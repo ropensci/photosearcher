@@ -8,7 +8,7 @@
 #' @param place character. The place for the query
 #'
 #' @return data.frame. Information on locations that share the name with the
-#'   search location. Nine variables are returned: place_id, woeid, latitude,
+#'   search location. Nine variables are returned: place_id, woe_id, latitude,
 #'   longitude, place_url, place_type, place_type_id, timezone, woe_name.
 
 #' @export

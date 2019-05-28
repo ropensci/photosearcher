@@ -12,12 +12,14 @@
 #'   "YYYY-MM-DD".
 #' @param maxdate character. Maximum date of photograph for search provided as
 #'   "YYYY-MM-DD".
-#' @param text character. Optional text to be searched.
-#' @param tags character. Optional tags to filter by.
-#' @param bbox character. Optional bounding box of search area provide as:
-#'   \code{minimum_longitude, minimum_latitude, maximum_longitude, maximum_latitude}.
-#' @param has_geo logical. Optional arguement for whether returned photos need
-#'   to be georeference.
+#'
+#' @param text String, optional text to be searched.
+#' @param tags String, optional tags to filter by.
+#' @param bbox String, optional bounding box of search area provide as:
+#'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
+#' @param woe_id numeric, optional "where on earth identifier" can be supplied instead
+#'   of bbox. Use function find_place to obtain woe_id for a place.
+#' @param has_geo Logical, optional arguement for whether returned photos need
 #'
 #' @return data.frame. Output consists of 57 variables including;
 #'   latitude and longitude of photograph, date and time it was taken,
@@ -61,6 +63,7 @@ photo_search <-
              text = NULL,
              tags = NULL,
              bbox = NULL,
+             woe_id = NULL,
              has_geo = TRUE) {
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(" ", "+", trimws(tags))
@@ -74,6 +77,12 @@ photo_search <-
     # this checks for the presence of a key, if no key it prompts the user to create one,
     # it then checks the validity of the key
     api_key <- create_and_check_key()
+
+    # check that bbox and woe_id are not both present
+
+    if(!is.null(bbox) & !is.null(woe_id)){
+      stop("Specify location as either woe_id or bbox, not both.")
+    }
 
     #check for vailid bbox
     if (!is.null(bbox)){
@@ -98,6 +107,7 @@ photo_search <-
         text = text,
         tags = tags,
         bbox = bbox,
+        woe_id = woe_id,
         has_geo = has_geo
       )
 
@@ -152,6 +162,7 @@ photo_search <-
               text = text,
               tags = tags,
               bbox = bbox,
+              woe_id = woe_id,
               has_geo = has_geo
             )
 
