@@ -59,12 +59,12 @@
 #'
 photo_search <-
   function(mindate = "2019-01-01",
-             maxdate = "2019-01-01",
-             text = NULL,
-             tags = NULL,
-             bbox = NULL,
-             woe_id = NULL,
-             has_geo = TRUE) {
+           maxdate = "2019-01-01",
+           text = NULL,
+           tags = NULL,
+           bbox = NULL,
+           woe_id = NULL,
+           has_geo = TRUE) {
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(" ", "+", trimws(tags))
     tags <- paste(tags, collapse = ",")
@@ -93,8 +93,8 @@ photo_search <-
     while (nrow(date_df) > 0) {
 
       # set search dates
-      mindate <- date_df[1, "mindate"]
-      maxdate <- date_df[1, "maxdate"]
+      mindate <- as.POSIXct(date_df[1, "mindate"])
+      maxdate <- as.POSIXct(date_df[1, "maxdate"])
 
       # rest page to 1
       i <- 1
@@ -119,29 +119,20 @@ photo_search <-
         total_pages <- pages_data["pages", ]
         total <- pages_data["total", ]
 
-        # if > 4000 and not single days, split
-        if ((total > 4000 && (as.Date(mindate)) != (as.Date(maxdate) - 1)) | (total > 4000 && (as.Date(mindate)) != (as.Date(maxdate)))) {
+        # if total > 4000 and dates are not 1 second apart, split
+        if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] != maxdate)){
           x <- ceiling(total / 4000)
-          y <- length(seq(as.Date(mindate), as.Date(maxdate), by = "+1 day"))
 
-          # if x + 1 is larger than number of days, split in to single days
-          if (x + 1 > y) {
-            dates <- seq(as.Date(mindate), as.Date(maxdate), by = "+1 day")
-          }
-
-          # else split accoring to x
-          else {
-            dates <- seq(as.Date(mindate), as.Date(maxdate), length.out = x + 1)
-          }
+          dates <- seq(as.POSIXct(mindate), as.POSIXct(maxdate), length.out = x + 1)
 
           # create dataframe with minmaxdates
           date_df <- rbind(date_df[-1, ], data.frame(mindate = dates[1:(length(dates) - 1)], maxdate = dates[2:length(dates)]))
         }
 
         # if > 4000 and single days, pass days to be split by area
-        else if ((total > 4000 && (as.Date(mindate)) == (as.Date(maxdate) - 1)) | (total > 4000 && (as.Date(mindate)) == (as.Date(maxdate)))) {
+        else if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] == maxdate)){
 
-          warning("Dates ", mindate, " to ", maxdate, "skipped: too many API results")
+          warning(mindate, " skipped: too many API results")
 
           date_df <- date_df[-1, ]
         }
