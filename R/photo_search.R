@@ -96,6 +96,8 @@ photo_search <-
       mindate <- as.POSIXct(date_df[1, "mindate"])
       maxdate <- as.POSIXct(date_df[1, "maxdate"])
 
+      print(paste(mindate, " ", maxdate))
+
       # rest page to 1
       i <- 1
 
