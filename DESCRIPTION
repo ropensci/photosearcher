@@ -17,7 +17,8 @@ Imports:
     dplyr,
     glue,
     clisymbols,
-    crayon
+    crayon,
+    sf
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 URL: https://github.com/nfox29/photosearcher

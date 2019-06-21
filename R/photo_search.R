@@ -17,8 +17,9 @@
 #' @param tags String, optional tags to filter by.
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
-#' @param woe_id numeric, optional "where on earth identifier" can be supplied instead
+#' @param woe_id Numeric, optional "where on earth identifier" can be supplied instead
 #'   of bbox. Use function find_place to obtain woe_id for a place.
+#' @param sf_layer A simple features layer, optional, area to search for photos, can be supplied instead of a bbox or woeID.
 #' @param has_geo Logical, optional arguement for whether returned photos need
 #'
 #' @return data.frame. Output consists of 57 variables including;
@@ -64,6 +65,7 @@ photo_search <-
            tags = NULL,
            bbox = NULL,
            woe_id = NULL,
+           sf_layer = NULL,
            has_geo = TRUE) {
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(" ", "+", trimws(tags))
@@ -78,10 +80,37 @@ photo_search <-
     # it then checks the validity of the key
     api_key <- create_and_check_key()
 
-    # check that bbox and woe_id are not both present
+    # check that only one search location is given
+    if((!is.null(bbox) & !is.null(woe_id)) | (!is.null(sf_layer) & !is.null(woe_id)) | (!is.null(bbox) & !is.null(sf_layer))){
+      stop("Specify search location as only one of: woe_id, bbox or sf_layer.")
+    }
 
-    if(!is.null(bbox) & !is.null(woe_id)){
-      stop("Specify location as either woe_id or bbox, not both.")
+    #change sf_layer to bbox
+
+    if (!is.null(sf_layer)){
+
+      #find crs
+      layer_epsg <- unlist(sf::st_crs(sf_layer)[1])
+
+
+      #transform if needed
+      if ((is.na(layer_epsg)) | (layer_epsg != 4326)){
+
+        sf_layer <- sf::st_transform(sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
+
+      }
+
+      #generate bbox
+      bbox <- sf::st_bbox(sf_layer)
+
+      xmin <- bbox[1]
+      ymin <- bbox[2]
+      xmax <- bbox[3]
+      ymax <- bbox[4]
+
+      # bbox for url search
+      bbox <- as.character(paste(xmin, ",", ymin, ",", xmax, ",", ymax, sep = ""))
+
     }
 
     #check for vailid bbox
@@ -182,6 +211,18 @@ photo_search <-
         }
       }
     }
+
+    #is using sf_layer clip results to layer
+    if (!is.null(sf_layer)){
+
+      with_geom <- sf::st_as_sf(pics, coords = c("longitude", "latitude"), crs = 4326)
+
+      pics <- cbind(with_geom, longitude = pics$longitude, latitude = pics$latitude)
+
+      pics <- sf::st_intersection(pics, sf_layer)
+
+    }
+
 
     #end
     return(pics)
