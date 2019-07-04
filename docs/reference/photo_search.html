@@ -114,7 +114,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>photo_search</span>(<span class='kw'>mindate</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>, <span class='kw'>maxdate</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>,
-  <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>woe_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sf_layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,21 +132,29 @@
     </tr>
     <tr>
       <th>text</th>
-      <td><p>character. Optional text to be searched.</p></td>
+      <td><p>String, optional text to be searched.</p></td>
     </tr>
     <tr>
       <th>tags</th>
-      <td><p>character. Optional tags to filter by.</p></td>
+      <td><p>String, optional tags to filter by.</p></td>
     </tr>
     <tr>
       <th>bbox</th>
-      <td><p>character. Optional bounding box of search area provide as:
-<code>minimum_longitude, minimum_latitude, maximum_longitude, maximum_latitude</code>.</p></td>
+      <td><p>String, optional bounding box of search area provide as:
+"minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".</p></td>
+    </tr>
+    <tr>
+      <th>woe_id</th>
+      <td><p>Numeric, optional "where on earth identifier" can be supplied instead
+of bbox. Use function find_place to obtain woe_id for a place.</p></td>
+    </tr>
+    <tr>
+      <th>sf_layer</th>
+      <td><p>A simple features layer, optional, area to search for photos, can be supplied instead of a bbox or woeID.</p></td>
     </tr>
     <tr>
       <th>has_geo</th>
-      <td><p>logical. Optional arguement for whether returned photos need
-to be georeference.</p></td>
+      <td><p>Logical, optional arguement for whether returned photos need</p></td>
     </tr>
     </table>
     

@@ -41,12 +41,11 @@ get_url <- function(mindate,
                     bbox = NULL,
                     woe_id = NULL,
                     has_geo = TRUE) {
-
-  if(!is.null(bbox) & !is.null(woe_id)){
+  if (!is.null(bbox) & !is.null(woe_id)) {
     stop("Specify location as either woe_id or bbox, not both.")
   }
 
-    base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
+  base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
     "&text=", text,
     "&tags=", tags,
     "&min_taken_date=", as.character(mindate),
@@ -63,31 +62,27 @@ get_url <- function(mindate,
 }
 
 
-#check for valid bbox
-check_bbox <- function(bb, key){
-
-  base_url = paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", key,"&bbox=", bb, sep = "")
+# check for valid bbox
+check_bbox <- function(bb, key) {
+  base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", key, "&bbox=", bb, sep = "")
 
   photo_xml <- search_url(base_url = base_url)
   pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
   warn <- as.character(unlist(pages_data))
 
-  if ((warn[2]) == ("Not a valid bounding box")){
+  if ((warn[2]) == ("Not a valid bounding box")) {
     stop("Not a valid bounding box")
   }
-
 }
 
 # for the todo bullet points
-ui_todo <- function (x, .envir = parent.frame())
-{
+ui_todo <- function(x, .envir = parent.frame()) {
   x <- glue::glue_collapse(x, "\n")
   x <- glue::glue(x, .envir = .envir)
   x <- gsub("\n", paste0("\n", "  "), x)
   x <- paste0(crayon::red(clisymbols::symbol$bullet), " ", x)
   lines <- paste0(x, "\n")
   cat(lines, sep = "")
-
 }
 
 # for the info bullet points
@@ -101,7 +96,7 @@ ui_info <- function(x, .envir = parent.frame()) {
 
 # this checks for the presence of a key, if no key it prompts the user to create one, it then checks the validity of the key
 create_and_check_key <- function() {
-  if(!file.exists("api_key.txt")) {
+  if (!file.exists("api_key.txt")) {
     ui_todo("Create a Flickr API key at https://www.flickr.com/services/apps/create/")
     utils::browseURL("https://www.flickr.com/services/apps/create/")
     ui_todo("Enter your Flickr API key:")
@@ -110,13 +105,13 @@ create_and_check_key <- function() {
 
   api_key <- utils::read.table("api_key.txt", stringsAsFactors = FALSE)
 
-  base_url = paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, sep = "")
+  base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, sep = "")
 
   photo_xml <- search_url(base_url = base_url)
   pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
   warn <- as.character(unlist(pages_data))
 
-  if ((warn[2]) == ("Invalid API Key (Key has invalid format)")){
+  if ((warn[2]) == ("Invalid API Key (Key has invalid format)")) {
     stop("Invalid API Key: correct this in api_key.txt")
   }
 
@@ -124,3 +119,25 @@ create_and_check_key <- function() {
 }
 
 
+# check that flickr locaiton services are working and woe_id is valid
+check_location <- function(woe_id = NULL, api_key = NULL) {
+  test_location <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, "&woe_id=", woe_id, sep = "")
+  r <- httr::GET(test_location, encoding = "ISO-8859")
+  photo_xml <- xml2::read_xml(r)
+  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
+
+  if ((warn[2, 1]) == ("Not a valid place type")) {
+
+    # check that know place is working
+    known_location <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, "&woe_id=35356", sep = "")
+    r <- httr::GET(known_location, encoding = "ISO-8859")
+    photo_xml <- xml2::read_xml(r)
+    known_warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
+
+    if ((known_warn[2, 1]) == ("Not a valid place type")) {
+      stop("Flickr location services are down")
+    } else {
+      stop("WoeID is not valid")
+    }
+  }
+}

@@ -4,7 +4,8 @@
 \alias{download_images}
 \title{download_images}
 \usage{
-download_images(photo_id, saveDir = "downloaded_images", quiet = FALSE)
+download_images(photo_id, saveDir = "downloaded_images",
+  max_image_height = NULL, max_image_width = NULL, quiet = FALSE)
 }
 \arguments{
 \item{photo_id}{numeric. id of photo to dowload, can be single id, list or column for
@@ -12,6 +13,11 @@ photo_search outputs}
 
 \item{saveDir}{character. name of directory for photos to be saved in. This will be
 created if it doesn't exist.}
+
+\item{max_image_height}{numeric. maximum number of pixels for images height}
+
+\item{max_image_width}{numeric. maximum number of pixels for images width
+#'}
 
 \item{quiet}{logical. If TRUE, suppress status messages (if any), and the progress bar.}
 }
@@ -30,6 +36,8 @@ saved as a .jpeg in a given save directory.
 \dontrun{
 download_images(photo_id = 123, saveDir = "images")
 
-download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos")
+download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos", quiet = TRUE)
+
+download_images(photo_id = 123, maximum_image_height = 1200, maximum_image_width = 1200, )
 }
 }

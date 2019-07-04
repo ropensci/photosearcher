@@ -47,8 +47,8 @@
 #'   bbox = "-13.623047,47.279229,3.251953,60.630102",
 #'   has_geo = TRUE
 #' )
-#'
-#'
+#' 
+#' 
 #' photo_search(
 #'   mindate = "2019-01-01",
 #'   maxdate = "2019-01-02",
@@ -57,16 +57,16 @@
 #'   has_geo = TRUE
 #' )
 #' }
-#'
+#' 
 photo_search <-
   function(mindate = "2019-01-01",
-           maxdate = "2019-01-01",
-           text = NULL,
-           tags = NULL,
-           bbox = NULL,
-           woe_id = NULL,
-           sf_layer = NULL,
-           has_geo = TRUE) {
+             maxdate = "2019-01-01",
+             text = NULL,
+             tags = NULL,
+             bbox = NULL,
+             woe_id = NULL,
+             sf_layer = NULL,
+             has_geo = TRUE) {
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(" ", "+", trimws(tags))
     tags <- paste(tags, collapse = ",")
@@ -81,26 +81,23 @@ photo_search <-
     api_key <- create_and_check_key()
 
     # check that only one search location is given
-    if((!is.null(bbox) & !is.null(woe_id)) | (!is.null(sf_layer) & !is.null(woe_id)) | (!is.null(bbox) & !is.null(sf_layer))){
+    if ((!is.null(bbox) & !is.null(woe_id)) | (!is.null(sf_layer) & !is.null(woe_id)) | (!is.null(bbox) & !is.null(sf_layer))) {
       stop("Specify search location as only one of: woe_id, bbox or sf_layer.")
     }
 
-    #change sf_layer to bbox
+    # change sf_layer to bbox
+    if (!is.null(sf_layer)) {
 
-    if (!is.null(sf_layer)){
-
-      #find crs
+      # find crs
       layer_epsg <- unlist(sf::st_crs(sf_layer)[1])
 
 
-      #transform if needed
-      if ((is.na(layer_epsg)) | (layer_epsg != 4326)){
-
+      # transform if needed
+      if ((is.na(layer_epsg)) | (layer_epsg != 4326)) {
         sf_layer <- sf::st_transform(sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
-
       }
 
-      #generate bbox
+      # generate bbox
       bbox <- sf::st_bbox(sf_layer)
 
       xmin <- bbox[1]
@@ -110,12 +107,16 @@ photo_search <-
 
       # bbox for url search
       bbox <- as.character(paste(xmin, ",", ymin, ",", xmax, ",", ymax, sep = ""))
-
     }
 
-    #check for vailid bbox
-    if (!is.null(bbox)){
+    # check for vailid bbox
+    if (!is.null(bbox)) {
       check_bbox(bb = bbox, key = api_key)
+    }
+
+    # check for valid woe_id and if flickr location services work
+    if (!is.null(woe_id)) {
+      check_location(woe_id = woe_id, api_key = api_key)
     }
 
     # start while loop - until all dates are looped through
@@ -124,8 +125,6 @@ photo_search <-
       # set search dates
       mindate <- as.POSIXct(date_df[1, "mindate"])
       maxdate <- as.POSIXct(date_df[1, "maxdate"])
-
-      print(paste(mindate, " ", maxdate))
 
       # rest page to 1
       i <- 1
@@ -151,7 +150,7 @@ photo_search <-
         total <- pages_data["total", ]
 
         # if total > 4000 and dates are not 1 second apart, split
-        if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] != maxdate)){
+        if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] != maxdate)) {
           x <- ceiling(total / 4000)
 
           dates <- seq(as.POSIXct(mindate), as.POSIXct(maxdate), length.out = x + 1)
@@ -161,8 +160,7 @@ photo_search <-
         }
 
         # if > 4000 and single days, pass days to be split by area
-        else if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] == maxdate)){
-
+        else if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] == maxdate)) {
           warning(mindate, " skipped: too many API results")
 
           date_df <- date_df[-1, ]
@@ -212,18 +210,16 @@ photo_search <-
       }
     }
 
-    #is using sf_layer clip results to layer
-    if (!is.null(sf_layer)){
-
+    # is using sf_layer clip results to layer
+    if (!is.null(sf_layer)) {
       with_geom <- sf::st_as_sf(pics, coords = c("longitude", "latitude"), crs = 4326)
 
       pics <- cbind(with_geom, longitude = pics$longitude, latitude = pics$latitude)
 
       pics <- sf::st_intersection(pics, sf_layer)
-
     }
 
 
-    #end
+    # end
     return(pics)
   }
