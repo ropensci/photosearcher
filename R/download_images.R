@@ -24,9 +24,9 @@
 #' @examples
 #' \dontrun{
 #' download_images(photo_id = 123, saveDir = "images")
-#' 
+#'
 #' download_images(photo_id = photo_search_outputs$id, saveDir = "downloaded_photos", quiet = TRUE)
-#' 
+#'
 #' download_images(photo_id = 123, maximum_image_height = 1200, maximum_image_width = 1200, )
 #' }
 download_images <- function(photo_id, saveDir = "downloaded_images", max_image_height = NULL, max_image_width = NULL, quiet = FALSE) {
@@ -41,8 +41,10 @@ download_images <- function(photo_id, saveDir = "downloaded_images", max_image_h
     dir.create(saveDir, recursive = TRUE)
   }
 
-  out <- sapply(photo_id, function(x) download_image_single(x, saveDir, api_key, max_image_height, max_image_width, quiet))
-  out <- out[out != 0]
+  downloadable <- dplyr::bind_rows(lapply(photo_id, function(x) download_image_single(x, saveDir, api_key, max_image_height, max_image_width, quiet)))
+
+
+  return(downloadable)
 }
 
 
@@ -60,9 +62,12 @@ download_image_single <- function(photo_id, saveDir, api_key, max_image_height, 
     tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(download_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
 
     if ((tmp_df$candownload) == 0) {
-      can_download <- 0
+
+      out <- data.frame(id = photo_id, can_download = 0, stringsAsFactors = FALSE)
+
     } else {
-      can_download <- 1
+
+      out <- data.frame(id = photo_id, can_download = 1, stringsAsFactors = FALSE)
 
       photo_url <- xml2::xml_find_all(photo_xml, "//size", ns = xml2::xml_ns(photo_xml))
 
@@ -90,4 +95,7 @@ download_image_single <- function(photo_id, saveDir, api_key, max_image_height, 
       )
     }
   }
+
+  return(out)
+
 }

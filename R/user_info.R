@@ -17,9 +17,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' user_info(user_id = "8017836@N02")
-#' 
-#' user_info(user_id = c("11763518@N00", "39745335@N06", "104939923@N02"))
+#' user_info(user_id = "155421853@N05")
+#'
+#' user_info(user_id = photo_search_outputs$owner)
 #' }
 user_info <- function(user_id) {
 
@@ -42,6 +42,7 @@ user_info_single <- function(user_id, api_key) {
   if (!is.null(user_xml)) {
     user_atts <- xml2::xml_find_all(user_xml, "//profile", ns = xml2::xml_ns(user_xml))
     out <- dplyr::bind_rows(lapply(xml2::xml_attrs(user_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+    out <- data.frame(id = out$id, occupation = out$occupation, hometown= out$hometown, city = out$city, country = out$country)
   }
   else {
     out <- NULL

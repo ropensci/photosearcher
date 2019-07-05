@@ -36,6 +36,17 @@ moutain_lake <- photo_search(mindate = "2019-01-01",
                              has_geo = FALSE)
 ```
 
+Users can also use the `sf` package to search via a simple features layer.
+
+```{r eval=FALSE}
+#load shape file
+sf_layer <- sf::read_sf(dsn = "path to layer")
+
+#Search for photos of foxes in the UK for the year 2017
+search_by_layer <- photo_search(sf_layer = sf_layer,
+                      has_geo = TRUE) 
+```
+
 When `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
 
 Here, the images of UK foxes are plotted using `ggplot2`. 
@@ -56,7 +67,7 @@ The package will only download images that the owner on Flickr has granted downl
 ## Finding information on a user
 ```{r eval=FALSE}
 #Find a users hometown
-user <- user_info(user_id = "22299651@N07")
+user <- user_info(user_id = "155421853@N05")
 
 user$hometown
 ```
