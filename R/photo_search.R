@@ -47,8 +47,8 @@
 #'   bbox = "-13.623047,47.279229,3.251953,60.630102",
 #'   has_geo = TRUE
 #' )
-#' 
-#' 
+#'
+#'
 #' photo_search(
 #'   mindate = "2019-01-01",
 #'   maxdate = "2019-01-02",
@@ -57,7 +57,7 @@
 #'   has_geo = TRUE
 #' )
 #' }
-#' 
+#'
 photo_search <-
   function(mindate = "2019-01-01",
              maxdate = "2019-01-01",
@@ -159,7 +159,7 @@ photo_search <-
           date_df <- rbind(date_df[-1, ], data.frame(mindate = dates[1:(length(dates) - 1)], maxdate = dates[2:length(dates)]))
         }
 
-        # if > 4000 and single days, pass days to be split by area
+        # if > 4000 and single seconds skip
         else if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] == maxdate)) {
           warning(mindate, " skipped: too many API results")
 

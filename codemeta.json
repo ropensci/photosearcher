@@ -135,6 +135,12 @@
   "softwareRequirements": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.5.0"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "xml2",
       "name": "xml2",
       "provider": {
@@ -219,7 +225,7 @@
     }
   ],
   "readme": "https://github.com/nfox29/photosearcher/blob/master/README.md",
-  "fileSize": "3628.7KB",
+  "fileSize": "3729.533KB",
   "contIntegration": [
     "https://travis-ci.org/nfox29/photosearcher",
     "https://codecov.io/gh/nfox29/photosearcher?branch=master"

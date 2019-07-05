@@ -8,6 +8,7 @@ Authors@R:
            person("Louis", "Sutter", role = c("aut")),
            person("Tom", "August", role = c("aut")))
 Description: Queries the Flick API (https://www.flickr.com/services/api/)to return photograph metadata as well as the ability to download the images as jpegs.
+Depends:R (>= 3.5.0)
 License: GPL
 Encoding: UTF-8
 LazyData: true

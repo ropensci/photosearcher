@@ -11,10 +11,6 @@ test_that("output is correct", {
   file.remove("test_images/47259127482_05d7096ed3_o.jpg")
 })
 
-test_that("warnings are given", {
-  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
-  expect_warning(download_images(photo_id = 46556758351, saveDir = "test_images"), "No permission to download image 46556758351")
-})
 
 test_that("invalid API keys fails correctly", {
 

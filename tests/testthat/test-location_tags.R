@@ -2,6 +2,7 @@ context("test-location_tags")
 
 test_that("output is correct", {
   skip_on_cran()
+  skip("Flickr location services are down")
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   loc_test <- location_tags(woe_id = 35356)
 
@@ -16,6 +17,7 @@ test_that("invalid API keys fails correctly", {
   # expect_error(location_tags(woe_id = 35356), "Enter API key or save using the save_key function")
 
   skip_on_cran()
+  skip("Flickr location services are down")
   write.table("notarealkey", file = "api_key.txt")
   expect_error(location_tags(woe_id = 35356))
 })
