@@ -14,9 +14,9 @@
 #' @examples
 #' \dontrun{
 #' related_terms(term = "car")
-#' 
+#'
 #' related_terms(term = "monkey")
-#' 
+#'
 #' related_terms(term = "river")
 #' }
 related_terms <- function(term) {
@@ -34,6 +34,12 @@ related_terms <- function(term) {
   if (!is.null(tag_xml)) {
     tag_atts <- xml2::xml_find_all(tag_xml, "//tag", ns = xml2::xml_ns(tag_xml))
     tags <- unlist(xml2::as_list(tag_atts))
+  }
+
+  if (is.null(tags)){
+
+    stop("No related terms")
+
   }
 
   return(tags)

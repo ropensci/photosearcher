@@ -46,7 +46,7 @@ find_place <- function(place) {
 #check if service is available
 #' @noRd
 
-test_find_place <- function(place_url = place_url){
+test_find_place <- function(place_url = place_url, api_key = api_key){
 
   r <- httr::GET(place_url, encoding = "ISO-8859")
   place_xml <- xml2::read_xml(r)
