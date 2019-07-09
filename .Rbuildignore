@@ -5,3 +5,7 @@
 ^codecov\.yml$
 ^codemeta\.json$
 ^\.httr-oauth$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^contributing.md$
