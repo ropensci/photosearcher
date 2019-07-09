@@ -17,7 +17,7 @@
 #' @examples
 #' \dontrun{
 #' find_place(place = "New York")
-#' 
+#'
 #' find_place(place = "England")
 #' }
 find_place <- function(place) {
@@ -30,6 +30,8 @@ find_place <- function(place) {
 
   place_url <- paste("https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=", api_key, "&query=", place, sep = "")
 
+  test_find_place(place_url = place_url)
+
   place_xml <- search_url(base_url = place_url)
 
   if (!is.null(place_xml)) {
@@ -39,3 +41,35 @@ find_place <- function(place) {
 
   return(place_data)
 }
+
+
+#check if service is available
+#' @noRd
+
+test_find_place <- function(place_url = place_url){
+
+  r <- httr::GET(place_url, encoding = "ISO-8859")
+  place_xml <- xml2::read_xml(r)
+  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(place_xml)))
+
+  if ((warn[2, 1]) == 0){
+
+    test_url <- paste("https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=", api_key, "&query=southampton", sep = "")
+    r <- httr::GET(test_url, encoding = "ISO-8859")
+    test_xml <- xml2::read_xml(r)
+    warn <- data.frame(xml2::xml_attrs(xml2::xml_children(test_xml)))
+
+    if ((warn[2, 1]) == 0){
+
+      stop("Flickr location service not working")
+
+    } else {
+
+      stop("Provided location has no associated Flickr information")
+
+    }
+
+  }
+
+  }
+
