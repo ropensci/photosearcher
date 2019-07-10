@@ -97,9 +97,9 @@ download_image_single <- function(photo_id, saveDir, api_key, max_image_height, 
         )
       }
 
-      } else { out <- data.frame(id = photo_id, can_download = 0, stringsAsFactors = FALSE)}
+    } else {
 
-
+      out <- data.frame(id = photo_id, can_download = 0, stringsAsFactors = FALSE)}
   }
 
   return(out)
