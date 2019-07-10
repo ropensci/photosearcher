@@ -61,39 +61,45 @@ download_image_single <- function(photo_id, saveDir, api_key, max_image_height, 
 
     tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(download_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
 
-    if ((tmp_df$candownload) == 0) {
+    if (!is.null(tmp_df$candownload)){
 
-      out <- data.frame(id = photo_id, can_download = 0, stringsAsFactors = FALSE)
+      if ((tmp_df$candownload) == 0) {
 
-    } else {
+        out <- data.frame(id = photo_id, can_download = 0, stringsAsFactors = FALSE)
 
-      out <- data.frame(id = photo_id, can_download = 1, stringsAsFactors = FALSE)
+      } else {
 
-      photo_url <- xml2::xml_find_all(photo_xml, "//size", ns = xml2::xml_ns(photo_xml))
+        out <- data.frame(id = photo_id, can_download = 1, stringsAsFactors = FALSE)
 
-      tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_url), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+        photo_url <- xml2::xml_find_all(photo_xml, "//size", ns = xml2::xml_ns(photo_xml))
 
-      # choose image size (height)
-      if (!is.null(max_image_height)) {
-        tmp_df <- tmp_df[!(as.numeric(tmp_df$height) > as.numeric(max_image_height)), ]
+        tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_url), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+
+        # choose image size (height)
+        if (!is.null(max_image_height)) {
+          tmp_df <- tmp_df[!(as.numeric(tmp_df$height) > as.numeric(max_image_height)), ]
+        }
+
+        # choose image size (width)
+        if (!is.null(max_image_width)) {
+          tmp_df <- tmp_df[!(as.numeric(tmp_df$width) > as.numeric(max_image_width)), ]
+        }
+
+
+        # download biggest possible image
+        to_download <- tmp_df$source[nrow(tmp_df)]
+
+        utils::download.file(
+          url = to_download,
+          destfile = file.path(saveDir, basename(to_download)),
+          mode = "wb",
+          quiet = quiet
+        )
       }
 
-      # choose image size (width)
-      if (!is.null(max_image_width)) {
-        tmp_df <- tmp_df[!(as.numeric(tmp_df$width) > as.numeric(max_image_width)), ]
-      }
+      } else { out <- data.frame(id = photo_id, can_download = 0, stringsAsFactors = FALSE)}
 
 
-      # download biggest possible image
-      to_download <- tmp_df$source[nrow(tmp_df)]
-
-      utils::download.file(
-        url = to_download,
-        destfile = file.path(saveDir, basename(to_download)),
-        mode = "wb",
-        quiet = quiet
-      )
-    }
   }
 
   return(out)
