@@ -22,6 +22,8 @@ knitr::opts_chunk$set(
 
 The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API. More information can be found on the [package website](https://nfox29.github.io/photosearcher/). For more information and examples of the functions check out the [package vignette](https://nfox29.github.io/photosearcher/articles/photosearcher.html).
 
+We have produced this package to help facilitate reproducible code for answering research questions. Flickr is currently used a wide range of research fields including biology and life sciences, computer and information sciences and medicine and health sciences. [Click here]( https://nfox29.github.io/photosearcher/articles/flickr_in_research.html) for an overview of other topics that have utilised Flickr. 
+
 ## Terms of use
 
 This package should be used within accordance of the [Flickr API terms of use](https://www.flickr.com/help/terms/api).
@@ -46,7 +48,7 @@ The package currently focuses on the ability to use the Flickr API to search for
 
 In this example, we demonstrate how to search for metadata on all images labelled with the text or keywords *rock climbing* between 2010 and 2019 in the UK and Ireland. 
 
-```{r}
+```{r eval=FALSE}
 library(photosearcher)
 
 rock_climbing <- photo_search(
@@ -62,7 +64,7 @@ When `has_geo == TRUE` only metadata about images with latitude and longitude in
 
 These can be plotted using other packages at user preference. In the below example, we convert these to an `sf` object and plot using `ggplot2`. 
 
-```{r}
+```{r eval=FALSE}
 library(sf)
 rock_climbing <- st_as_sf(rock_climbing, coords = c("longitude", "latitude"))
 

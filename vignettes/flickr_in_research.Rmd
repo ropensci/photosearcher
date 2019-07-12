@@ -1,0 +1,56 @@
+---
+title: "Flickr in research"
+author: "Laura J. Graham"
+date: "11/07/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+
+library(rplos)
+library(tidyverse)
+library(wordcloud)
+
+get_kw <- function(x) {
+  x %>% str_split(",") %>% 
+    sapply(function(y) sub(".*/", "", y)) %>% 
+    unique()  %>% 
+    as.vector() %>% 
+    paste(collapse = ",")
+}
+```
+
+# Flickr papers
+
+```{r}
+plos <- rplos::searchplos(q='flickr', 
+                          fl=c('id','publication_date','subject', 'subject_level_1'),
+                          limit = 200)$data %>% 
+  
+  mutate(keywords = map_chr(subject, get_kw),
+         subjects = subject_level_1)
+```
+
+There are a total of `r nrow(plos)` papers with the keyword `flickr` in the PLoS journals. 
+
+# Keyword Wordcloud
+
+```{r}
+kws <- plos %>% pull(keywords) %>% paste(collapse = ",") %>% str_split(",") %>% table %>% as.data.frame
+
+
+
+wordcloud(words = kws$., freq = kws$Freq, min.freq = 1,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+```
+
+Subject frequency
+
+```{r}
+plos %>% pull(subjects) %>% paste(collapse = ",") %>% str_split(",") %>% table %>% as.data.frame
+```
+
+

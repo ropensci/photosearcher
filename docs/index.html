@@ -48,6 +48,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/flickr_in_research.html">Flickr papers</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -79,6 +91,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#photosearcher" class="anchor"></a>photosearcher</h1></div>
 <p>The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API. More information can be found on the <a href="https://nfox29.github.io/photosearcher/">package website</a>. For more information and examples of the functions check out the <a href="https://nfox29.github.io/photosearcher/articles/photosearcher.html">package vignette</a>.</p>
+<p>We have produced this package to help facilitate reproducible code for answering research questions. Flickr is currently used a wide range of research fields including biology and life sciences, computer and information sciences and medicine and health sciences. <a href="https://nfox29.github.io/photosearcher/articles/flickr_in_research.html">Click here</a> for an overview of other topics that have utilised Flickr.</p>
 <div id="terms-of-use" class="section level2">
 <h2 class="hasAnchor">
 <a href="#terms-of-use" class="anchor"></a>Terms of use</h2>
@@ -116,22 +129,15 @@
 <p>When <code>has_geo == TRUE</code> only metadata about images with latitude and longitude information will be retrieved.</p>
 <p>These can be plotted using other packages at user preference. In the below example, we convert these to an <code>sf</code> object and plot using <code>ggplot2</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt; Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</span></a>
-<a class="sourceLine" id="cb3-3" title="3">rock_climbing &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(rock_climbing, <span class="dt">coords =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>))</a>
-<a class="sourceLine" id="cb3-4" title="4"></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; Registered S3 methods overwritten by 'ggplot2':</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;   method         from </span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;   [.quosures     rlang</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;   c.quosures     rlang</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;   print.quosures rlang</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> <span class="kw">map_data</span>(<span class="st">"world"</span>, <span class="dt">region =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Ireland"</span>, <span class="st">"UK"</span>)), </a>
-<a class="sourceLine" id="cb3-13" title="13">                               <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group),</a>
-<a class="sourceLine" id="cb3-14" title="14">                               <span class="dt">fill =</span> <span class="st">"lightgrey"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-15" title="15"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> rock_climbing) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
+<a class="sourceLine" id="cb3-2" title="2">rock_climbing &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(rock_climbing, <span class="dt">coords =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>))</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> <span class="kw">map_data</span>(<span class="st">"world"</span>, <span class="dt">region =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Ireland"</span>, <span class="st">"UK"</span>)), </a>
+<a class="sourceLine" id="cb3-7" title="7">                               <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group),</a>
+<a class="sourceLine" id="cb3-8" title="8">                               <span class="dt">fill =</span> <span class="st">"lightgrey"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> rock_climbing) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 </div>
 <div id="issues-and-bugs" class="section level2">
 <h2 class="hasAnchor">
