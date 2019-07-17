@@ -21,13 +21,18 @@
 #' }
 related_terms <- function(term) {
 
-  # this checks for the presence of a key, if no key it prompts the user to create one,
-  # it then checks the validity of the key
+  # this checks for the presence of a key, if no key it prompts the user to
+  # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
   term <- gsub(" ", "+", trimws(term))
 
-  baseURL <- paste("https://api.flickr.com/services/rest/?method=flickr.tags.getRelated&api_key=", api_key, "&tag=", term, sep = "")
+  baseURL <- paste("https://api.flickr.com/services/rest/",
+                   "?method=flickr.tags.getRelated&api_key=",
+                   api_key,
+                   "&tag=",
+                   term,
+                   sep = "")
 
   tag_xml <- search_url(base_url = baseURL)
 
@@ -36,10 +41,8 @@ related_terms <- function(term) {
     tags <- unlist(xml2::as_list(tag_atts))
   }
 
-  if (is.null(tags)){
-
+  if (is.null(tags)) {
     stop("No related terms")
-
   }
 
   return(tags)

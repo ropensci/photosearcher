@@ -16,8 +16,8 @@
 #' }
 location_tags <- function(woe_id) {
 
-  # this checks for the presence of a key, if no key it prompts the user to create one,
-  # it then checks the validity of the key
+  # this checks for the presence of a key, if no key it prompts the user to
+  # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
   # check for valid woe_id and if flickr location services work
@@ -25,7 +25,12 @@ location_tags <- function(woe_id) {
     check_location(woe_id = woe_id, api_key = api_key)
   }
 
-  get_tags <- paste("https://api.flickr.com/services/rest/?method=flickr.places.tagsForPlace&api_key=", api_key, "&woe_id=", woe_id, sep = "")
+  get_tags <- paste("https://api.flickr.com/services/rest/","
+                    ?method=flickr.places.tagsForPlace&api_key=",
+                    api_key,
+                    "&woe_id=",
+                    woe_id,
+                    sep = "")
 
   # this new one works here
   tag_xml <- search_url(base_url = get_tags)

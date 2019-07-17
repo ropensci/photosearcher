@@ -15,7 +15,8 @@ test_that("invalid API keys fails correctly", {
   # if(file.exists("api_key.txt")) {
   #   file.remove("api_key.txt")
   # }
-  # expect_error(find_place(place = "new york"), "Enter API key or save using the save_key function")
+  # expect_error(find_place(place = "new york"), "Enter API key or save using
+  # the save_key function")
 
   skip_on_cran()
   skip("Flickr location services are down")

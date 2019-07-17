@@ -16,7 +16,8 @@ search_url <- function(base_url) {
   }
 
   if (r$status_code != 200) {
-    warning("Status code:", r$status, " for ", base_url, " - message: ", httr::content(r, "text", encoding = "ISO-8859"))
+    warning("Status code:", r$status, " for ", base_url,
+            " - message: ", httr::content(r, "text", encoding = "ISO-8859"))
   }
 
   error <- tryCatch({
@@ -45,7 +46,8 @@ get_url <- function(mindate,
     stop("Specify location as either woe_id or bbox, not both.")
   }
 
-  base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key,
+  base_url <- paste("https://api.flickr.com/services/rest/",
+                    "?method=flickr.photos.search&api_key=", api_key,
     "&text=", text,
     "&tags=", tags,
     "&min_taken_date=", as.character(mindate),
@@ -53,7 +55,8 @@ get_url <- function(mindate,
     ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
     ifelse(!(is.null(woe_id)), paste0("&woe_id=", woe_id), ""),
     ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-    "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
+    "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,",
+    "url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
     "&page=", page,
     "&format=", "rest",
     sep = ""
@@ -64,7 +67,12 @@ get_url <- function(mindate,
 
 # check for valid bbox
 check_bbox <- function(bb, key) {
-  base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", key, "&bbox=", bb, sep = "")
+  base_url <- paste("https://api.flickr.com/services/rest/",
+                    "?method=flickr.photos.search&api_key=",
+                    key,
+                    "&bbox=",
+                    bb,
+                    sep = "")
 
   photo_xml <- search_url(base_url = base_url)
   pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
@@ -94,18 +102,29 @@ ui_info <- function(x, .envir = parent.frame()) {
   cat(lines, sep = "")
 }
 
-# this checks for the presence of a key, if no key it prompts the user to create one, it then checks the validity of the key
+# this checks for the presence of a key, if no key it prompts the user to create
+# one, it then checks the validity of the key
 create_and_check_key <- function() {
   if (!file.exists("api_key.txt")) {
-    ui_todo("Create a Flickr API key at https://www.flickr.com/services/apps/create/")
+    ui_todo(
+      "Create a Flickr API key at https://www.flickr.com/services/apps/create/")
+
     utils::browseURL("https://www.flickr.com/services/apps/create/")
+
     ui_todo("Enter your Flickr API key:")
-    utils::write.table(readline(), file = "api_key.txt", col.names = FALSE, row.names = FALSE)
+
+    utils::write.table(readline(),
+                       file = "api_key.txt",
+                       col.names = FALSE,
+                       row.names = FALSE)
   }
 
   api_key <- utils::read.table("api_key.txt", stringsAsFactors = FALSE)
 
-  base_url <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, sep = "")
+  base_url <- paste("https://api.flickr.com/services/rest/",
+                    "?method=flickr.photos.search&api_key=",
+                    api_key,
+                    sep = "")
 
   photo_xml <- search_url(base_url = base_url)
   pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
@@ -121,7 +140,13 @@ create_and_check_key <- function() {
 
 # check that flickr locaiton services are working and woe_id is valid
 check_location <- function(woe_id = NULL, api_key = NULL) {
-  test_location <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, "&woe_id=", woe_id, sep = "")
+  test_location <- paste("https://api.flickr.com/services/rest/",
+                         "?method=flickr.photos.search&api_key=",
+                         api_key,
+                         "&woe_id=",
+                         woe_id,
+                         sep = "")
+
   r <- httr::GET(test_location, encoding = "ISO-8859")
   photo_xml <- xml2::read_xml(r)
   warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
@@ -129,7 +154,12 @@ check_location <- function(woe_id = NULL, api_key = NULL) {
   if ((warn[2, 1]) == ("Not a valid place type")) {
 
     # check that know place is working
-    known_location <- paste("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=", api_key, "&woe_id=35356", sep = "")
+    known_location <- paste("https://api.flickr.com/services/rest/",
+                            "?method=flickr.photos.search&api_key=",
+                            api_key,
+                            "&woe_id=35356",
+                            sep = "")
+
     r <- httr::GET(known_location, encoding = "ISO-8859")
     photo_xml <- xml2::read_xml(r)
     known_warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))

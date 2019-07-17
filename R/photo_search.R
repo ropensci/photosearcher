@@ -2,11 +2,12 @@
 #'
 #' Returns image metadata for photos matching the search terms.
 #'
-#' Uses the flickr.photos.search API method from the Flickr API. This search method
-#' requires a limiting factor to prevent parameterless searches - to enure this is met the
-#' function requires both a minimum and a maximum date that searched photographs were
-#' taken on. See \url{https://www.flickr.com/services/api/flickr.photos.search.html} for
-#' more information on the API method.
+#' Uses the flickr.photos.search API method from the Flickr API. This search
+#' method requires a limiting factor to prevent parameterless searches - to
+#' ensure this is met the function requires both a minimum and a maximum date
+#' that searched photographs were taken on. See
+#' \url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
+#' information on the API method.
 #'
 #' @param mindate character. Minimum date of photograph for search provided as
 #'   "YYYY-MM-DD".
@@ -17,14 +18,16 @@
 #' @param tags String, optional tags to filter by.
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
-#' @param woe_id Numeric, optional "where on earth identifier" can be supplied instead
-#'   of bbox. Use function find_place to obtain woe_id for a place.
-#' @param sf_layer A simple features layer, optional, area to search for photos, can be supplied instead of a bbox or woeID.
-#' @param has_geo Logical, optional arguement for whether returned photos need
+#' @param woe_id Numeric, optional "where on earth identifier" can be supplied
+#'   instead of bbox. Use function find_place to obtain woe_id for a place.
+#' @param sf_layer A simple features layer, optional, area to search for photos,
+#'   can be supplied instead of a bbox or woeID.
+#' @param has_geo Logical, optional argument for whether returned photos need
+#'   associated spatial data.
 #'
-#' @return data.frame. Output consists of 57 variables including;
-#'   latitude and longitude of photograph, date and time it was taken,
-#'   associated tags and image urls.
+#' @return data.frame. Output consists of 57 variables including; latitude and
+#'   longitude of photograph, date and time it was taken, associated tags and
+#'   image urls.
 #'
 #'   Full list of variables returned: id, owner, secret, server, farm, title,
 #'   ispublic, isfriend, isfamily, license, datetaken, datetakengranularity,
@@ -76,12 +79,14 @@ photo_search <-
     # create dfs so large searches can be subset dynamically
     date_df <- data.frame(mindate = mindate, maxdate = maxdate)
 
-    # this checks for the presence of a key, if no key it prompts the user to create one,
-    # it then checks the validity of the key
+    # this checks for the presence of a key, if no key it prompts the user to
+    # create one, it then checks the validity of the key
     api_key <- create_and_check_key()
 
     # check that only one search location is given
-    if ((!is.null(bbox) & !is.null(woe_id)) | (!is.null(sf_layer) & !is.null(woe_id)) | (!is.null(bbox) & !is.null(sf_layer))) {
+    if ((!is.null(bbox) & !is.null(woe_id)) |
+        (!is.null(sf_layer) & !is.null(woe_id)) |
+        (!is.null(bbox) & !is.null(sf_layer))) {
       stop("Specify search location as only one of: woe_id, bbox or sf_layer.")
     }
 
@@ -94,7 +99,8 @@ photo_search <-
 
       # transform if needed
       if ((is.na(layer_epsg)) | (layer_epsg != 4326)) {
-        sf_layer <- sf::st_transform(sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
+        sf_layer <- sf::st_transform(
+          sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
       }
 
       # generate bbox
@@ -106,7 +112,8 @@ photo_search <-
       ymax <- bbox[4]
 
       # bbox for url search
-      bbox <- as.character(paste(xmin, ",", ymin, ",", xmax, ",", ymax, sep = ""))
+      bbox <- as.character(paste(
+        xmin, ",", ymin, ",", xmax, ",", ymax, sep = ""))
     }
 
     # check for vailid bbox
@@ -144,23 +151,30 @@ photo_search <-
       photo_xml <- search_url(base_url = base_url)
 
       if (!is.null(photo_xml)) {
-        pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
-        pages_data[] <- lapply(pages_data, FUN = function(x) as.integer(as.character(x)))
+        pages_data <- data.frame(
+          xml2::xml_attrs(xml2::xml_children(photo_xml)))
+        pages_data[] <- lapply(
+          pages_data, FUN = function(x) as.integer(as.character(x)))
         total_pages <- pages_data["pages", ]
         total <- pages_data["total", ]
 
         # if total > 4000 and dates are not 1 second apart, split
-        if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] != maxdate)) {
+        if (total > 4000 && (seq(
+          mindate, length.out = 2, by = "1 secs")[2] != maxdate)) {
           x <- ceiling(total / 4000)
 
-          dates <- seq(as.POSIXct(mindate), as.POSIXct(maxdate), length.out = x + 1)
+          dates <- seq(
+            as.POSIXct(mindate), as.POSIXct(maxdate), length.out = x + 1)
 
           # create dataframe with minmaxdates
-          date_df <- rbind(date_df[-1, ], data.frame(mindate = dates[1:(length(dates) - 1)], maxdate = dates[2:length(dates)]))
+          date_df <- rbind(
+            date_df[-1, ], data.frame(mindate = dates[1:(length(dates) - 1)],
+                                      maxdate = dates[2:length(dates)]))
         }
 
         # if > 4000 and single seconds skip
-        else if (total > 4000 && (seq(mindate, length.out = 2, by = "1 secs")[2] == maxdate)) {
+        else if (total > 4000 && (
+          seq(mindate, length.out = 2, by = "1 secs")[2] == maxdate)) {
           warning(mindate, " skipped: too many API results")
 
           date_df <- date_df[-1, ]
@@ -190,8 +204,11 @@ photo_search <-
             photo_xml <- search_url(base_url = base_url)
 
             if (!is.null(photo_xml)) {
-              photo_atts <- xml2::xml_find_all(photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
-              tmp_df <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_atts), function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
+              photo_atts <- xml2::xml_find_all(
+                photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
+              tmp_df <- dplyr::bind_rows(lapply(
+                xml2::xml_attrs(photo_atts), function(x) data.frame(
+                  as.list(x), stringsAsFactors = FALSE)))
 
               pics_tmp <- dplyr::bind_rows(pics_tmp, tmp_df)
               tmp_df <- NULL
@@ -212,9 +229,13 @@ photo_search <-
 
     # is using sf_layer clip results to layer
     if (!is.null(sf_layer)) {
-      with_geom <- sf::st_as_sf(pics, coords = c("longitude", "latitude"), crs = 4326)
+      with_geom <- sf::st_as_sf(pics,
+                                coords = c("longitude", "latitude"),
+                                crs = 4326)
 
-      pics <- cbind(with_geom, longitude = pics$longitude, latitude = pics$latitude)
+      pics <- cbind(with_geom,
+                    longitude = pics$longitude,
+                    latitude = pics$latitude)
 
       pics <- sf::st_intersection(pics, sf_layer)
     }

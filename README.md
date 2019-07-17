@@ -19,6 +19,13 @@ website](https://nfox29.github.io/photosearcher/). For more information
 and examples of the functions check out the [package
 vignette](https://nfox29.github.io/photosearcher/articles/photosearcher.html).
 
+We have produced this package to help facilitate reproducible code for
+answering research questions. Flickr is currently used a wide range of
+research fields including biology and life sciences, computer and
+information sciences and medicine and health sciences. [Click
+here](https://nfox29.github.io/photosearcher/articles/flickr_in_research.html)
+for an overview of other topics that have utilised Flickr.
+
 ## Terms of use
 
 This package should be used within accordance of the [Flickr API terms
@@ -43,7 +50,7 @@ called when using any other function.
 ## Package functions
 
 The package currently focuses on the ability to use the Flickr API to
-search for images and their metadata throught the flickr.photos.search
+search for images and their metadata through the flickr.photos.search
 method. The package does however support a number of other Flickr API
 call methods including the flickr.tags.getRelated and
 flickr.places.tagsForPlace methods. The Flickr website offers full [API
@@ -69,21 +76,17 @@ rock_climbing <- photo_search(
 ```
 
 When `has_geo == TRUE` only metadata about images with latitude and
-longitude infomation will be retrieved. These can be plotted using other
-packages at user preference. In the below example, we convert these to
-an `sf` object and plot using `ggplot2`.
+longitude information will be retrieved.
+
+These can be plotted using other packages at user preference. In the
+below example, we convert these to an `sf` object and plot using
+`ggplot2`.
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3
 rock_climbing <- st_as_sf(rock_climbing, coords = c("longitude", "latitude"))
 
 library(ggplot2)
-#> Registered S3 methods overwritten by 'ggplot2':
-#>   method         from 
-#>   [.quosures     rlang
-#>   c.quosures     rlang
-#>   print.quosures rlang
 ggplot() +
   geom_polygon(data = map_data("world", region = c("Ireland", "UK")), 
                                aes(x=long, y = lat, group = group),
@@ -91,8 +94,6 @@ ggplot() +
   geom_sf(data = rock_climbing) + 
   theme_bw()
 ```
-
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 ## Issues and bugs
 

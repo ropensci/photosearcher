@@ -7,13 +7,12 @@
 user_info(user_id)
 }
 \arguments{
-\item{user_id}{character. The id of the user you wish to obtain information for.}
+\item{user_id}{character. The id of the user you wish to obtain information
+for.}
 }
 \value{
-data.frame. Dataframe of 18 variables from the searched users publically
-available information: id, nsid,	join_date, occupation, hometown, showcase_set,
-showcase_set_title, first_name, last_name, profile_description,
-website	city, country, facebook, twitter, tumblr, Instagram, pinterest
+data.frame. Dataframe of 5 variables from the searched users
+publicly available information: id, occupation, hometown, city, country.
 }
 \description{
 Takes Flickr user ID and returns the profile data.

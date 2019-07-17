@@ -22,17 +22,19 @@ photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
 \item{bbox}{String, optional bounding box of search area provide as:
 "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
 
-\item{woe_id}{Numeric, optional "where on earth identifier" can be supplied instead
-of bbox. Use function find_place to obtain woe_id for a place.}
+\item{woe_id}{Numeric, optional "where on earth identifier" can be supplied
+instead of bbox. Use function find_place to obtain woe_id for a place.}
 
-\item{sf_layer}{A simple features layer, optional, area to search for photos, can be supplied instead of a bbox or woeID.}
+\item{sf_layer}{A simple features layer, optional, area to search for photos,
+can be supplied instead of a bbox or woeID.}
 
-\item{has_geo}{Logical, optional arguement for whether returned photos need}
+\item{has_geo}{Logical, optional argument for whether returned photos need
+associated spatial data.}
 }
 \value{
-data.frame. Output consists of 57 variables including;
-latitude and longitude of photograph, date and time it was taken,
-associated tags and image urls.
+data.frame. Output consists of 57 variables including; latitude and
+longitude of photograph, date and time it was taken, associated tags and
+image urls.
 
 Full list of variables returned: id, owner, secret, server, farm, title,
 ispublic, isfriend, isfamily, license, datetaken, datetakengranularity,
@@ -48,11 +50,12 @@ url_o, height_o, width_o.
 Returns image metadata for photos matching the search terms.
 }
 \details{
-Uses the flickr.photos.search API method from the Flickr API. This search method
-requires a limiting factor to prevent parameterless searches - to enure this is met the
-function requires both a minimum and a maximum date that searched photographs were
-taken on. See \url{https://www.flickr.com/services/api/flickr.photos.search.html} for
-more information on the API method.
+Uses the flickr.photos.search API method from the Flickr API. This search
+method requires a limiting factor to prevent parameterless searches - to
+ensure this is met the function requires both a minimum and a maximum date
+that searched photographs were taken on. See
+\url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
+information on the API method.
 }
 \examples{
 \dontrun{

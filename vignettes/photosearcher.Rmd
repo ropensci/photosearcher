@@ -54,7 +54,7 @@ Here, the images of UK foxes are plotted using `ggplot2`.
 ![Foxes](https://github.com/nfox29/photosearcher/blob/master/images/foxes.png?raw=true)
 
 ## Downloading images
-The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it doesnt exists it will be automatically created.
+The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it does not exists it will be automatically created.
 ```{r eval=FALSE}
 #Downloading fox images from photosearch
 download_images(photo_id = foxes$id, saveDir = "Fox images")
@@ -80,7 +80,7 @@ southampton <- location_tags(woe_id = 35356)
 #Find the tags for New York state, US
 new_york <- location_tags(woe_id = 	2347591)
 ```
-The woe_id arguement is a FLickr specific place identifier. A places woeID can be found using the `find_place` function or using [online tools](http://woeid.rosselliot.co.nz/). 
+The woe_id argument is a Flickr specific place identifier. A places woeID can be found using the `find_place` function or using [online tools](http://woeid.rosselliot.co.nz/). 
 
 ## Find a locations woeID
 ```{r eval=FALSE}

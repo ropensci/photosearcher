@@ -12,6 +12,7 @@ Depends: R (>= 3.5.0)
 License: GPL
 Encoding: UTF-8
 LazyData: true
+Language: en_GB
 Imports: 
     xml2,
     httr,
@@ -19,10 +20,7 @@ Imports:
     glue,
     clisymbols,
     crayon,
-    sf,
-    rlang,
-    rplos,
-    wordcloud
+    sf
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 URL: https://github.com/nfox29/photosearcher
@@ -33,5 +31,7 @@ Suggests:
     roxygen2,
     testthat (>= 2.1.0),
     rmarkdown,
-    covr
+    covr,
+    rplos,
+    wordcloud
 VignetteBuilder: knitr
