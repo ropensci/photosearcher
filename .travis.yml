@@ -15,5 +15,7 @@ before_install:
   - R -q -e "install.packages('udunits2',configure.args='--with-udunits2-include=/usr/include/udunits2')"
   - Rscript -e 'update.packages(ask = FALSE)'
 
+cache: packages
+
 after_success:
   - Rscript -e 'covr::codecov()'
