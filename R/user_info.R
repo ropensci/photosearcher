@@ -52,7 +52,7 @@ user_info_single <- function(user_id, api_key) {
     if (warn[2,] == "Invalid NSID provided"){
 
       warning(paste("User ID ", user_id, " is not valid", sep = ""))
-S
+
       out <- NULL
 
     } else {

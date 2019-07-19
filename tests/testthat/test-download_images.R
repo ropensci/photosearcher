@@ -18,8 +18,7 @@ test_that("output is correct", {
 })
 
 test_that("height and width can be chosen", {
-
-
+  skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   size_test <- download_images(photo_id = 47259127482,
                                    saveDir = "test_images",
