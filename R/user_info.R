@@ -44,7 +44,15 @@ user_info_single <- function(user_id, api_key) {
 
   user_xml <- search_url(base_url = get_info)
 
-  if (!is.null(user_xml)) {
+  #check that ID is valid
+  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(user_xml)))
+
+  if (warn[2,] == "Invalid NSID provided"){
+
+    warning(paste("User ID ", user_id, " is not valid", sep = ""))
+
+    } else if (!is.null(user_xml)) {
+
     user_atts <- xml2::xml_find_all(user_xml,
                                     "//profile",
                                     ns = xml2::xml_ns(user_xml))

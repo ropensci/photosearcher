@@ -9,6 +9,14 @@ test_that("output is correct", {
   expect_equal(nrow(user_test), 1)
 })
 
+test_that("invalid ID provides error", {
+  skip_on_cran()
+  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
+
+  expect_warning(user_info(user_id = "not a real id"), "Invalid NSID provided")
+
+})
+
 test_that("invalid API keys fails correctly", {
   # if(file.exists("api_key.txt")) { file.remove("api_key.txt") }
   # expect_error(user_info(user_id = "33816646@N06"), "Enter API key or save
