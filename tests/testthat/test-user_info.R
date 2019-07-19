@@ -10,10 +10,11 @@ test_that("output is correct", {
 })
 
 test_that("invalid ID provides error", {
-  skip_on_cran()
+
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
 
-  expect_warning(user_info(user_id = "not a real id"), "Invalid NSID provided")
+  expect_warning(user_info(user_id = "not a real id"),
+                 "User ID not a real id is not valid")
 
 })
 

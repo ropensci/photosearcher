@@ -44,28 +44,32 @@ user_info_single <- function(user_id, api_key) {
 
   user_xml <- search_url(base_url = get_info)
 
-  #check that ID is valid
-  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(user_xml)))
+  if (!is.null(user_xml)) {
 
-  if (warn[2,] == "Invalid NSID provided"){
+    #check that ID is valid
+    warn <- data.frame(xml2::xml_attrs(xml2::xml_children(user_xml)))
 
-    warning(paste("User ID ", user_id, " is not valid", sep = ""))
+    if (warn[2,] == "Invalid NSID provided"){
 
-    } else if (!is.null(user_xml)) {
+      warning(paste("User ID ", user_id, " is not valid", sep = ""))
+S
+      out <- NULL
 
-    user_atts <- xml2::xml_find_all(user_xml,
-                                    "//profile",
-                                    ns = xml2::xml_ns(user_xml))
+    } else {
 
-    out <- dplyr::bind_rows(lapply(
-      xml2::xml_attrs(user_atts), function(x) data.frame(
-        as.list(x), stringsAsFactors = FALSE)))
+      user_atts <- xml2::xml_find_all(user_xml,
+                                      "//profile",
+                                      ns = xml2::xml_ns(user_xml))
+      out <- dplyr::bind_rows(lapply(
+        xml2::xml_attrs(user_atts), function(x) data.frame(
+          as.list(x), stringsAsFactors = FALSE)))
 
-    out <- data.frame(id = out$id,
-                      occupation = out$occupation,
-                      hometown = out$hometown,
-                      city = out$city,
-                      country = out$country)
+      out <- data.frame(id = out$id,
+                        occupation = out$occupation,
+                        hometown = out$hometown,
+                        city = out$city,
+                        country = out$country) }
+
   }
   else {
     out <- NULL
