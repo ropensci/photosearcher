@@ -33,5 +33,6 @@ Suggests:
     rmarkdown,
     covr,
     rplos,
-    wordcloud
+    wordcloud,
+    tidyverse
 VignetteBuilder: knitr
