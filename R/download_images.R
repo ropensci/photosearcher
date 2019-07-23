@@ -74,7 +74,18 @@ download_image_single <- function(photo_id,
 
   photo_xml <- search_url(z)
 
+  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
+
+  if (warn[2, ] == "Photo not found"){
+
+    out <- data.frame(id = photo_id,
+                      can_download = 0,
+                      stringsAsFactors = FALSE)
+
+  } else {
+
   if (!is.null(photo_xml)) {
+
     download_atts <- xml2::xml_find_all(photo_xml,
                                         "//sizes",
                                         ns = xml2::xml_ns(photo_xml))
@@ -83,15 +94,8 @@ download_image_single <- function(photo_id,
       lapply(xml2::xml_attrs(download_atts),
              function(x) data.frame(as.list(x), stringsAsFactors = FALSE)))
 
-    if (!is.null(tmp_df$candownload)){
 
-      if ((tmp_df$candownload) == 0) {
-
-        out <- data.frame(id = photo_id,
-                          can_download = 0,
-                          stringsAsFactors = FALSE)
-
-      } else {
+      if ((tmp_df$candownload) == 1) {
 
         out <- data.frame(id = photo_id,
                           can_download = 1,
@@ -127,13 +131,13 @@ download_image_single <- function(photo_id,
           mode = "wb",
           quiet = quiet
         )
-      }
-
-    } else {
+      } else {
 
       out <- data.frame(id = photo_id,
                         can_download = 0,
                         stringsAsFactors = FALSE)}
+   }
+
   }
 
   return(out)

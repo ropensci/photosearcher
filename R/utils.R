@@ -42,9 +42,6 @@ get_url <- function(mindate,
                     bbox = NULL,
                     woe_id = NULL,
                     has_geo = TRUE) {
-  if (!is.null(bbox) & !is.null(woe_id)) {
-    stop("Specify location as either woe_id or bbox, not both.")
-  }
 
   base_url <- paste("https://api.flickr.com/services/rest/",
                     "?method=flickr.photos.search&api_key=", api_key,
@@ -137,7 +134,6 @@ create_and_check_key <- function() {
   return(api_key)
 }
 
-
 # check that flickr locaiton services are working and woe_id is valid
 check_location <- function(woe_id = NULL, api_key = NULL) {
   test_location <- paste("https://api.flickr.com/services/rest/",
@@ -171,3 +167,30 @@ check_location <- function(woe_id = NULL, api_key = NULL) {
     }
   }
 }
+
+create_bbox <- function(sf_layer = NULL){
+
+  # find crs
+  layer_epsg <- unlist(sf::st_crs(sf_layer)[1])
+
+
+  # transform if needed
+  if ((is.na(layer_epsg)) | (layer_epsg != 4326)) {
+    sf_layer <- sf::st_transform(
+      sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
+  }
+
+  # generate bbox
+  bbox <- sf::st_bbox(sf_layer)
+
+  xmin <- bbox[1]
+  ymin <- bbox[2]
+  xmax <- bbox[3]
+  ymax <- bbox[4]
+
+  # bbox for url search
+  bbox <- as.character(paste(
+    xmin, ",", ymin, ",", xmax, ",", ymax, sep = ""))
+}
+
+

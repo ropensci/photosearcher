@@ -25,8 +25,8 @@ location_tags <- function(woe_id) {
     check_location(woe_id = woe_id, api_key = api_key)
   }
 
-  get_tags <- paste("https://api.flickr.com/services/rest/","
-                    ?method=flickr.places.tagsForPlace&api_key=",
+  get_tags <- paste("https://api.flickr.com/services/rest/",
+                    "?method=flickr.places.tagsForPlace&api_key=",
                     api_key,
                     "&woe_id=",
                     woe_id,

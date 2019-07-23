@@ -93,28 +93,10 @@ photo_search <-
     # change sf_layer to bbox
     if (!is.null(sf_layer)) {
 
-      # find crs
-      layer_epsg <- unlist(sf::st_crs(sf_layer)[1])
+      bbox <- create_bbox(sf_layer = sf_layer)
 
-
-      # transform if needed
-      if ((is.na(layer_epsg)) | (layer_epsg != 4326)) {
-        sf_layer <- sf::st_transform(
-          sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
-      }
-
-      # generate bbox
-      bbox <- sf::st_bbox(sf_layer)
-
-      xmin <- bbox[1]
-      ymin <- bbox[2]
-      xmax <- bbox[3]
-      ymax <- bbox[4]
-
-      # bbox for url search
-      bbox <- as.character(paste(
-        xmin, ",", ymin, ",", xmax, ",", ymax, sep = ""))
     }
+
 
     # check for vailid bbox
     if (!is.null(bbox)) {
