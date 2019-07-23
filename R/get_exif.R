@@ -44,8 +44,11 @@ get_exif <- function(photo_id = NULL){
 
       for (i in 1:exif_length){
 
-        heading <- as.character(xml_attrs(xml_child(exif_atts[[1]], i))[4])
-        cell <- as.character(xml_child(xml_child(exif_atts[[1]], i), 1))
+        heading <- as.character(xml2::xml_attrs(
+          xml2::xml_child(exif_atts[[1]], i))[4])
+
+        cell <- as.character(xml2::xml_child(
+          xml2::xml_child(exif_atts[[1]], 1), 1))
 
         tmp_df<- data.frame(cell)
         names(tmp_df)[names(tmp_df) == "cell"] <- paste(heading)

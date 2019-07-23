@@ -37,9 +37,9 @@ get_photoinfo <- function(photo_id = NULL){
                                     "//photo",
                                     ns = xml2::xml_ns(photo_xml))
 
-    out <- dplyr::bind_rows(lapply(
-      xml2::xml_attrs(photo_atts), function(x) data.frame(
-        as.list(x), stringsAsFactors = FALSE)))
+    out <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_atts),
+                                   function(x) data.frame(
+                                     as.list(x), stringsAsFactors = FALSE)))
   }
 
   return(out)
