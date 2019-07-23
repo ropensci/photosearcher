@@ -2,6 +2,7 @@
 
 export(download_images)
 export(find_place)
+export(get_exif)
 export(location_tags)
 export(photo_search)
 export(related_terms)
