@@ -1,8 +1,8 @@
 context("test-photo_search")
 
 test_that("fails correctly", {
-  expect_error(photo_search(mindate = NULL))
-  expect_error(photo_search(maxdate = NULL))
+  expect_error(photo_search(mindate_taken = NULL))
+  expect_error(photo_search(maxdate_taken = NULL))
 })
 
 test_that("bbox + woe_id fails correctly", {
@@ -25,8 +25,8 @@ test_that("output is correct", {
   expect_is(bbox_test, "data.frame")
   expect_equal(ncol(bbox_test), 57)
 
-  large_search <- photo_search(mindate = "2018-12-20",
-                               maxdate = "2019-01-01",
+  large_search <- photo_search(mindate_taken = "2018-12-20",
+                               maxdate_taken = "2019-01-01",
                                text = "lake")
   expect_is(large_search, "data.frame")
   expect_equal(ncol(large_search), 57)
