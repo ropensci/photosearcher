@@ -40,7 +40,7 @@ get_exif <- function(photo_id = NULL){
 
       exif_df <- NULL
       tmp_df <- NULL
-      exif_length <- as.numeric(xml_length(exif_atts))
+      exif_length <- as.numeric(xml2::xml_length(exif_atts))
 
       for (i in 1:exif_length){
 

@@ -102,3 +102,15 @@ The woe_id argument is a Flickr specific place identifier. A places woeID can be
   church <- related_terms(term = "church")
 
 ```
+
+## Finding Exif information about a photo
+```{r eval=FALSE}
+  #Find Exif information about a single photo
+  exif_photo <- get_photoinfo(photo_id = 47259127482)
+```
+
+## Finding information on a single photo
+```{r eval=FALSE}
+  #Find information about a single photo
+  single_photo <- get_photoinfo(photo_id = 47259127482)
+```

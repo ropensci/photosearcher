@@ -1,6 +1,8 @@
 context("test-photo_search")
 
 test_that("fails correctly", {
+  write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
+
   expect_error(photo_search(mindate_taken = NULL))
   expect_error(photo_search(maxdate_taken = NULL))
 

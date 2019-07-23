@@ -154,6 +154,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=wordcloud"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyverse",
+      "name": "tidyverse",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyverse"
     }
   ],
   "softwareRequirements": [
@@ -249,7 +261,7 @@
     }
   ],
   "readme": "https://github.com/nfox29/photosearcher/blob/master/README.md",
-  "fileSize": "3682.214KB",
+  "fileSize": "3689.649KB",
   "contIntegration": [
     "https://travis-ci.org/nfox29/photosearcher",
     "https://codecov.io/gh/nfox29/photosearcher?branch=master"
