@@ -9,13 +9,18 @@
 #' \url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
 #' information on the API method.
 #'
-#' @param mindate character. Minimum date of photograph for search provided as
-#'   "YYYY-MM-DD".
-#' @param maxdate character. Maximum date of photograph for search provided as
-#'   "YYYY-MM-DD".
-#'
-#' @param text String, optional text to be searched.
-#' @param tags String, optional tags to filter by.
+#' @param mindate_taken Character, required. Minimum taken date. Photos with an
+#'   taken date greater than or equal to this value will be returned. The date
+#'   should be in the form of "YYYY-MM-DD".
+#' @param maxdate_taken Character, required. Maximum taken date. Photos with an
+#'   taken date less than or equal to this value will be returned. The date
+#'   should be in the form of "YYYY-MM-DD".
+#' @param text String, optional. A free text search. Photos who's title,
+#'   description or tags contain the text will be returned. You can exclude
+#'   results that match a term by prepending it with a - character.
+#' @param tags String, optional. A comma-delimited list of tags. Photos with one
+#'   or more of the tags listed will be returned. You can exclude results that
+#'   match a term by prepending it with a - character.
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param woe_id Numeric, optional "where on earth identifier" can be supplied
@@ -24,6 +29,15 @@
 #'   can be supplied instead of a bbox or woeID.
 #' @param has_geo Logical, optional argument for whether returned photos need
 #'   associated spatial data.
+#' @param mindate_uploaded Character, optional. Minimum upload date. Photos with
+#'   an upload date greater than or equal to this value will be returned. The
+#'   date can be in the form of a unix timestamp or mysql datetime.
+#' @param maxdate_uploaded Character, optional. Maximum upload date. Photos with
+#'   an upload date less than or equal to this value will be returned. The date
+#'   can be in the form of a unix timestamp or mysql datetime.
+#' @param user_id Character, optional. The NSID of the user who's photo to
+#'   search. If this parameter isn't passed then everybody's public photos will
+#'   be searched.
 #'
 #' @return data.frame. Output consists of 57 variables including; latitude and
 #'   longitude of photograph, date and time it was taken, associated tags and
@@ -44,8 +58,8 @@
 #' @examples
 #' \dontrun{
 #' photo_search(
-#'   mindate = "2019-01-01",
-#'   maxdate = "2019-01-02",
+#'   mindate_taken = "2019-01-01",
+#'   maxdate_taken = "2019-01-02",
 #'   text = "tree",
 #'   bbox = "-13.623047,47.279229,3.251953,60.630102",
 #'   has_geo = TRUE
@@ -53,23 +67,37 @@
 #'
 #'
 #' photo_search(
-#'   mindate = "2019-01-01",
-#'   maxdate = "2019-01-02",
+#'   mindate_taken = "2019-01-01",
+#'   maxdate_taken = "2019-01-02",
 #'   text = "tree",
 #'   bbox = "-13.623047,47.279229,3.251953,60.630102",
-#'   has_geo = TRUE
-#' )
+#'   has_geo = TRUE)
+#'
+#'   photo_search(
+#'    mindate_taken = "2017-01-01",
+#'    maxdate_taken = "2017-01-02",
+#'    mindate_uploaded = "2017-03-04",
+#'    maxdate_uploaded = "2017-05-05",
+#'    tags = "tree")
+#'
+#'    photo_search(
+#'     mindate_taken = "2014-01-01",
+#'     user_id = "33816646@N06")
+#'
 #' }
 #'
 photo_search <-
-  function(mindate = "2019-01-01",
-             maxdate = "2019-01-01",
-             text = NULL,
-             tags = NULL,
-             bbox = NULL,
-             woe_id = NULL,
-             sf_layer = NULL,
-             has_geo = TRUE) {
+  function(mindate_taken = "2019-01-01",
+           maxdate_taken = "2019-01-01",
+           mindate_uploaded = NULL,
+           maxdate_uploaded = NULL,
+           user_id = NULL,
+           text = NULL,
+           tags = NULL,
+           bbox = NULL,
+           woe_id = NULL,
+           sf_layer = NULL,
+           has_geo = TRUE) {
     text <- gsub(" ", "+", trimws(text))
     tags <- gsub(" ", "+", trimws(tags))
     tags <- paste(tags, collapse = ",")
@@ -77,7 +105,7 @@ photo_search <-
 
 
     # create dfs so large searches can be subset dynamically
-    date_df <- data.frame(mindate = mindate, maxdate = maxdate)
+    date_df <- data.frame(mindate_taken = mindate_taken, maxdate_taken = maxdate_taken)
 
     # this checks for the presence of a key, if no key it prompts the user to
     # create one, it then checks the validity of the key
@@ -112,15 +140,18 @@ photo_search <-
     while (nrow(date_df) > 0) {
 
       # set search dates
-      mindate <- as.POSIXct(date_df[1, "mindate"])
-      maxdate <- as.POSIXct(date_df[1, "maxdate"])
+      mindate_taken <- as.POSIXct(date_df[1, "mindate_taken"])
+      maxdate_taken <- as.POSIXct(date_df[1, "maxdate_taken"])
 
       # rest page to 1
       i <- 1
 
       base_url <- get_url(
-        mindate = mindate,
-        maxdate = maxdate,
+        mindate_taken = mindate_taken,
+        maxdate_taken = maxdate_taken,
+        mindate_uploaded = mindate_uploaded,
+        maxdate_uploaded = maxdate_uploaded,
+        user_id = user_id,
         api_key = api_key,
         page = i,
         text = text,
@@ -129,6 +160,8 @@ photo_search <-
         woe_id = woe_id,
         has_geo = has_geo
       )
+
+      print(base_url)
 
       photo_xml <- search_url(base_url = base_url)
 
@@ -142,22 +175,22 @@ photo_search <-
 
         # if total > 4000 and dates are not 1 second apart, split
         if (total > 4000 && (seq(
-          mindate, length.out = 2, by = "1 secs")[2] != maxdate)) {
+          mindate_taken, length.out = 2, by = "1 secs")[2] != maxdate_taken)) {
           x <- ceiling(total / 4000)
 
           dates <- seq(
-            as.POSIXct(mindate), as.POSIXct(maxdate), length.out = x + 1)
+            as.POSIXct(mindate_taken), as.POSIXct(maxdate_taken), length.out = x + 1)
 
-          # create dataframe with minmaxdates
+          # create dataframe with minmaxdate_takens
           date_df <- rbind(
-            date_df[-1, ], data.frame(mindate = dates[1:(length(dates) - 1)],
-                                      maxdate = dates[2:length(dates)]))
+            date_df[-1, ], data.frame(mindate_taken = dates[1:(length(dates) - 1)],
+                                      maxdate_taken = dates[2:length(dates)]))
         }
 
         # if > 4000 and single seconds skip
         else if (total > 4000 && (
-          seq(mindate, length.out = 2, by = "1 secs")[2] == maxdate)) {
-          warning(mindate, " skipped: too many API results")
+          seq(mindate_taken, length.out = 2, by = "1 secs")[2] == maxdate_taken)) {
+          warning(mindate_taken, " skipped: too many API results")
 
           date_df <- date_df[-1, ]
         }
@@ -171,8 +204,8 @@ photo_search <-
           # loop thru pages of photos and save the list in a DF
           for (i in c(1:total_pages)) {
             base_url <- get_url(
-              mindate = mindate,
-              maxdate = maxdate,
+              mindate_taken = mindate_taken,
+              maxdate_taken = maxdate_taken,
               api_key = api_key,
               page = i,
               text = text,

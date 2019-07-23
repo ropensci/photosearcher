@@ -1,5 +1,44 @@
 #' @noRd
 
+# build search url
+get_url <- function(mindate_taken,
+                    maxdate_taken,
+                    mindate_uploaded = NULL,
+                    maxdate_uploaded = NULL,
+                    user_id = NULL,
+                    api_key,
+                    page,
+                    text = NULL,
+                    tags = NULL,
+                    bbox = NULL,
+                    woe_id = NULL,
+                    has_geo = TRUE) {
+
+  base_url <- paste("https://api.flickr.com/services/rest/",
+                    "?method=flickr.photos.search&api_key=", api_key,
+                    "&text=", text,
+                    "&tags=", tags,
+                    "&min_taken_date=", as.character(mindate_taken),
+                    "&max_taken_date=", as.character(maxdate_taken),
+                    ifelse(!(is.null(mindate_uploaded)), paste0(
+                      "&min_upload_date=", mindate_uploaded), ""),
+                    ifelse(!(is.null(maxdate_uploaded)), paste0(
+                      "&max_upload_date=", maxdate_uploaded), ""),
+                    ifelse(!(is.null(user_id)), paste0(
+                      "&user_id=", user_id), ""),
+                    ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
+                    ifelse(!(is.null(woe_id)), paste0("&woe_id=", woe_id), ""),
+                    ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
+                    "&extras=", "description,date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,",
+                    "url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
+                    "&page=", page,
+                    "&format=", "rest",
+                    sep = ""
+  )
+  return(base_url)
+}
+
+
 # search url
 search_url <- function(base_url) {
 
@@ -30,35 +69,6 @@ search_url <- function(base_url) {
   })
 
   return(photo_xml)
-}
-
-# build search url
-get_url <- function(mindate,
-                    maxdate,
-                    api_key,
-                    page,
-                    text = NULL,
-                    tags = NULL,
-                    bbox = NULL,
-                    woe_id = NULL,
-                    has_geo = TRUE) {
-
-  base_url <- paste("https://api.flickr.com/services/rest/",
-                    "?method=flickr.photos.search&api_key=", api_key,
-    "&text=", text,
-    "&tags=", tags,
-    "&min_taken_date=", as.character(mindate),
-    "&max_taken_date=", as.character(maxdate),
-    ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
-    ifelse(!(is.null(woe_id)), paste0("&woe_id=", woe_id), ""),
-    ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-    "&extras=", "date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,",
-    "url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
-    "&page=", page,
-    "&format=", "rest",
-    sep = ""
-  )
-  return(base_url)
 }
 
 

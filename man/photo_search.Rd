@@ -4,20 +4,40 @@
 \alias{photo_search}
 \title{Search for photo metadata}
 \usage{
-photo_search(mindate = "2019-01-01", maxdate = "2019-01-01",
-  text = NULL, tags = NULL, bbox = NULL, woe_id = NULL,
-  sf_layer = NULL, has_geo = TRUE)
+photo_search(mindate_taken = "2019-01-01",
+  maxdate_taken = "2019-01-01", mindate_uploaded = NULL,
+  maxdate_uploaded = NULL, user_id = NULL, text = NULL,
+  tags = NULL, bbox = NULL, woe_id = NULL, sf_layer = NULL,
+  has_geo = TRUE)
 }
 \arguments{
-\item{mindate}{character. Minimum date of photograph for search provided as
-"YYYY-MM-DD".}
+\item{mindate_taken}{Character, required. Minimum taken date. Photos with an
+taken date greater than or equal to this value will be returned. The date
+should be in the form of "YYYY-MM-DD".}
 
-\item{maxdate}{character. Maximum date of photograph for search provided as
-"YYYY-MM-DD".}
+\item{maxdate_taken}{Character, required. Maximum taken date. Photos with an
+taken date less than or equal to this value will be returned. The date
+should be in the form of "YYYY-MM-DD".}
 
-\item{text}{String, optional text to be searched.}
+\item{mindate_uploaded}{Character, optional. Minimum upload date. Photos with
+an upload date greater than or equal to this value will be returned. The
+date can be in the form of a unix timestamp or mysql datetime.}
 
-\item{tags}{String, optional tags to filter by.}
+\item{maxdate_uploaded}{Character, optional. Maximum upload date. Photos with
+an upload date less than or equal to this value will be returned. The date
+can be in the form of a unix timestamp or mysql datetime.}
+
+\item{user_id}{Character, optional. The NSID of the user who's photo to
+search. If this parameter isn't passed then everybody's public photos will
+be searched.}
+
+\item{text}{String, optional. A free text search. Photos who's title,
+description or tags contain the text will be returned. You can exclude
+results that match a term by prepending it with a - character.}
+
+\item{tags}{String, optional. A comma-delimited list of tags. Photos with one
+or more of the tags listed will be returned. You can exclude results that
+match a term by prepending it with a - character.}
 
 \item{bbox}{String, optional bounding box of search area provide as:
 "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
@@ -60,8 +80,8 @@ information on the API method.
 \examples{
 \dontrun{
 photo_search(
-  mindate = "2019-01-01",
-  maxdate = "2019-01-02",
+  mindate_taken = "2019-01-01",
+  maxdate_taken = "2019-01-02",
   text = "tree",
   bbox = "-13.623047,47.279229,3.251953,60.630102",
   has_geo = TRUE
@@ -69,12 +89,23 @@ photo_search(
 
 
 photo_search(
-  mindate = "2019-01-01",
-  maxdate = "2019-01-02",
+  mindate_taken = "2019-01-01",
+  maxdate_taken = "2019-01-02",
   text = "tree",
   bbox = "-13.623047,47.279229,3.251953,60.630102",
-  has_geo = TRUE
-)
+  has_geo = TRUE)
+
+  photo_search(
+   mindate_taken = "2017-01-01",
+   maxdate_taken = "2017-01-02",
+   mindate_uploaded = "2017-03-04",
+   maxdate_uploaded = "2017-05-05",
+   tags = "tree")
+
+   photo_search(
+    mindate_taken = "2014-01-01",
+    user_id = "33816646@N06")
+
 }
 
 }
