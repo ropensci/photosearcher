@@ -18,31 +18,31 @@ test_that("output is correct", {
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   tree_test <- photo_search(text = "tree")
   expect_is(tree_test, "data.frame")
-  expect_equal(ncol(tree_test), 58)
+  expect_equal(ncol(tree_test), 57)
 
   bbox_test <- photo_search(
     bbox = "-140.625000,-47.517201,167.695313,69.162558")
   expect_is(bbox_test, "data.frame")
-  expect_equal(ncol(bbox_test), 58)
+  expect_equal(ncol(bbox_test), 57)
 
   large_search <- photo_search(mindate = "2018-12-20",
                                maxdate = "2019-01-01",
                                text = "lake")
   expect_is(large_search, "data.frame")
-  expect_equal(ncol(large_search), 58)
+  expect_equal(ncol(large_search), 57)
 
   skip("Shape file doesn't load")
   shape_file <- sf::read_sf(
     ".\\tests\\testthat\\helper_shape_file\\National_Parks_England.shp")
   shape_test <- photo_search(sf_layer = shape_file)
   expect_is(shape_test, "data.frame")
-  expect_equal(ncol(shape_test), 69)
+  expect_equal(ncol(shape_test), 68)
   rm(shape_file)
 
   skip("Flickr location services are down")
   woeid_test <- photo_search(woe_id = 2347568)
   expect_is(woeid_test, "data.frame")
-  expect_equal(ncol(woeid_test), 58)
+  expect_equal(ncol(woeid_test), 57)
 })
 
 test_that("invalid API keys fails correctly", {
