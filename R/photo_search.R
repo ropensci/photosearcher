@@ -161,8 +161,6 @@ photo_search <-
         has_geo = has_geo
       )
 
-      print(base_url)
-
       photo_xml <- search_url(base_url = base_url)
 
       if (!is.null(photo_xml)) {

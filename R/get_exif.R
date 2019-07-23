@@ -25,26 +25,36 @@ get_exif <- function(photo_id = NULL){
 
   exif_xml <- search_url(base_url = exif)
 
-  if (!is.null(exif_xml)) {
+  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(exif_xml)))
 
-    exif_atts <- xml2::xml_find_all(exif_xml, "//photo",
-                                   ns = xml2::xml_ns(exif_xml))
+  if (warn[2, ] == "Photo not found"){
 
-    exif_df <- NULL
-    tmp_df <- NULL
-    exif_length <- as.numeric(xml_length(exif_atts))
+    stop("Photo not found")
 
-    for (i in 1:exif_length){
+  } else {
 
-      heading <- as.character(xml_attrs(xml_child(exif_atts[[1]], i))[4])
-      cell <- as.character(xml_child(xml_child(exif_atts[[1]], i), 1))
+    if (!is.null(exif_xml)) {
 
-      tmp_df<- data.frame(cell)
-      names(tmp_df)[names(tmp_df) == "cell"] <- paste(heading)
+      exif_atts <- xml2::xml_find_all(exif_xml, "//photo",
+                                      ns = xml2::xml_ns(exif_xml))
 
-      exif_df <- dplyr::bind_cols(exif_df, tmp_df)
+      exif_df <- NULL
+      tmp_df <- NULL
+      exif_length <- as.numeric(xml_length(exif_atts))
 
-      rm(tmp_df)
+      for (i in 1:exif_length){
+
+        heading <- as.character(xml_attrs(xml_child(exif_atts[[1]], i))[4])
+        cell <- as.character(xml_child(xml_child(exif_atts[[1]], i), 1))
+
+        tmp_df<- data.frame(cell)
+        names(tmp_df)[names(tmp_df) == "cell"] <- paste(heading)
+
+        exif_df <- dplyr::bind_cols(exif_df, tmp_df)
+
+        rm(tmp_df)
+
+      }
 
     }
 

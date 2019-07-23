@@ -3,6 +3,10 @@ context("test-photo_search")
 test_that("fails correctly", {
   expect_error(photo_search(mindate_taken = NULL))
   expect_error(photo_search(maxdate_taken = NULL))
+
+  expect_error(photo_search(bbox = "324134,12341341,123413241,312412"),
+               "Not a valid bounding box")
+
 })
 
 test_that("bbox + woe_id fails correctly", {
@@ -24,6 +28,16 @@ test_that("output is correct", {
     bbox = "-140.625000,-47.517201,167.695313,69.162558")
   expect_is(bbox_test, "data.frame")
   expect_equal(ncol(bbox_test), 57)
+
+  user_test <- photo_search(mindate_taken = "2017-01-01",
+                            user_id = "33816646@N06")
+  expect_is(user_test, "data.frame")
+
+  date_test <- photo_search(mindate_uploaded = "2019-01-01",
+                            maxdate_uploaded = "2019-02-01",
+                            text = "lake")
+  expect_is(date_test, "data.frame")
+  expect_equal(ncol(date_test), 57)
 
   large_search <- photo_search(mindate_taken = "2018-12-20",
                                maxdate_taken = "2019-01-01",
