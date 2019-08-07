@@ -87,7 +87,7 @@
 #' }
 #'
 photo_search <-
-  function(mindate_taken = "2000-01-01",
+  function(mindate_taken = "2019-01-01",
            maxdate_taken = "2019-01-01",
            mindate_uploaded = NULL,
            maxdate_uploaded = NULL,
@@ -249,18 +249,6 @@ photo_search <-
       pics <- cbind(with_geom,
                     longitude = pics$longitude,
                     latitude = pics$latitude)
-
-      # find crs
-      layer_epsg <- unlist(sf::st_crs(sf_layer)[1])
-
-
-      # transform if needed
-      if ((is.na(layer_epsg)) | (layer_epsg != 4326)) {
-        sf_layer <- sf::st_transform(
-          sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
-      }
-
-      print(unlist(sf::st_crs(sf_layer)[1]))
 
       pics <- sf::st_intersection(pics, sf_layer)
     }
