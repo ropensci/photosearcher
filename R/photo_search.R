@@ -87,7 +87,7 @@
 #' }
 #'
 photo_search <-
-  function(mindate_taken = "2019-01-01",
+  function(mindate_taken = "2000-01-01",
            maxdate_taken = "2019-01-01",
            mindate_uploaded = NULL,
            maxdate_uploaded = NULL,
@@ -105,7 +105,8 @@ photo_search <-
 
 
     # create dfs so large searches can be subset dynamically
-    date_df <- data.frame(mindate_taken = mindate_taken, maxdate_taken = maxdate_taken)
+    date_df <- data.frame(mindate_taken = mindate_taken,
+                          maxdate_taken = maxdate_taken)
 
     # this checks for the presence of a key, if no key it prompts the user to
     # create one, it then checks the validity of the key
@@ -125,15 +126,9 @@ photo_search <-
 
     }
 
-
-    # check for vailid bbox
-    if (!is.null(bbox)) {
-      check_bbox(bb = bbox, key = api_key)
-    }
-
-    # check for valid woe_id and if flickr location services work
+    # check flickr location services work
     if (!is.null(woe_id)) {
-      check_location(woe_id = woe_id, api_key = api_key)
+      check_location(api_key = api_key)
     }
 
     # start while loop - until all dates are looped through
@@ -163,6 +158,8 @@ photo_search <-
 
       photo_xml <- search_url(base_url = base_url)
 
+      find_errors(error_xml = photo_xml)
+
       if (!is.null(photo_xml)) {
         pages_data <- data.frame(
           xml2::xml_attrs(xml2::xml_children(photo_xml)))
@@ -177,17 +174,20 @@ photo_search <-
           x <- ceiling(total / 4000)
 
           dates <- seq(
-            as.POSIXct(mindate_taken), as.POSIXct(maxdate_taken), length.out = x + 1)
+            as.POSIXct(mindate_taken),
+            as.POSIXct(maxdate_taken), length.out = x + 1)
 
           # create dataframe with minmaxdate_takens
           date_df <- rbind(
-            date_df[-1, ], data.frame(mindate_taken = dates[1:(length(dates) - 1)],
+            date_df[-1, ],
+            data.frame(mindate_taken = dates[1:(length(dates) - 1)],
                                       maxdate_taken = dates[2:length(dates)]))
         }
 
         # if > 4000 and single seconds skip
         else if (total > 4000 && (
-          seq(mindate_taken, length.out = 2, by = "1 secs")[2] == maxdate_taken)) {
+          seq(mindate_taken,
+              length.out = 2, by = "1 secs")[2] == maxdate_taken)) {
           warning(mindate_taken, " skipped: too many API results")
 
           date_df <- date_df[-1, ]
@@ -249,6 +249,18 @@ photo_search <-
       pics <- cbind(with_geom,
                     longitude = pics$longitude,
                     latitude = pics$latitude)
+
+      # find crs
+      layer_epsg <- unlist(sf::st_crs(sf_layer)[1])
+
+
+      # transform if needed
+      if ((is.na(layer_epsg)) | (layer_epsg != 4326)) {
+        sf_layer <- sf::st_transform(
+          sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
+      }
+
+      print(unlist(sf::st_crs(sf_layer)[1]))
 
       pics <- sf::st_intersection(pics, sf_layer)
     }

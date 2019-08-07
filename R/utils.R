@@ -71,24 +71,19 @@ search_url <- function(base_url) {
   return(photo_xml)
 }
 
+#error warnings
+find_errors <- function(error_xml = NULL){
 
-# check for valid bbox
-check_bbox <- function(bb, key) {
-  base_url <- paste("https://api.flickr.com/services/rest/",
-                    "?method=flickr.photos.search&api_key=",
-                    key,
-                    "&bbox=",
-                    bb,
-                    sep = "")
+  if (xml2::xml_attrs(error_xml) == "fail"){
 
-  photo_xml <- search_url(base_url = base_url)
-  pages_data <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
-  warn <- as.character(unlist(pages_data))
+  warn_data <- data.frame(xml2::xml_attrs(xml2::xml_children(error_xml)))
+  warn <- as.character(unlist(warn_data))
 
-  if ((warn[2]) == ("Not a valid bounding box")) {
-    stop("Not a valid bounding box")
+  stop(paste(warn[2]))
+
   }
 }
+
 
 # for the todo bullet points
 ui_todo <- function(x, .envir = parent.frame()) {
@@ -145,21 +140,8 @@ create_and_check_key <- function() {
 }
 
 # check that flickr locaiton services are working and woe_id is valid
-check_location <- function(woe_id = NULL, api_key = NULL) {
-  test_location <- paste("https://api.flickr.com/services/rest/",
-                         "?method=flickr.photos.search&api_key=",
-                         api_key,
-                         "&woe_id=",
-                         woe_id,
-                         sep = "")
+check_location <- function(api_key = NULL) {
 
-  r <- httr::GET(test_location, encoding = "ISO-8859")
-  photo_xml <- xml2::read_xml(r)
-  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
-
-  if ((warn[2, 1]) == ("Not a valid place type")) {
-
-    # check that know place is working
     known_location <- paste("https://api.flickr.com/services/rest/",
                             "?method=flickr.photos.search&api_key=",
                             api_key,
@@ -171,12 +153,9 @@ check_location <- function(woe_id = NULL, api_key = NULL) {
     known_warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
 
     if ((known_warn[2, 1]) == ("Not a valid place type")) {
-      stop("Flickr location services are down")
-    } else {
-      stop("WoeID is not valid")
+      stop("Can't define locations by woeID: Flickr location services are down")
     }
   }
-}
 
 create_bbox <- function(sf_layer = NULL){
 

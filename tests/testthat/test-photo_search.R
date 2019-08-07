@@ -6,6 +6,8 @@ test_that("fails correctly", {
   expect_error(photo_search(mindate_taken = NULL))
   expect_error(photo_search(maxdate_taken = NULL))
 
+  skip_on_cran()
+
   expect_error(photo_search(bbox = "324134,12341341,123413241,312412"),
                "Not a valid bounding box")
 
@@ -50,7 +52,8 @@ test_that("output is correct", {
   skip("Shape file doesn't load")
   shape_file <- sf::read_sf(
     ".\\tests\\testthat\\helper_shape_file\\National_Parks_England.shp")
-  shape_test <- photo_search(sf_layer = shape_file)
+  shape_test <- photo_search(mindate_taken = "2019-01-01",
+                             sf_layer = shape_file)
   expect_is(shape_test, "data.frame")
   expect_equal(ncol(shape_test), 68)
   rm(shape_file)
