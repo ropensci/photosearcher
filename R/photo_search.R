@@ -250,6 +250,9 @@ photo_search <-
                     longitude = pics$longitude,
                     latitude = pics$latitude)
 
+      sf_layer <- sf::st_transform(
+        sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
+
       pics <- sf::st_intersection(pics, sf_layer)
     }
 

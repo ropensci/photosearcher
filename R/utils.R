@@ -29,8 +29,9 @@ get_url <- function(mindate_taken,
                     ifelse(!(is.null(bbox)), paste0("&bbox=", bbox), ""),
                     ifelse(!(is.null(woe_id)), paste0("&woe_id=", woe_id), ""),
                     ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
-                    "&extras=", "description,date_taken,geo,tags,license,url_sq,url_t,url_s,url_q,url_m,",
-                    "url_n,url_z,url_c,url_l,url_o,count_views,count_comments,count_faves",
+                    "&extras=", "description,date_taken,geo,tags,license,",
+                    "url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,",
+                    "url_l,url_o,count_views,count_comments,count_faves",
                     "&page=", page,
                     "&format=", "rest",
                     sep = ""
@@ -153,7 +154,7 @@ check_location <- function(api_key = NULL) {
     known_warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
 
     if ((known_warn[2, 1]) == ("Not a valid place type")) {
-      stop("Can't define locations by woeID: Flickr location services are down")
+      stop("Flickr location services are down")
     }
   }
 

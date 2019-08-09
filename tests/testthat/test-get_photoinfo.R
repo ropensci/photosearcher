@@ -13,8 +13,7 @@ test_that("wrong photo_id fails is correct", {
   skip_on_cran()
 
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
-  expect_error(get_photoinfo(photo_id = 1111111111111111111111111111),
-               "Photo not found")
+  expect_error(get_photoinfo(photo_id = 1))
 })
 
 test_that("invalid API keys fails correctly", {

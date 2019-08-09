@@ -25,15 +25,9 @@ get_exif <- function(photo_id = NULL){
 
   exif_xml <- search_url(base_url = exif)
 
-  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(exif_xml)))
+  find_errors(error_xml = exif_xml)
 
-  if (warn[2, ] == "Photo not found"){
-
-    stop("Photo not found")
-
-  } else {
-
-    if (!is.null(exif_xml)) {
+  if (!is.null(exif_xml)) {
 
       exif_atts <- xml2::xml_find_all(exif_xml, "//photo",
                                       ns = xml2::xml_ns(exif_xml))
@@ -60,8 +54,6 @@ get_exif <- function(photo_id = NULL){
       }
 
     }
-
-  }
 
   return(exif_df)
 

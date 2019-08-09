@@ -26,6 +26,9 @@ find_place <- function(place) {
   # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
+  #check flickr location services are working
+  check_location(api_key = api_key)
+
   place <- gsub(" ", "+", trimws(place))
 
   place_url <- paste("https://api.flickr.com/services/rest/",
@@ -35,9 +38,9 @@ find_place <- function(place) {
                      place,
                      sep = "")
 
-  test_find_place(place_url = place_url)
-
   place_xml <- search_url(base_url = place_url)
+
+  find_errors(error_xml = place_xml)
 
   if (!is.null(place_xml)) {
     place_atts <- xml2::xml_find_all(
@@ -52,29 +55,4 @@ find_place <- function(place) {
 }
 
 
-# check if service is available
-#' @noRd
 
-test_find_place <- function(place_url = place_url, api_key = api_key) {
-  r <- httr::GET(place_url, encoding = "ISO-8859")
-  place_xml <- xml2::read_xml(r)
-  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(place_xml)))
-
-  if ((warn[2, 1]) == 0) {
-    test_url <- paste("https://api.flickr.com/services/rest/",
-                      "?method=flickr.places.find&api_key=",
-                      api_key,
-                      "&query=southampton",
-                      sep = "")
-
-    r <- httr::GET(test_url, encoding = "ISO-8859")
-    test_xml <- xml2::read_xml(r)
-    warn <- data.frame(xml2::xml_attrs(xml2::xml_children(test_xml)))
-
-    if ((warn[2, 1]) == 0) {
-      stop("Flickr location service not working")
-    } else {
-      stop("Provided location has no associated Flickr information")
-    }
-  }
-}

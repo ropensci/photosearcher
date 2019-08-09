@@ -19,7 +19,6 @@ test_that("invalid API keys fails correctly", {
   # the save_key function")
 
   skip_on_cran()
-  skip("Flickr location services are down")
   write.table("notarealkey", file = "api_key.txt")
   expect_error(find_place(place = "new york"))
 })

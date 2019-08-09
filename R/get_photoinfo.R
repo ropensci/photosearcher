@@ -25,22 +25,24 @@ get_photoinfo <- function(photo_id = NULL){
 
   photo_xml <- search_url(z)
 
-  warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
+  find_errors(error_xml = photo_xml)
 
-  if (warn[1,1] != photo_id){
-
-    stop("Photo not found")
-
-  } else {
+  if (!is.null(photo_xml)){
 
     photo_atts <- xml2::xml_find_all(photo_xml,
-                                    "//photo",
-                                    ns = xml2::xml_ns(photo_xml))
+                                     "//photo",
+                                     ns = xml2::xml_ns(photo_xml))
 
     out <- dplyr::bind_rows(lapply(xml2::xml_attrs(photo_atts),
                                    function(x) data.frame(
                                      as.list(x), stringsAsFactors = FALSE)))
+
+  } else {
+
+    stop("No information available")
+
   }
+
 
   return(out)
 

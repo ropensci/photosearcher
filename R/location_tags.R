@@ -20,10 +20,8 @@ location_tags <- function(woe_id) {
   # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
-  # check for valid woe_id and if flickr location services work
-  if (!is.null(woe_id)) {
-    check_location(woe_id = woe_id, api_key = api_key)
-  }
+  #check if flickr location services are working
+  check_location(api_key = api_key)
 
   get_tags <- paste("https://api.flickr.com/services/rest/",
                     "?method=flickr.places.tagsForPlace&api_key=",
@@ -34,6 +32,8 @@ location_tags <- function(woe_id) {
 
   # this new one works here
   tag_xml <- search_url(base_url = get_tags)
+
+  find_errors(error_xml = tag_xml)
 
   if (!is.null(tag_xml)) {
     tag_atts <- xml2::xml_find_all(tag_xml, "//tag", ns = xml2::xml_ns(tag_xml))

@@ -93,13 +93,13 @@ The woe_id argument is a Flickr specific place identifier. A places woeID can be
 ## Finding tags most associated with another tag
 ```{r eval=FALSE}
   #Find tags associated with zebra
-  zebra <- related_terms(term = "zebra")
+  zebra <- related_tags(tag = "zebra")
 
   #Find tags most assoicated with hiking
-  hiking <- related_terms(term = "hiking")
+  hiking <- related_tags(tag = "hiking")
   
   #Find tags most associated with the word church
-  church <- related_terms(term = "church")
+  church <- related_tags(tag = "church")
 
 ```
 
