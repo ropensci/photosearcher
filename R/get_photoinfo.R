@@ -16,14 +16,16 @@ get_photoinfo <- function(photo_id = NULL){
   # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
-  z <- paste("https://api.flickr.com/services/rest/",
+  out <- NULL
+
+  base_url <- paste("https://api.flickr.com/services/rest/",
                 "?method=flickr.photos.getInfo&api_key=",
                 api_key,
                 "&photo_id=",
                 photo_id,
                 sep = "")
 
-  photo_xml <- search_url(z)
+  photo_xml <- search_url(base_url = base_url)
 
   find_errors(error_xml = photo_xml)
 
@@ -37,12 +39,7 @@ get_photoinfo <- function(photo_id = NULL){
                                    function(x) data.frame(
                                      as.list(x), stringsAsFactors = FALSE)))
 
-  } else {
-
-    stop("No information available")
-
   }
-
 
   return(out)
 

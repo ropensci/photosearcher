@@ -9,7 +9,7 @@
   "name": "photosearcher: Photo Searcher",
   "codeRepository": "https://github.com/nfox29/photosearcher",
   "issueTracker": "https://github.com/nfox29/photosearcher/issues",
-  "license": "https://spdx.org/licenses/GPL-2.0",
+  "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "1.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
@@ -261,7 +261,7 @@
     }
   ],
   "readme": "https://github.com/nfox29/photosearcher/blob/master/README.md",
-  "fileSize": "3689.649KB",
+  "fileSize": "4037.581KB",
   "contIntegration": [
     "https://travis-ci.org/nfox29/photosearcher",
     "https://codecov.io/gh/nfox29/photosearcher?branch=master"

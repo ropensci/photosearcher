@@ -79,7 +79,7 @@ download_image_single <- function(photo_id,
   if (warn[2, ] == "Photo not found"){
 
     out <- data.frame(id = photo_id,
-                      can_download = 0,
+                      can_download = "Photo not found",
                       stringsAsFactors = FALSE)
 
   } else {
@@ -96,10 +96,6 @@ download_image_single <- function(photo_id,
 
 
       if ((tmp_df$candownload) == 1) {
-
-        out <- data.frame(id = photo_id,
-                          can_download = 1,
-                          stringsAsFactors = FALSE)
 
         photo_url <- xml2::xml_find_all(photo_xml,
                                         "//size",
@@ -121,21 +117,38 @@ download_image_single <- function(photo_id,
                                as.numeric(max_image_width)), ]
         }
 
+        if (nrow(tmp_df) > 0){
 
-        # download biggest possible image
-        to_download <- tmp_df$source[nrow(tmp_df)]
 
-        utils::download.file(
-          url = to_download,
-          destfile = file.path(saveDir, basename(to_download)),
-          mode = "wb",
-          quiet = quiet
-        )
+          out <- data.frame(id = photo_id,
+                            can_download = "Yes",
+                            stringsAsFactors = FALSE)
+
+          # download biggest possible image
+          to_download <- tmp_df$source[nrow(tmp_df)]
+
+          utils::download.file(
+            url = to_download,
+            destfile = file.path(saveDir, basename(to_download)),
+            mode = "wb",
+            quiet = quiet
+          )
+
+        } else {
+
+          out <- data.frame(id = photo_id,
+                            can_download = "No photos meeting size criteria",
+                            stringsAsFactors = FALSE)
+
+        }
+
+
       } else {
 
       out <- data.frame(id = photo_id,
-                        can_download = 0,
-                        stringsAsFactors = FALSE)}
+                        can_download = "No",
+                        stringsAsFactors = FALSE)
+      }
    }
 
   }

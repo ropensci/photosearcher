@@ -11,6 +11,10 @@ test_that("fails correctly", {
   expect_error(photo_search(bbox = "324134,12341341,123413241,312412"),
                "Not a valid bounding box")
 
+  #whilst flickr services are down
+  expect_error(photo_search(woe_id = "35356"),
+               "Flickr location services are down")
+
 })
 
 test_that("bbox + woe_id fails correctly", {
@@ -49,9 +53,8 @@ test_that("output is correct", {
   expect_is(large_search, "data.frame")
   expect_equal(ncol(large_search), 57)
 
-  skip("Shape file doesn't load")
   shape_file <- sf::read_sf(
-    ".\\tests\\testthat\\helper_shape_file\\National_Parks_England.shp")
+    ".\\helper_shape_file\\National_Parks_England.shp")
   shape_test <- photo_search(mindate_taken = "2019-01-01",
                              sf_layer = shape_file)
   expect_is(shape_test, "data.frame")
@@ -63,6 +66,8 @@ test_that("output is correct", {
   expect_is(woeid_test, "data.frame")
   expect_equal(ncol(woeid_test), 57)
 })
+
+
 
 test_that("invalid API keys fails correctly", {
 

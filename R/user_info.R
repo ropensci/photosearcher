@@ -71,8 +71,6 @@ user_info_single <- function(user_id, api_key) {
                         country = out$country) }
 
   }
-  else {
-    out <- NULL
-  }
+
   return(out)
 }

@@ -25,6 +25,8 @@ related_tags <- function(tag) {
   # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
+  out <- NULL
+
   tag <- gsub(" ", "+", trimws(tag))
 
   baseURL <- paste("https://api.flickr.com/services/rest/",
@@ -40,12 +42,8 @@ related_tags <- function(tag) {
 
   if (!is.null(tag_xml)) {
     tag_atts <- xml2::xml_find_all(tag_xml, "//tag", ns = xml2::xml_ns(tag_xml))
-    tags <- unlist(xml2::as_list(tag_atts))
+    out <- unlist(xml2::as_list(tag_atts))
   }
 
-  if (is.null(tags)) {
-    stop("No related tags")
-  }
-
-  return(tags)
+  return(out)
 }
