@@ -54,7 +54,7 @@ test_that("output is correct", {
   expect_equal(ncol(large_search), 57)
 
   shape_file <- sf::read_sf(
-    ".\\helper_shape_file\\National_Parks_England.shp")
+    ".\\testhat\\helper_shape_file\\National_Parks_England.shp")
   shape_test <- photo_search(mindate_taken = "2019-01-01",
                              sf_layer = shape_file)
   expect_is(shape_test, "data.frame")
