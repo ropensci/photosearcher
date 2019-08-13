@@ -29,6 +29,12 @@ user_info <- function(user_id) {
   id_info <- dplyr::bind_rows(lapply(
     user_id, function(x) user_info_single(x, api_key)))
 
+  id_info <- data.frame(id = id_info$id,
+                    occupation = id_info$occupation,
+                    hometown = id_info$hometown,
+                    city = id_info$city,
+                    country = id_info$country)
+
   return(id_info)
 }
 
@@ -64,11 +70,7 @@ user_info_single <- function(user_id, api_key) {
         xml2::xml_attrs(user_atts), function(x) data.frame(
           as.list(x), stringsAsFactors = FALSE)))
 
-      out <- data.frame(id = out$id,
-                        occupation = out$occupation,
-                        hometown = out$hometown,
-                        city = out$city,
-                        country = out$country) }
+}
 
   }
 
