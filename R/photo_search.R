@@ -73,6 +73,8 @@
 #'   bbox = "-13.623047,47.279229,3.251953,60.630102",
 #'   has_geo = TRUE)
 #'
+#'
+#'
 #'   photo_search(
 #'    mindate_taken = "2017-01-01",
 #'    maxdate_taken = "2017-01-02",

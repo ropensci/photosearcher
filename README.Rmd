@@ -52,8 +52,8 @@ In this example, we demonstrate how to search for metadata on all images labelle
 library(photosearcher)
 
 rock_climbing <- photo_search(
-  mindate = "2010-01-01",
-  maxdate = "2018-01-01",
+  mindate_taken = "2010-01-01",
+  maxdate_taken = "2018-01-01",
   text = "rock climbing",
   bbox = "-12.875977,49.210420,2.636719,59.977005",
   has_geo = TRUE

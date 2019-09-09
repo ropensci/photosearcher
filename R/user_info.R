@@ -35,7 +35,7 @@ user_info <- function(user_id) {
                     city = id_info$city,
                     country = id_info$country)
 
-  return(id_info)
+   return(id_info)
 }
 
 #' @noRd
