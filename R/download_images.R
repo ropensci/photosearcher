@@ -1,4 +1,4 @@
-#' download_images
+#' Download images
 #'
 #' Downloads images based on their Flickr ID. Uses the flickr.photos.getSizes
 #' API method from the Flickr API to test whether you have permission to

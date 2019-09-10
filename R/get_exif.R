@@ -1,4 +1,4 @@
-#'get_exif
+#'Get Exif data
 #'
 #'Returns Exchangeable image file format data for a single photograph. For more
 #'information on how Exif data differs from metadata see:

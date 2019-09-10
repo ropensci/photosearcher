@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_photoinfo.R
 \name{get_photoinfo}
 \alias{get_photoinfo}
-\title{get_photoinfo}
+\title{Get metadata for a single photo}
 \usage{
 get_photoinfo(photo_id = NULL)
 }

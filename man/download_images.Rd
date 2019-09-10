@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_images.R
 \name{download_images}
 \alias{download_images}
-\title{download_images}
+\title{Download images}
 \usage{
 download_images(photo_id, saveDir = "downloaded_images",
   max_image_height = NULL, max_image_width = NULL, quiet = FALSE)

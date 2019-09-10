@@ -2,7 +2,7 @@
 % Please edit documentation in R/interesting_list.R
 \name{interesting_list}
 \alias{interesting_list}
-\title{interesting_list}
+\title{Interesting list}
 \usage{
 interesting_list(date = "2019-01-01")
 }

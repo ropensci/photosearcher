@@ -1,4 +1,4 @@
-#' interesting_list
+#' Interesting list
 #'
 #' Returns a Flickr generated list of photographs deemed interesting. For
 #' information on how this list is calculated see:

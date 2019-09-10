@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_exif.R
 \name{get_exif}
 \alias{get_exif}
-\title{get_exif}
+\title{Get Exif data}
 \usage{
 get_exif(photo_id = NULL)
 }

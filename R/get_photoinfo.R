@@ -1,4 +1,4 @@
-#' get_photoinfo
+#' Get metadata for a single photo
 #'
 #' Returns image metadata for a single photograph.
 #'
