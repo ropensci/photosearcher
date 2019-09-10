@@ -44,13 +44,6 @@ download_images <- function(photo_id,
 
   }
 
-  #not sure how to print this first?
-  warning(paste(length(photo_id),
-                " photos to be downloaded may take in excess of ",
-                (length(photo_id) * 10),
-                " seconds",
-                sep = ""))
-
   # create save_dir
   if (!dir.exists(save_dir)) {
     ui_info(paste("save_dir",

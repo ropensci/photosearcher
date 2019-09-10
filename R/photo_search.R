@@ -15,12 +15,14 @@
 #' @param maxdate_taken Character, required. Maximum taken date. Photos with an
 #'   taken date less than or equal to this value will be returned. The date
 #'   should be in the form of "YYYY-MM-DD".
-#' @param text String, optional. A free text search. Photos who's title,
+#' @param text Character, optional. A free text search. Photos who's title,
 #'   description or tags contain the text will be returned. You can exclude
-#'   results that match a term by prepending it with a - character.
-#' @param tags String, optional. A comma-delimited list of tags. Photos with one
-#'   or more of the tags listed will be returned. You can exclude results that
-#'   match a term by prepending it with a - character.
+#'   results that match a term by prepending it with a - character. Free text
+#'   searches for words in oder provided, for example a search for "climbing
+#'   rock" will be different to "rock climbing"
+#' @param tags Character, optional. A comma-delimited list of tags. Photos with
+#'   one or more of the tags listed will be returned. You can exclude results
+#'   that match a term by prepending it with a - character.
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param woe_id Numeric, optional "where on earth identifier" can be supplied
@@ -81,6 +83,7 @@ photo_search <-
            user_id = NULL,
            text = NULL,
            tags = NULL,
+           tags_or = TRUE,
            bbox = NULL,
            woe_id = NULL,
            sf_layer = NULL,
@@ -118,6 +121,17 @@ photo_search <-
       check_location(api_key = api_key)
     }
 
+    #specify tag mode
+    if (isTRUE(tags_or)){
+
+      tags_or <- "any"
+
+    } else {
+
+        tags_or <- "all"
+
+      }
+
     # start while loop - until all dates are looped through
     while (nrow(date_df) > 0) {
 
@@ -138,6 +152,7 @@ photo_search <-
         page = i,
         text = text,
         tags = tags,
+        tag_mode = tags_or,
         bbox = bbox,
         woe_id = woe_id,
         has_geo = has_geo
