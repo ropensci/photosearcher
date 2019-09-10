@@ -93,6 +93,7 @@
 <div id="flickr-papers" class="section level1">
 <h1 class="hasAnchor">
 <a href="#flickr-papers" class="anchor"></a>Flickr papers</h1>
+<p>To understand how Flickr is currently being use in scientific research we investigated the decipline and scope of articles with the keyword <code>Flickr</code> in the <a href="https://www.plos.org/">PLoS journals</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">plos &lt;-<span class="st"> </span>rplos<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/rplos/topics/searchplos">searchplos</a></span>(<span class="dt">q=</span><span class="st">'flickr'</span>, </a>
 <a class="sourceLine" id="cb1-2" title="2">                          <span class="dt">fl=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'id'</span>,<span class="st">'publication_date'</span>,<span class="st">'subject'</span>, <span class="st">'subject_level_1'</span>),</a>
 <a class="sourceLine" id="cb1-3" title="3">                          <span class="dt">limit =</span> <span class="dv">200</span>)<span class="op">$</span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -101,24 +102,16 @@
 <a class="sourceLine" id="cb1-6" title="6">         <span class="dt">subjects =</span> subject_level_<span class="dv">1</span>)</a></code></pre></div>
 <p>There are a total of 189 papers with the keyword <code>flickr</code> in the PLoS journals.</p>
 </div>
-<div id="keyword-wordcloud" class="section level1">
+<div id="subject-frequency" class="section level1">
 <h1 class="hasAnchor">
-<a href="#keyword-wordcloud" class="anchor"></a>Keyword Wordcloud</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">kws &lt;-<span class="st"> </span>plos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(keywords) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="dt">collapse =</span> <span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_split</span>(<span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span>table <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"></a>
-<a class="sourceLine" id="cb2-4" title="4"></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="kw">wordcloud</span>(<span class="dt">words =</span> kws<span class="op">$</span>., <span class="dt">freq =</span> kws<span class="op">$</span>Freq, <span class="dt">min.freq =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb2-6" title="6">          <span class="dt">max.words=</span><span class="dv">200</span>, <span class="dt">random.order=</span><span class="ot">FALSE</span>, <span class="dt">rot.per=</span><span class="fl">0.35</span>, </a>
-<a class="sourceLine" id="cb2-7" title="7">          <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Dark2"</span>))</a></code></pre></div>
-<p><img src="flickr_in_research_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<p>Subject frequency</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">plos <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw">pull</span>(subjects) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="dt">collapse =</span> <span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="st">  </span><span class="kw">str_split</span>(<span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="st">  </span>table <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div>
+<a href="#subject-frequency" class="anchor"></a>Subject frequency</h1>
+<p>To understand the diciplines of science using Flickr we calculated the frequence of papers in each research field:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">plos <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw">pull</span>(subjects) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="dt">collapse =</span> <span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw">str_split</span>(<span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="st">  </span>table <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 11 x 2
 ##    .                                      n
 ##    &lt;chr&gt;                              &lt;int&gt;
@@ -134,6 +127,19 @@
 ## 10 Science policy                        19
 ## 11 Social sciences                      140</code></pre>
 </div>
+<div id="keyword-wordcloud" class="section level1">
+<h1 class="hasAnchor">
+<a href="#keyword-wordcloud" class="anchor"></a>Keyword Wordcloud</h1>
+<p>To understand what topics are covered by Flickr researches we found the frequency of other keywords attributed to Flickr papers:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">kws &lt;-<span class="st"> </span>plos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(keywords) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="dt">collapse =</span> <span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_split</span>(<span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span>table <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">wordcloud</span>(<span class="dt">words =</span> kws<span class="op">$</span>., <span class="dt">freq =</span> kws<span class="op">$</span>Freq, <span class="dt">min.freq =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb4-6" title="6">          <span class="dt">max.words=</span><span class="dv">200</span>, <span class="dt">random.order=</span><span class="ot">FALSE</span>, <span class="dt">rot.per=</span><span class="fl">0.35</span>, </a>
+<a class="sourceLine" id="cb4-7" title="7">          <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Dark2"</span>))</a></code></pre></div>
+<p><img src="flickr_in_research_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -142,6 +148,7 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#flickr-papers">Flickr papers</a></li>
+      <li><a href="#subject-frequency">Subject frequency</a></li>
       <li><a href="#keyword-wordcloud">Keyword Wordcloud</a></li>
       </ul>
 </div>

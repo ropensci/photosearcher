@@ -33,7 +33,8 @@ user_info <- function(user_id) {
                     occupation = id_info$occupation,
                     hometown = id_info$hometown,
                     city = id_info$city,
-                    country = id_info$country)
+                    country = id_info$country,
+                    stringsAsFactors = FALSE)
 
    return(id_info)
 }

@@ -184,7 +184,7 @@ match a term by prepending it with a - character.</p></td>
     <tr>
       <th>woe_id</th>
       <td><p>Numeric, optional "where on earth identifier" can be supplied
-instead of bbox. Use function find_place to obtain woe_id for a place.</p></td>
+instead of bbox. Use <code><a href='findPlaces.html'>find_place</a></code> to obtain woe_id for a place.</p></td>
     </tr>
     <tr>
       <th>sf_layer</th>
@@ -231,29 +231,16 @@ information on the API method.</p>
   <span class='kw'>text</span> <span class='kw'>=</span> <span class='st'>"tree"</span>,
   <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='st'>"-13.623047,47.279229,3.251953,60.630102"</span>,
   <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
-
+  )
 
 <span class='fu'>photo_search</span>(
-  <span class='kw'>mindate_taken</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>,
-  <span class='kw'>maxdate_taken</span> <span class='kw'>=</span> <span class='st'>"2019-01-02"</span>,
-  <span class='kw'>text</span> <span class='kw'>=</span> <span class='st'>"tree"</span>,
-  <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='st'>"-13.623047,47.279229,3.251953,60.630102"</span>,
-  <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-  <span class='fu'>photo_search</span>(
-   <span class='kw'>mindate_taken</span> <span class='kw'>=</span> <span class='st'>"2017-01-01"</span>,
-   <span class='kw'>maxdate_taken</span> <span class='kw'>=</span> <span class='st'>"2017-01-02"</span>,
-   <span class='kw'>mindate_uploaded</span> <span class='kw'>=</span> <span class='st'>"2017-03-04"</span>,
-   <span class='kw'>maxdate_uploaded</span> <span class='kw'>=</span> <span class='st'>"2017-05-05"</span>,
-   <span class='kw'>tags</span> <span class='kw'>=</span> <span class='st'>"tree"</span>)
-
-   <span class='fu'>photo_search</span>(
-    <span class='kw'>mindate_taken</span> <span class='kw'>=</span> <span class='st'>"2014-01-01"</span>,
-    <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='st'>"33816646@N06"</span>)
-
-<span class='co'># }</span><div class='input'>
-</div></pre>
+  <span class='kw'>mindate_taken</span> <span class='kw'>=</span> <span class='st'>"2017-01-01"</span>,
+  <span class='kw'>maxdate_taken</span> <span class='kw'>=</span> <span class='st'>"2017-01-02"</span>,
+  <span class='kw'>mindate_uploaded</span> <span class='kw'>=</span> <span class='st'>"2017-03-04"</span>,
+  <span class='kw'>maxdate_uploaded</span> <span class='kw'>=</span> <span class='st'>"2017-05-05"</span>,
+  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='st'>"lake"</span>
+  )
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

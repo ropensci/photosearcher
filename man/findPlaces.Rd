@@ -3,7 +3,7 @@
 \name{findPlaces}
 \alias{findPlaces}
 \alias{find_place}
-\title{Find correct location information for a given place}
+\title{Find place location data}
 \usage{
 find_place(place)
 }
@@ -16,6 +16,9 @@ search location. Nine variables are returned: place_id, woe_id, latitude,
 longitude, place_url, place_type, place_type_id, timezone, woe_name.
 }
 \description{
+Find the WoeID and other location data for a given place
+}
+\details{
 Takes user defined location and returns location data for the search. Uses
 the flickr.places.find API method from the Flickr API. See
 \url{https://www.flickr.com/services/api/flickr.places.find.html} for more

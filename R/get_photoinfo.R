@@ -1,5 +1,7 @@
 #' get_photoinfo
 #'
+#' Returns image metadata for a single photograph.
+#'
 #' @param photo_id Character, required. The id of the photo to get information
 #'   for.
 #'
@@ -8,7 +10,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_photoinfo(photo_id = 123)
+#' get_photoinfo(photo_id = 48704764812)
 #'}
 get_photoinfo <- function(photo_id = NULL){
 

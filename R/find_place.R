@@ -1,4 +1,6 @@
-#' Find correct location information for a given place
+#' Find place location data
+#'
+#' Find the WoeID and other location data for a given place
 #'
 #' Takes user defined location and returns location data for the search. Uses
 #' the flickr.places.find API method from the Flickr API. See

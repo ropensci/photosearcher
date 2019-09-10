@@ -14,10 +14,12 @@ A dataframe of "exchangeable image file format" information for the
 given photograph
 }
 \description{
-get_exif
+Returns Exchangeable image file format data for a single photograph. For more
+information on how Exif data differs from metadata see:
+\link{https://www.flickr.com/services/api/flickr.photos.getExif.html}
 }
 \examples{
 \dontrun{
-get_exif(photo_id = 123)
+get_exif(photo_id = 48704764812)
 }
 }

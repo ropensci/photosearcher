@@ -14,10 +14,10 @@ for.}
 Dataframe of information on given image
 }
 \description{
-get_photoinfo
+Returns image metadata for a single photograph.
 }
 \examples{
 \dontrun{
-get_photoinfo(photo_id = 123)
+get_photoinfo(photo_id = 48704764812)
 }
 }

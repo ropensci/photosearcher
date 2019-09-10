@@ -35,11 +35,8 @@ downloaded and saved as a .jpeg in a given save directory.
 }
 \examples{
 \dontrun{
-download_images(photo_id = 123, saveDir = "images")
+download_images(photo_id = 48704764812, saveDir = "images")
 
-download_images(photo_id = photo_search_outputs$id, saveDir =
-"downloaded_photos", quiet = TRUE)
-
-download_images(photo_id = 123, maximum_image_height = 1200,
-maximum_image_width = 1200, ) }
+download_images(photo_id = 48704764812, maximum_image_height = 1200,
+maximum_image_width = 1200, saveDir = "smaller_images") }
 }

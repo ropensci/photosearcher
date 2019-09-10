@@ -5,7 +5,7 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "photosearcher",
-  "description": "Queries the Flick API (https://www.flickr.com/services/api/)to return photograph metadata as well as the ability to download the images as jpegs.",
+  "description": "Queries the Flick API (https://www.flickr.com/services/api/) to \n  return photograph metadata as well as the ability to download the images as \n  jpegs.",
   "name": "photosearcher: Photo Searcher",
   "codeRepository": "https://github.com/nfox29/photosearcher",
   "issueTracker": "https://github.com/nfox29/photosearcher/issues",
@@ -261,7 +261,7 @@
     }
   ],
   "readme": "https://github.com/nfox29/photosearcher/blob/master/README.md",
-  "fileSize": "4037.581KB",
+  "fileSize": "16000.381KB",
   "contIntegration": [
     "https://travis-ci.org/nfox29/photosearcher",
     "https://codecov.io/gh/nfox29/photosearcher?branch=master"

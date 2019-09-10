@@ -29,14 +29,14 @@ trees <- photo_search(mindate_taken = "2019-01-01",
                       has_geo = TRUE)
 
 #Search for images with text mountain and tagged lake
-moutain_lake <- photo_search(mindate_taken = "2019-01-01",
+mountain_lake <- photo_search(mindate_taken = "2019-01-01",
                              maxdate_taken = "2019-02-01",
                              text = "mountain",
                              tags = "lake",
                              has_geo = FALSE)
 ```
 
-Users can also use the `sf` package to search via a simple features layer, this can be used to find images of in a specific location for example to aid in resource management for recreational activites in english national parks.
+Users can also use the `sf` package to search via a simple features layer, this can be used to find images of in a specific location for example to aid in resource management for recreational activites in english national parks. When using an arguemtn that searches for a location or when `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
 
 ```{r eval=FALSE}
 #load shape file
@@ -50,32 +50,38 @@ parks_hiking <- photo_search(mindate_taken = "2012-01-01",
                              has_geo = TRUE) 
 ```
 
-When `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
-
-Here, the images of UK foxes are plotted using `ggplot2`. 
-
-![Foxes](https://github.com/nfox29/photosearcher/data/images/foxes_plot.png?raw=true)
-
 ## Downloading images
-The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it does not exists it will be automatically created. Downloading images allows for validation of their contents. Here, we demonstrate how to download the first five images that were found using the foxes `photo_search` example, as well as for a single image.
+The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it does not exists it will be automatically created. Downloading images allows for validation of their contents. Here, we demonstrate how to download the first five images that were found using the foxes `photo_search` example, as well as for a single image. When downloading image, if users need certain pixel width and height dimensions (i.e. for Google Vision limits), these values can be specified.
+
 ```{r eval=FALSE}
 #Downloading fox images from photosearch
-download_images(photo_id = foxes$id[1:5], saveDir = "Fox images")
+downloaded_foxes <- download_images(photo_id = foxes$id[1:5], 
+                                    saveDir = "Fox images")
 
 #Download a specific images based off its id
-download_images(photo_id = 48704764812)
+single_download <- download_images(photo_id = 48704764812, 
+                                   saveDir = "single_test",
+                                   max_image_height = 1200,
+                                   max_image_width = 1200)
 ```
-The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded, but will produce a warning to let know the ID numbers of those skipped. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The `photo_search` function provides the licence information for each image.
+
+The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded. The function also provides dataframe outlining which photographs were able to be downloaded. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The `photo_search` function provides the licence information for each image.
 
 ## Finding information on a user
+The Flickr API can also return publically available data on its users. The `user_info` function returns non-identifying information including hometown and occupation.  
+
 ```{r eval=FALSE}
 #Find a users hometown
 user <- user_info(user_id = "155421853@N05")
 
 user$hometown
+
+user$occupation
 ```
 
 ## Get the top tags for a location
+Users can request the top tags for a given location. 
+
 ```{r eval=FALSE}
 #Find the tags for Southampton, UK
 southampton <- location_tags(woe_id = 35356)
@@ -83,6 +89,7 @@ southampton <- location_tags(woe_id = 35356)
 #Find the tags for New York state, US
 new_york <- location_tags(woe_id = 	2347591)
 ```
+
 The woe_id argument is a Flickr specific place identifier. A places woeID can be found using the `find_place` function or using [online tools](http://woeid.rosselliot.co.nz/). 
 
 ## Find a locations woeID
@@ -94,6 +101,8 @@ The woe_id argument is a Flickr specific place identifier. A places woeID can be
 ```
 
 ## Finding tags most associated with another tag
+The Flickr API can perform clustered usage analysis on a given tag, returning the tags that are most often tagged alongside the given tag. For more information on how this is done check the [Flickrs getRelated documentation](https://www.flickr.com/services/api/flickr.tags.getRelated.html)
+
 ```{r eval=FALSE}
   #Find tags associated with zebra
   zebra <- related_tags(tag = "zebra")
@@ -107,13 +116,24 @@ The woe_id argument is a Flickr specific place identifier. A places woeID can be
 ```
 
 ## Finding Exif information about a photo
+The Flickr API can also return Exchangeable image file format (Exif) data. For more information on Flickrs Exif data see the [Flickrs getExif documentation](https://www.flickr.com/services/api/flickr.photos.getExif.html) 
 ```{r eval=FALSE}
   #Find Exif information about a single photo
-  exif_photo <- get_photoinfo(photo_id = 47259127482)
+  exif_photo <- get_exif(photo_id = 48704764812)
 ```
 
 ## Finding information on a single photo
+As well as searching for metadata on photographs based up on search terms, users can also find information on a single photograp using its unique photograph number.
 ```{r eval=FALSE}
   #Find information about a single photo
-  single_photo <- get_photoinfo(photo_id = 47259127482)
+  single_photo <- get_photoinfo(photo_id = 48704764812)
+```
+
+## Find interesting photographs 
+
+Flickr has an [algorithm](http://www.steves-digicams.com/knowledge-center/how-tos/online-sharing-social-networking/what-is-flickr-interestingness.html#b) for selecting a list of 500 interesting images for each day. Users can get this list using the `interesting_list` funciton.
+
+```{r eval=FALSE}
+  #Find information about a single photo
+  interesting <- interesting_list(date = "2019-01-01")
 ```

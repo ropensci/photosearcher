@@ -1,14 +1,18 @@
-#' get_exif
+#'get_exif
 #'
-#' @param photo_id Id of photograph
+#'Returns Exchangeable image file format data for a single photograph. For more
+#'information on how Exif data differs from metadata see:
+#'\link{https://www.flickr.com/services/api/flickr.photos.getExif.html}
 #'
-#' @return A dataframe of "exchangeable image file format" information for the
-#'   given photograph
-#' @export
+#'@param photo_id Id of photograph
+#'
+#'@return A dataframe of "exchangeable image file format" information for the
+#'  given photograph
+#'@export
 #'
 #' @examples
 #' \dontrun{
-#' get_exif(photo_id = 123)
+#' get_exif(photo_id = 48704764812)
 #'}
 get_exif <- function(photo_id = NULL){
 

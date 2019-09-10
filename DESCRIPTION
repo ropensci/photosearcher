@@ -2,12 +2,15 @@ Package: photosearcher
 Title: Photo Searcher
 Version: 1.0
 Authors@R: 
-    c(person("Nathan", "Fox", role = c("aut", "cre"), email = "nf2g13@soton.ac.uk"),
+    c(person("Nathan", "Fox", role = c("aut", "cre"), 
+    email = "nf2g13@soton.ac.uk"),
            person("Francesca", "Mancini", role = c("aut")),
            person("Laura", "Graham", role = c("aut")),
            person("Louis", "Sutter", role = c("aut")),
            person("Tom", "August", role = c("aut")))
-Description: Queries the Flick API (https://www.flickr.com/services/api/)to return photograph metadata as well as the ability to download the images as jpegs.
+Description: Queries the Flick API (https://www.flickr.com/services/api/) to 
+  return photograph metadata as well as the ability to download the images as 
+  jpegs.
 Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8

@@ -23,6 +23,8 @@ get_kw <- function(x) {
 
 # Flickr papers
 
+To understand how Flickr is currently being use in scientific research we investigated the decipline and scope of articles with the keyword `Flickr` in the [PLoS journals](https://www.plos.org/).
+
 ```{r}
 plos <- rplos::searchplos(q='flickr', 
                           fl=c('id','publication_date','subject', 'subject_level_1'),
@@ -34,7 +36,23 @@ plos <- rplos::searchplos(q='flickr',
 
 There are a total of `r nrow(plos)` papers with the keyword `flickr` in the PLoS journals. 
 
+# Subject frequency
+
+To understand the diciplines of science using Flickr we calculated the frequence of papers in each research field:
+
+```{r}
+plos %>% 
+  pull(subjects) %>% 
+  paste(collapse = ",") %>% 
+  str_split(",") %>% 
+  table %>% 
+  as_tibble()
+```
+
+
 # Keyword Wordcloud
+
+To understand what topics are covered by Flickr researches we found the frequency of other keywords attributed to Flickr papers:
 
 ```{r}
 kws <- plos %>% pull(keywords) %>% paste(collapse = ",") %>% str_split(",") %>% table %>% as.data.frame
@@ -47,15 +65,7 @@ wordcloud(words = kws$., freq = kws$Freq, min.freq = 1,
 
 ```
 
-Subject frequency
 
-```{r}
-plos %>% 
-  pull(subjects) %>% 
-  paste(collapse = ",") %>% 
-  str_split(",") %>% 
-  table %>% 
-  as_tibble()
-```
+
 
 

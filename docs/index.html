@@ -10,7 +10,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Photo Searcher">
-<meta property="og:description" content="Queries the Flick API (https://www.flickr.com/services/api/)to return photograph metadata as well as the ability to download the images as jpegs.">
+<meta property="og:description" content="Queries the Flick API (https://www.flickr.com/services/api/) to 
+  return photograph metadata as well as the ability to download the images as 
+  jpegs.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -91,7 +93,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#photosearcher" class="anchor"></a>photosearcher</h1></div>
 <p>The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API. More information can be found on the <a href="https://nfox29.github.io/photosearcher/">package website</a>. For more information and examples of the functions check out the <a href="https://nfox29.github.io/photosearcher/articles/photosearcher.html">package vignette</a>.</p>
-<p>We have produced this package to help facilitate reproducible code for answering research questions. Flickr is currently used a wide range of research fields including biology and life sciences, computer and information sciences and medicine and health sciences. <a href="https://nfox29.github.io/photosearcher/articles/flickr_in_research.html">Click here</a> for an overview of other topics that have utilised Flickr.</p>
+<p>We have produced this package to help facilitate reproducible code for answering research questions. In the PLoS journals alone there are over 180 articles with Flickr in their keywords. <a href="https://nfox29.github.io/photosearcher/articles/flickr_in_research.html">Click here</a> for an overview of the use of Flickr in PLoS journals. Atricles using Flickr are published in a wide range of journals for a wide range of research fields including <a href="https://www.nature.com/articles/s41598-017-18007-4">biology and life sciences</a>, <a href="https://www.inderscience.com/info/inarticle.php?artid=99808">computer and information sciences</a>, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0272494418303086">medicine and health sciences</a> and <a href="https://journals.sagepub.com/doi/full/10.1177/1470357218780530?casa_token=UubfU8-MbuAAAAAA%3AAQBSE3ipGOdMi33J6ISalSySECPxvmxvmgDys3-ni7Z5EuQHNGlPMhOxjq6hyfPLmo1tFEIJYCiR">politics</a>.</p>
 <div id="terms-of-use" class="section level2">
 <h2 class="hasAnchor">
 <a href="#terms-of-use" class="anchor"></a>Terms of use</h2>
@@ -111,7 +113,8 @@
 <div id="package-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package-functions" class="anchor"></a>Package functions</h2>
-<p>The package currently focuses on the ability to use the Flickr API to search for images and their metadata through the flickr.photos.search method. The package does however support a number of other Flickr API call methods including the flickr.tags.getRelated and flickr.places.tagsForPlace methods. The Flickr website offers full <a href="https://www.flickr.com/services/api/">API Documentation</a> for all of its call methods.</p>
+<p>The package currently focuses on the ability to use the Flickr API to search for images and their metadata through the <code>photo_search</code> function (<a href="https://www.flickr.com/services/api/flickr.photos.search.html">see the flickr.photos.search method</a>) for more information. These photographs can be downloaded using <code>download_images</code> function which saves the images as a .jpeg file.</p>
+<p>The package also alowers users to find the top tags for a given locations (<code>location_tags</code>) and the tags most commonly assoicated with a given tag (<code>related_tags</code>). The Flickr website offers full <a href="https://www.flickr.com/services/api/">API Documentation</a> for all of its call methods.</p>
 </div>
 <div id="searching-for-photo-metadata" class="section level2">
 <h2 class="hasAnchor">
@@ -120,8 +123,8 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(photosearcher)</a>
 <a class="sourceLine" id="cb2-2" title="2"></a>
 <a class="sourceLine" id="cb2-3" title="3">rock_climbing &lt;-<span class="st"> </span><span class="kw"><a href="reference/photo_search.html">photo_search</a></span>(</a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">mindate =</span> <span class="st">"2010-01-01"</span>,</a>
-<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">maxdate =</span> <span class="st">"2018-01-01"</span>,</a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">mindate_taken =</span> <span class="st">"2010-01-01"</span>,</a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">maxdate_taken =</span> <span class="st">"2018-01-01"</span>,</a>
 <a class="sourceLine" id="cb2-6" title="6">  <span class="dt">text =</span> <span class="st">"rock climbing"</span>,</a>
 <a class="sourceLine" id="cb2-7" title="7">  <span class="dt">bbox =</span> <span class="st">"-12.875977,49.210420,2.636719,59.977005"</span>,</a>
 <a class="sourceLine" id="cb2-8" title="8">  <span class="dt">has_geo =</span> <span class="ot">TRUE</span></a>
@@ -161,7 +164,7 @@
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>GPL</li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
 </ul>
 </div>
 <div class="developers">

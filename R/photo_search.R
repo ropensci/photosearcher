@@ -24,7 +24,7 @@
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param woe_id Numeric, optional "where on earth identifier" can be supplied
-#'   instead of bbox. Use function find_place to obtain woe_id for a place.
+#'   instead of bbox. Use \code{\link{find_place}} to obtain woe_id for a place.
 #' @param sf_layer A simple features layer, optional, area to search for photos,
 #'   can be supplied instead of a bbox or woeID.
 #' @param has_geo Logical, optional argument for whether returned photos need
@@ -63,31 +63,16 @@
 #'   text = "tree",
 #'   bbox = "-13.623047,47.279229,3.251953,60.630102",
 #'   has_geo = TRUE
-#' )
-#'
+#'   )
 #'
 #' photo_search(
-#'   mindate_taken = "2019-01-01",
-#'   maxdate_taken = "2019-01-02",
-#'   text = "tree",
-#'   bbox = "-13.623047,47.279229,3.251953,60.630102",
-#'   has_geo = TRUE)
-#'
-#'
-#'
-#'   photo_search(
-#'    mindate_taken = "2017-01-01",
-#'    maxdate_taken = "2017-01-02",
-#'    mindate_uploaded = "2017-03-04",
-#'    maxdate_uploaded = "2017-05-05",
-#'    tags = "tree")
-#'
-#'    photo_search(
-#'     mindate_taken = "2014-01-01",
-#'     user_id = "33816646@N06")
-#'
+#'   mindate_taken = "2017-01-01",
+#'   maxdate_taken = "2017-01-02",
+#'   mindate_uploaded = "2017-03-04",
+#'   maxdate_uploaded = "2017-05-05",
+#'   tags = "lake"
+#'   )
 #' }
-#'
 photo_search <-
   function(mindate_taken = "2019-01-01",
            maxdate_taken = "2019-01-01",

@@ -96,61 +96,67 @@
 <div id="searching-for-photographs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#searching-for-photographs" class="anchor"></a>Searching for photographs</h2>
-<p>These are a few basic examples of the main <code><a href="../reference/photo_search.html">photo_search()</a></code> function:</p>
+<p>The <code><a href="../reference/photo_search.html">photo_search()</a></code> function can be used to search Flickr for photographs that meet specific search criteria. For example, you could search for sightings of animals to better understand the species distribution:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co">#Search for photos of foxes in the UK for the year 2017</span></a>
-<a class="sourceLine" id="cb1-2" title="2">foxes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2017-01-01"</span>,</a>
-<a class="sourceLine" id="cb1-3" title="3">                      <span class="dt">maxdate =</span> <span class="st">"2018-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-2" title="2">foxes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate_taken =</span> <span class="st">"2017-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-3" title="3">                      <span class="dt">maxdate_taken =</span> <span class="st">"2018-01-01"</span>,</a>
 <a class="sourceLine" id="cb1-4" title="4">                      <span class="dt">text =</span> <span class="st">"foxes"</span>,</a>
 <a class="sourceLine" id="cb1-5" title="5">                      <span class="dt">bbox =</span> <span class="st">"-12.875977,49.210420,2.636719,59.977005"</span>,</a>
 <a class="sourceLine" id="cb1-6" title="6">                      <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)  </a>
 <a class="sourceLine" id="cb1-7" title="7"></a>
 <a class="sourceLine" id="cb1-8" title="8"><span class="co">#Search for images of trees globally for the 1st of January 2019</span></a>
-<a class="sourceLine" id="cb1-9" title="9">trees &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2019-01-01"</span>,</a>
-<a class="sourceLine" id="cb1-10" title="10">                      <span class="dt">maxdate =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-9" title="9">trees &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate_taken =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-10" title="10">                      <span class="dt">maxdate_taken =</span> <span class="st">"2019-01-01"</span>,</a>
 <a class="sourceLine" id="cb1-11" title="11">                      <span class="dt">text =</span> <span class="st">"tree"</span>,</a>
 <a class="sourceLine" id="cb1-12" title="12">                      <span class="dt">has_geo =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-13" title="13"></a>
 <a class="sourceLine" id="cb1-14" title="14"><span class="co">#Search for images with text mountain and tagged lake</span></a>
-<a class="sourceLine" id="cb1-15" title="15">moutain_lake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate =</span> <span class="st">"2019-01-01"</span>,</a>
-<a class="sourceLine" id="cb1-16" title="16">                             <span class="dt">maxdate =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-15" title="15">mountain_lake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate_taken =</span> <span class="st">"2019-01-01"</span>,</a>
+<a class="sourceLine" id="cb1-16" title="16">                             <span class="dt">maxdate_taken =</span> <span class="st">"2019-02-01"</span>,</a>
 <a class="sourceLine" id="cb1-17" title="17">                             <span class="dt">text =</span> <span class="st">"mountain"</span>,</a>
-<a class="sourceLine" id="cb1-18" title="18">                             <span class="dt">tags =</span> <span class="st">"lake"</span></a>
+<a class="sourceLine" id="cb1-18" title="18">                             <span class="dt">tags =</span> <span class="st">"lake"</span>,</a>
 <a class="sourceLine" id="cb1-19" title="19">                             <span class="dt">has_geo =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p>Users can also use the <code>sf</code> package to search via a simple features layer.</p>
+<p>Users can also use the <code>sf</code> package to search via a simple features layer, this can be used to find images of in a specific location for example to aid in resource management for recreational activites in english national parks. When using an arguemtn that searches for a location or when <code>has_geo == TRUE</code> only metadata about images with latitude and longitude information will be retrieved.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co">#load shape file</span></a>
-<a class="sourceLine" id="cb2-2" title="2">sf_layer &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_read">read_sf</a></span>(<span class="dt">dsn =</span> <span class="st">"path to layer"</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2">national_parks &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_read">read_sf</a></span>(<span class="dt">dsn =</span> <span class="st">".</span><span class="ch">\\</span><span class="st">data</span><span class="ch">\\</span><span class="st">shape_file</span><span class="ch">\\</span><span class="st">National_Parks_England.shp"</span>)</a>
 <a class="sourceLine" id="cb2-3" title="3"></a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="co">#Search for photos of foxes in the UK for the year 2017</span></a>
-<a class="sourceLine" id="cb2-5" title="5">search_by_layer &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">sf_layer =</span> sf_layer,</a>
-<a class="sourceLine" id="cb2-6" title="6">                      <span class="dt">has_geo =</span> <span class="ot">TRUE</span>) </a></code></pre></div>
-<p>When <code>has_geo == TRUE</code> only metadata about images with latitude and longitude information will be retrieved.</p>
-<p>Here, the images of UK foxes are plotted using <code>ggplot2</code>.</p>
-<div class="figure">
-<img src="https://github.com/nfox29/photosearcher/blob/master/images/foxes.png?raw=true" alt="Foxes"><p class="caption">Foxes</p>
-</div>
+<a class="sourceLine" id="cb2-5" title="5">parks_hiking &lt;-<span class="st"> </span><span class="kw"><a href="../reference/photo_search.html">photo_search</a></span>(<span class="dt">mindate_taken =</span> <span class="st">"2012-01-01"</span>,</a>
+<a class="sourceLine" id="cb2-6" title="6">                             <span class="dt">maxdate_taken =</span> <span class="st">"2012-04-01"</span>,</a>
+<a class="sourceLine" id="cb2-7" title="7">                             <span class="dt">text =</span> <span class="st">"hiking"</span>,</a>
+<a class="sourceLine" id="cb2-8" title="8">                             <span class="dt">sf_layer =</span> national_parks,</a>
+<a class="sourceLine" id="cb2-9" title="9">                             <span class="dt">has_geo =</span> <span class="ot">TRUE</span>) </a></code></pre></div>
 </div>
 <div id="downloading-images" class="section level2">
 <h2 class="hasAnchor">
 <a href="#downloading-images" class="anchor"></a>Downloading images</h2>
-<p>The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it does not exists it will be automatically created.</p>
+<p>The package can also download the images based of of their unique id number. You can direct the download to any save directory, if it does not exists it will be automatically created. Downloading images allows for validation of their contents. Here, we demonstrate how to download the first five images that were found using the foxes <code>photo_search</code> example, as well as for a single image. When downloading image, if users need certain pixel width and height dimensions (i.e. for Google Vision limits), these values can be specified.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">#Downloading fox images from photosearch</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> foxes<span class="op">$</span>id, <span class="dt">saveDir =</span> <span class="st">"Fox images"</span>)</a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#Download a specific images based off its id</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> <span class="dv">47416147181</span>)</a></code></pre></div>
-<p>The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded, but will produce a warning to let know the ID numbers of those skipped. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The <code>photo_search</code> function provides the licence information for each image.</p>
+<a class="sourceLine" id="cb3-2" title="2">downloaded_foxes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> foxes<span class="op">$</span>id[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], </a>
+<a class="sourceLine" id="cb3-3" title="3">                                    <span class="dt">saveDir =</span> <span class="st">"Fox images"</span>)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#Download a specific images based off its id</span></a>
+<a class="sourceLine" id="cb3-6" title="6">single_download &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_images.html">download_images</a></span>(<span class="dt">photo_id =</span> <span class="dv">48704764812</span>, </a>
+<a class="sourceLine" id="cb3-7" title="7">                                   <span class="dt">saveDir =</span> <span class="st">"single_test"</span>,</a>
+<a class="sourceLine" id="cb3-8" title="8">                                   <span class="dt">max_image_height =</span> <span class="dv">1200</span>,</a>
+<a class="sourceLine" id="cb3-9" title="9">                                   <span class="dt">max_image_width =</span> <span class="dv">1200</span>)</a></code></pre></div>
+<p>The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded. The function also provides dataframe outlining which photographs were able to be downloaded. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The <code>photo_search</code> function provides the licence information for each image.</p>
 </div>
 <div id="finding-information-on-a-user" class="section level2">
 <h2 class="hasAnchor">
 <a href="#finding-information-on-a-user" class="anchor"></a>Finding information on a user</h2>
+<p>The Flickr API can also return publically available data on its users. The <code>user_info</code> function returns non-identifying information including hometown and occupation.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">#Find a users hometown</span></a>
 <a class="sourceLine" id="cb4-2" title="2">user &lt;-<span class="st"> </span><span class="kw"><a href="../reference/user_info.html">user_info</a></span>(<span class="dt">user_id =</span> <span class="st">"155421853@N05"</span>)</a>
 <a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4">user<span class="op">$</span>hometown</a></code></pre></div>
+<a class="sourceLine" id="cb4-4" title="4">user<span class="op">$</span>hometown</a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6">user<span class="op">$</span>occupation</a></code></pre></div>
 </div>
 <div id="get-the-top-tags-for-a-location" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-the-top-tags-for-a-location" class="anchor"></a>Get the top tags for a location</h2>
+<p>Users can request the top tags for a given location.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co">#Find the tags for Southampton, UK</span></a>
 <a class="sourceLine" id="cb5-2" title="2">southampton &lt;-<span class="st"> </span><span class="kw"><a href="../reference/location_tags.html">location_tags</a></span>(<span class="dt">woe_id =</span> <span class="dv">35356</span>)</a>
 <a class="sourceLine" id="cb5-3" title="3"></a>
@@ -169,26 +175,36 @@
 <div id="finding-tags-most-associated-with-another-tag" class="section level2">
 <h2 class="hasAnchor">
 <a href="#finding-tags-most-associated-with-another-tag" class="anchor"></a>Finding tags most associated with another tag</h2>
+<p>The Flickr API can perform clustered usage analysis on a given tag, returning the tags that are most often tagged alongside the given tag. For more information on how this is done check the <a href="https://www.flickr.com/services/api/flickr.tags.getRelated.html">Flickrs getRelated documentation</a></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">  <span class="co">#Find tags associated with zebra</span></a>
-<a class="sourceLine" id="cb7-2" title="2">  zebra &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"zebra"</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2">  zebra &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_tags.html">related_tags</a></span>(<span class="dt">tag =</span> <span class="st">"zebra"</span>)</a>
 <a class="sourceLine" id="cb7-3" title="3"></a>
 <a class="sourceLine" id="cb7-4" title="4">  <span class="co">#Find tags most assoicated with hiking</span></a>
-<a class="sourceLine" id="cb7-5" title="5">  hiking &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"hiking"</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5">  hiking &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_tags.html">related_tags</a></span>(<span class="dt">tag =</span> <span class="st">"hiking"</span>)</a>
 <a class="sourceLine" id="cb7-6" title="6">  </a>
 <a class="sourceLine" id="cb7-7" title="7">  <span class="co">#Find tags most associated with the word church</span></a>
-<a class="sourceLine" id="cb7-8" title="8">  church &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_terms.html">related_terms</a></span>(<span class="dt">term =</span> <span class="st">"church"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-8" title="8">  church &lt;-<span class="st"> </span><span class="kw"><a href="../reference/related_tags.html">related_tags</a></span>(<span class="dt">tag =</span> <span class="st">"church"</span>)</a></code></pre></div>
 </div>
 <div id="finding-exif-information-about-a-photo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#finding-exif-information-about-a-photo" class="anchor"></a>Finding Exif information about a photo</h2>
+<p>The Flickr API can also return Exchangeable image file format (Exif) data. For more information on Flickrs Exif data see the <a href="https://www.flickr.com/services/api/flickr.photos.getExif.html">Flickrs getExif documentation</a></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">  <span class="co">#Find Exif information about a single photo</span></a>
-<a class="sourceLine" id="cb8-2" title="2">  exif_photo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_photoinfo.html">get_photoinfo</a></span>(<span class="dt">photo_id =</span> <span class="dv">47259127482</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb8-2" title="2">  exif_photo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_exif.html">get_exif</a></span>(<span class="dt">photo_id =</span> <span class="dv">48704764812</span>)</a></code></pre></div>
 </div>
 <div id="finding-information-on-a-single-photo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#finding-information-on-a-single-photo" class="anchor"></a>Finding information on a single photo</h2>
+<p>As well as searching for metadata on photographs based up on search terms, users can also find information on a single photograp using its unique photograph number.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">  <span class="co">#Find information about a single photo</span></a>
-<a class="sourceLine" id="cb9-2" title="2">  single_photo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_photoinfo.html">get_photoinfo</a></span>(<span class="dt">photo_id =</span> <span class="dv">47259127482</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb9-2" title="2">  single_photo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_photoinfo.html">get_photoinfo</a></span>(<span class="dt">photo_id =</span> <span class="dv">48704764812</span>)</a></code></pre></div>
+</div>
+<div id="find-interesting-photographs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#find-interesting-photographs" class="anchor"></a>Find interesting photographs</h2>
+<p>Flickr has an <a href="http://www.steves-digicams.com/knowledge-center/how-tos/online-sharing-social-networking/what-is-flickr-interestingness.html#b">algorithm</a> for selecting a list of 500 interesting images for each day. Users can get this list using the <code>interesting_list</code> funciton.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">  <span class="co">#Find information about a single photo</span></a>
+<a class="sourceLine" id="cb10-2" title="2">  interesting &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interesting_list.html">interesting_list</a></span>(<span class="dt">date =</span> <span class="st">"2019-01-01"</span>)</a></code></pre></div>
 </div>
   </div>
 
@@ -205,6 +221,7 @@
       <li><a href="#finding-tags-most-associated-with-another-tag">Finding tags most associated with another tag</a></li>
       <li><a href="#finding-exif-information-about-a-photo">Finding Exif information about a photo</a></li>
       <li><a href="#finding-information-on-a-single-photo">Finding information on a single photo</a></li>
+      <li><a href="#find-interesting-photographs">Find interesting photographs</a></li>
       </ul>
 </div>
       </div>

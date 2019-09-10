@@ -11,7 +11,9 @@ interesting_list(date = "2019-01-01")
 The date should be in the form of "YYYY-MM-DD".}
 }
 \description{
-interesting_list
+Returns a Flickr generated list of photographs deemed interesting. For
+information on how this list is calculated see:
+\link{http://www.steves-digicams.com/knowledge-center/how-tos/online-sharing-social-networking/what-is-flickr-interestingness.html#b}
 }
 \examples{
 \dontrun{
