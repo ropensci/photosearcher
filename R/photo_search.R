@@ -243,6 +243,8 @@ photo_search <-
       pics <- sf::st_intersection(pics, sf_layer)
     }
 
+    pics <- parse_pic(pics = pics)
+
 
     # end
     return(pics)

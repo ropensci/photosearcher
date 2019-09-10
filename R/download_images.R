@@ -7,9 +7,9 @@
 #' more information on the API method. If permission is available the image is
 #' downloaded and saved as a .jpeg in a given save directory.
 #'
-#' @param photo_id numeric. id of photo to download, can be single id, list or
-#'   column for photo_search outputs
-#' @param saveDir character. name of directory for photos to be saved in. This
+#' @param photo_id numeric or character vector. id of photo to download, can be
+#'   single id, list or column for photo_search outputs
+#' @param save_dir character. name of directory for photos to be saved in. This
 #'   will be created if it doesn't exist.
 #'
 #' @param max_image_height numeric. maximum number of pixels for images height
@@ -19,17 +19,17 @@
 #'   progress bar.
 #'
 #' @return character. A vector of the images that the user does not have
-#'   permission to download. Images will be saved to \code{saveDir}.
+#'   permission to download. Images will be saved to \code{save_dir}.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' download_images(photo_id = 48704764812, saveDir = "images")
+#' download_images(photo_id = 48704764812, save_dir = "images")
 #'
 #' download_images(photo_id = 48704764812, maximum_image_height = 1200,
-#' maximum_image_width = 1200, saveDir = "smaller_images") }
+#' maximum_image_width = 1200, save_dir = "smaller_images") }
 download_images <- function(photo_id,
-                            saveDir = "downloaded_images",
+                            save_dir = NULL,
                             max_image_height = NULL,
                             max_image_width = NULL,
                             quiet = FALSE) {
@@ -38,16 +38,29 @@ download_images <- function(photo_id,
   # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
-  # create saveDir
-  if (!dir.exists(saveDir)) {
-    ui_info(paste("saveDir",
-                  saveDir, "does not exist, I will create it for you"))
-    dir.create(saveDir, recursive = TRUE)
+  if (is.null(save_dir)){
+
+    stop("Please supply a save directory")
+
+  }
+
+  #not sure how to print this first?
+  warning(paste(length(photo_id),
+                " photos to be downloaded may take in excess of ",
+                (length(photo_id) * 10),
+                " seconds",
+                sep = ""))
+
+  # create save_dir
+  if (!dir.exists(save_dir)) {
+    ui_info(paste("save_dir",
+                  save_dir, "does not exist, I will create it for you"))
+    dir.create(save_dir, recursive = TRUE)
   }
 
   downloadable <- dplyr::bind_rows(
     lapply(photo_id, function(x) download_image_single(
-      x, saveDir, api_key, max_image_height, max_image_width, quiet)))
+      x, save_dir, api_key, max_image_height, max_image_width, quiet)))
 
 
   return(downloadable)
@@ -56,7 +69,7 @@ download_images <- function(photo_id,
 
 #' @noRd
 download_image_single <- function(photo_id,
-                                  saveDir,
+                                  save_dir,
                                   api_key,
                                   max_image_height,
                                   max_image_width, quiet) {
@@ -124,9 +137,20 @@ download_image_single <- function(photo_id,
           # download biggest possible image
           to_download <- tmp_df$source[nrow(tmp_df)]
 
+          check_file <- gsub(".*/", "", to_download)
+
+          check_file2 <- (paste(".\\",save_dir, "\\", check_file, sep = ""))
+
+          if (file.exists(check_file2)){
+
+            warning(paste(check_file, " exists, file will be overwritten"))
+
+
+          }
+
           utils::download.file(
             url = to_download,
-            destfile = file.path(saveDir, basename(to_download)),
+            destfile = file.path(save_dir, basename(to_download)),
             mode = "wb",
             quiet = quiet
           )

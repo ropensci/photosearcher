@@ -183,4 +183,58 @@ create_bbox <- function(sf_layer = NULL){
     xmin, ",", ymin, ",", xmax, ",", ymax, sep = ""))
 }
 
+#parse dataframe for output
+parse_pic <- function(pics = NULL){
+
+  pics <- data.frame(lapply(pics, as.character), stringsAsFactors=FALSE)
+
+  pics$datetaken <- as.POSIXct(pics$datetaken)
+
+  cols.num <- c("id",
+                "server",
+                "farm",
+                "ispublic",
+                "isfriend",
+                "isfamily",
+                "license",
+                "datetakengranularity",
+                "datetakenunknown",
+                "count_views",
+                "count_faves",
+                "count_comments",
+                "latitude",
+                "longitude",
+                "accuracy",
+                "context",
+                "woeid",
+                "geo_is_family",
+                "geo_is_friend",
+                "geo_is_contact",
+                "geo_is_public",
+                "height_sq",
+                "width_sq",
+                "height_t",
+                "width_t",
+                "height_s",
+                "width_s",
+                "height_q",
+                "width_q",
+                "height_m",
+                "width_m",
+                "height_n",
+                "width_n",
+                "height_z",
+                "width_z",
+                "height_c",
+                "width_c",
+                "height_l",
+                "width_l" ,
+                "height_o",
+                "width_o")
+
+  pics[cols.num] <- sapply(pics[cols.num],as.numeric)
+
+  return(pics)
+
+  }
 
