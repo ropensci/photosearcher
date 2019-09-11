@@ -15,6 +15,10 @@ test_that("fails correctly", {
   expect_error(photo_search(woe_id = "35356"),
                "Flickr location services are down")
 
+  #no photographs meet criteria
+  expect_error(photo_search(tags = c("big", "dog", "mad", "ship", "hot", "old"),
+                            tags_any = FALSE))
+
 })
 
 test_that("bbox + woe_id fails correctly", {
