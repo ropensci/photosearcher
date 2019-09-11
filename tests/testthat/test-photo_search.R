@@ -19,6 +19,9 @@ test_that("fails correctly", {
   expect_error(photo_search(tags = c("big", "dog", "mad", "ship", "hot", "old"),
                             tags_any = FALSE))
 
+  expect_error(photo_search(mindate_taken = "2017-01-01",
+                            user_id = "155421853@N05"))
+
 })
 
 test_that("bbox + woe_id fails correctly", {
@@ -41,9 +44,6 @@ test_that("output is correct", {
   expect_is(bbox_test, "data.frame")
   expect_equal(ncol(bbox_test), 57)
 
-  user_test <- photo_search(mindate_taken = "2017-01-01",
-                            user_id = "33816646@N06")
-  expect_is(user_test, "data.frame")
 
   date_test <- photo_search(mindate_uploaded = "2019-01-01",
                             maxdate_uploaded = "2019-02-01",

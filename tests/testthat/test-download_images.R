@@ -5,7 +5,7 @@ test_that("output is correct", {
 
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   download_test <- download_images(photo_id = 47259127482,
-                                   saveDir = "test_images")
+                                   save_dir = "test_images")
 
   expect_is(download_test, "data.frame")
   expect_equal(ncol(download_test), 2)
@@ -21,9 +21,9 @@ test_that("height and width can be chosen", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   size_test <- download_images(photo_id = 47259127482,
-                                   saveDir = "test_images",
                                    max_image_height = 1200,
-                                   max_image_width = 1200)
+                                   max_image_width = 1200,
+                                   save_dir = "test_images")
 
   expect_is(size_test, "data.frame")
   expect_equal(ncol(size_test), 2)
@@ -38,9 +38,9 @@ test_that("if no photos match height and width, skip", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
   size_test <- download_images(photo_id = 47259127482,
-                               saveDir = "test_images",
                                max_image_height = 1,
-                               max_image_width = 1)
+                               max_image_width = 1,
+                               save_dir = "test_images")
 
   expect_is(size_test, "data.frame")
   expect_equal(ncol(size_test), 2)
@@ -49,7 +49,8 @@ test_that("if no photos match height and width, skip", {
 test_that("if photo is not found, skip", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
-  notreal_test <- download_images(photo_id = "not a real photo")
+  notreal_test <- download_images(photo_id = "not a real photo",
+                                  save_dir = "test_images")
 
   expect_is(notreal_test, "data.frame")
   expect_equal(ncol(notreal_test), 2)
@@ -59,7 +60,8 @@ test_that("if photo is not found, skip", {
 test_that("if photo has no permission, skip", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d", file = "api_key.txt")
-  notreal_test <- download_images(photo_id = "1231231")
+  notreal_test <- download_images(photo_id = "1231231",
+                                  save_dir = "test_images")
 
   expect_is(notreal_test, "data.frame")
   expect_equal(ncol(notreal_test), 2)
@@ -77,6 +79,7 @@ test_that("invalid API keys fails correctly", {
 
   skip_on_cran()
   write.table("notarealkey", file = "api_key.txt")
-  expect_error(download_images(photo_id = 47259127482),
+  expect_error(download_images(photo_id = 47259127482,
+                               save_dir = "test_images"),
                "Invalid API Key: correct this in api_key.txt")
 })

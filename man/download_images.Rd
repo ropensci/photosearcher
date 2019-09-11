@@ -4,14 +4,14 @@
 \alias{download_images}
 \title{Download images}
 \usage{
-download_images(photo_id, saveDir = "downloaded_images",
-  max_image_height = NULL, max_image_width = NULL, quiet = FALSE)
+download_images(photo_id, save_dir = NULL, max_image_height = NULL,
+  max_image_width = NULL, quiet = FALSE)
 }
 \arguments{
-\item{photo_id}{numeric. id of photo to download, can be single id, list or
-column for photo_search outputs}
+\item{photo_id}{numeric or character vector. id of photo to download, can be
+single id, list or column for photo_search outputs}
 
-\item{saveDir}{character. name of directory for photos to be saved in. This
+\item{save_dir}{character. name of directory for photos to be saved in. This
 will be created if it doesn't exist.}
 
 \item{max_image_height}{numeric. maximum number of pixels for images height}
@@ -23,7 +23,7 @@ progress bar.}
 }
 \value{
 character. A vector of the images that the user does not have
-permission to download. Images will be saved to \code{saveDir}.
+permission to download. Images will be saved to \code{save_dir}.
 }
 \description{
 Downloads images based on their Flickr ID. Uses the flickr.photos.getSizes
@@ -35,8 +35,8 @@ downloaded and saved as a .jpeg in a given save directory.
 }
 \examples{
 \dontrun{
-download_images(photo_id = 48704764812, saveDir = "images")
+download_images(photo_id = 48704764812, save_dir = "images")
 
 download_images(photo_id = 48704764812, maximum_image_height = 1200,
-maximum_image_width = 1200, saveDir = "smaller_images") }
+maximum_image_width = 1200, save_dir = "smaller_images") }
 }

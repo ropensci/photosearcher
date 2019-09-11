@@ -7,8 +7,8 @@
 photo_search(mindate_taken = "2019-01-01",
   maxdate_taken = "2019-01-01", mindate_uploaded = NULL,
   maxdate_uploaded = NULL, user_id = NULL, text = NULL,
-  tags = NULL, bbox = NULL, woe_id = NULL, sf_layer = NULL,
-  has_geo = TRUE)
+  tags = NULL, tags_any = TRUE, bbox = NULL, woe_id = NULL,
+  sf_layer = NULL, has_geo = TRUE)
 }
 \arguments{
 \item{mindate_taken}{Character, required. Minimum taken date. Photos with an
@@ -31,13 +31,19 @@ can be in the form of a unix timestamp or mysql datetime.}
 search. If this parameter isn't passed then everybody's public photos will
 be searched.}
 
-\item{text}{String, optional. A free text search. Photos who's title,
+\item{text}{Character, optional. A free text search. Photos who's title,
 description or tags contain the text will be returned. You can exclude
-results that match a term by prepending it with a - character.}
+results that match a term by prepending it with a - character. Free text
+searches for words in oder provided, for example a search for "climbing
+rock" will be different to "rock climbing"}
 
-\item{tags}{String, optional. A comma-delimited list of tags. Photos with one
-or more of the tags listed will be returned. You can exclude results that
-match a term by prepending it with a - character.}
+\item{tags}{Character, optional. A comma-delimited list of tags. Photos with
+one or more of the tags listed will be returned. You can exclude results
+that match a term by prepending it with a - character.}
+
+\item{tags_any}{If TRUE, photos containing any of the tags will be returned.
+If FALSE, only photos containg all tags will be returned. Defulted to
+return any tags.}
 
 \item{bbox}{String, optional bounding box of search area provide as:
 "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
@@ -56,15 +62,54 @@ data.frame. Output consists of 57 variables including; latitude and
 longitude of photograph, date and time it was taken, associated tags and
 image urls.
 
-Full list of variables returned: id, owner, secret, server, farm, title,
-ispublic, isfriend, isfamily, license, datetaken, datetakengranularity,
-datetakenunknown, count_views, count_comments, count_faves, tags, latitude,
-longitude, accuracy, context, place_id, woeid, geo_is_family,
-geo_is_friend, geo_is_contact, geo_is_public, url_sq, height_sq, width_sq,
-url_t, height_t, width_t, url_s, height_s,	width_s	url_q, height_q,
-width_q, url_m, height_m, width_m, url_n, height_n, width_n, url_z,
-height_z, width_z, url_c, height_c, width_c, url_l, height_l, width_l,
-url_o, height_o, width_o.
+Full list of variables returned: id: photographs unique id number, owner: the
+unique id of the Flickr user, secret: photograph unique secret number,
+server: Flickr server data, farm: Flickr server data, title: photograph
+title, ispublic: whether photograph is public; 1 = yes, 0 = no, isfriend
+whether user is friend; 1 = yes, 0 = no, isfamily whether user is family; 1 =
+yes, 0 = no, license: use licence of the image see \link{
+https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html} for
+details, datetaken: date and time of image capture, datetakengranularity:
+accuracy of image date see \link{
+https://www.flickr.com/services/api/misc.dates.html} for more information on
+dates, datetakenunknown: whether date is unknown see \link{
+https://www.flickr.com/services/api/misc.dates.html} for more information on
+dates, count_views: number of view the photograph has had, count_comments:
+number of comments on the photograph, count_faves: number of times the
+photograph has been favourited, tags: user defined tags on the photograph,
+latitude: latitude of where the image was taken, longitude: longitude of
+where the image was taken, accuracy: accuracy of spatial reference see \link{
+https://www.flickr.com/services/api/flickr.photos.search.html } for more
+information, context: a numeric value representing the photo's geotagginess
+beyond latitude and longitude \link{
+https://www.flickr.com/services/api/flickr.photos.search.html } for more
+information, place_id: unique numeric number representing the location of the
+photograph, woeid: unique numeric number representing the location of the
+photograph, geo_is_family: whether only friends can see geo; 1 = yes, 0 = no,
+geo_is_friend: whether only family can see geo; 1 = yes, 0 = no,
+geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no,
+geo_is_public whether geo is public; 1 = yes, 0 = no, url_sq: URL for square
+image, height_sq: height for square image, width_sq: width for square image,
+url_t : URL for square image thumbnail image 100 on longest side, height_t:
+height for thumbnail image 100 on longest side, width_t: width for thumbnail
+image 100 on longest side, url_s: URL for small square image 75x75, height_s:
+height for small square image 75x75, width_s	: width for small square image
+75x75, url_q: URL for large square image 150x150, height_q: height for large
+square image 150x150, width_q: width for large square image 150x150, url_m:
+URL for small image 240 on longest side, height_m: height for small image 240
+on longest side, width_m: width for small image 240 on longest side, url_n:
+URL for small image 320 on longest side, height_n: height for small image 320
+on longest side, width_n: width for small image 320 on longest side, url_z:
+URL for medium image 640 on longest side, height_z: height for medium image
+640 on longest side, width_z: width for medium image 640 on longest side,
+url_c: URL for medium image 800 on longest side, height_c: height for medium
+image 800 on longest side, width_c: width for medium image 800 on longest
+side, url_l: URL for large image 1024 on longest side, height_l: height for
+large image 1024 on longest side, width_l: width for large image 1024 on
+longest side, url_o: URL for original image, either a jpg, gif or png,
+depending on source format, height_o: height for original image, either a
+jpg, gif or png, depending on source format, width_o: width for original
+image, either a jpg, gif or png, depending on source format.
 }
 \description{
 Returns image metadata for photos matching the search terms.
