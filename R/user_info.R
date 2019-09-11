@@ -36,6 +36,8 @@ user_info <- function(user_id) {
                     country = id_info$country,
                     stringsAsFactors = FALSE)
 
+  id_info <- data.frame(lapply(id_info, as.character), stringsAsFactors=FALSE)
+
    return(id_info)
 }
 

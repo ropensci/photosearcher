@@ -43,6 +43,23 @@ get_photoinfo <- function(photo_id = NULL){
 
   }
 
+
+  out <- data.frame(lapply(out, as.character), stringsAsFactors=FALSE)
+
+  cols.num <- c("id",
+                "server",
+                "farm",
+                "dateuploaded",
+                "isfavorite",
+                "license",
+                "safety_level",
+                "rotation",
+                "views"
+                )
+
+  out[cols.num] <- sapply(out[cols.num],as.numeric)
+
+
   return(out)
 
 }
