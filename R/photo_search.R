@@ -48,55 +48,67 @@
 #'   longitude of photograph, date and time it was taken, associated tags and
 #'   image urls.
 #'
-#' Full list of variables returned: id: photographs unique id number, owner: the
-#' unique id of the Flickr user, secret: photograph unique secret number,
-#' server: Flickr server data, farm: Flickr server data, title: photograph
-#' title, ispublic: whether photograph is public; 1 = yes, 0 = no, isfriend
-#' whether user is friend; 1 = yes, 0 = no, isfamily whether user is family; 1 =
-#' yes, 0 = no, license: use licence of the image see \link{
-#' https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html} for
-#' details, datetaken: date and time of image capture, datetakengranularity:
-#' accuracy of image date see \link{
-#' https://www.flickr.com/services/api/misc.dates.html} for more information on
-#' dates, datetakenunknown: whether date is unknown see \link{
-#' https://www.flickr.com/services/api/misc.dates.html} for more information on
-#' dates, count_views: number of view the photograph has had, count_comments:
-#' number of comments on the photograph, count_faves: number of times the
-#' photograph has been favourited, tags: user defined tags on the photograph,
-#' latitude: latitude of where the image was taken, longitude: longitude of
-#' where the image was taken, accuracy: accuracy of spatial reference see \link{
-#' https://www.flickr.com/services/api/flickr.photos.search.html } for more
-#' information, context: a numeric value representing the photo's geotagginess
-#' beyond latitude and longitude \link{
-#' https://www.flickr.com/services/api/flickr.photos.search.html } for more
-#' information, place_id: unique numeric number representing the location of the
-#' photograph, woeid: unique numeric number representing the location of the
-#' photograph, geo_is_family: whether only friends can see geo; 1 = yes, 0 = no,
-#' geo_is_friend: whether only family can see geo; 1 = yes, 0 = no,
-#' geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no,
-#' geo_is_public whether geo is public; 1 = yes, 0 = no, url_sq: URL for square
-#' image, height_sq: height for square image, width_sq: width for square image,
-#' url_t : URL for square image thumbnail image 100 on longest side, height_t:
-#' height for thumbnail image 100 on longest side, width_t: width for thumbnail
-#' image 100 on longest side, url_s: URL for small square image 75x75, height_s:
-#' height for small square image 75x75, width_s	: width for small square image
-#' 75x75, url_q: URL for large square image 150x150, height_q: height for large
-#' square image 150x150, width_q: width for large square image 150x150, url_m:
-#' URL for small image 240 on longest side, height_m: height for small image 240
-#' on longest side, width_m: width for small image 240 on longest side, url_n:
-#' URL for small image 320 on longest side, height_n: height for small image 320
-#' on longest side, width_n: width for small image 320 on longest side, url_z:
-#' URL for medium image 640 on longest side, height_z: height for medium image
-#' 640 on longest side, width_z: width for medium image 640 on longest side,
-#' url_c: URL for medium image 800 on longest side, height_c: height for medium
-#' image 800 on longest side, width_c: width for medium image 800 on longest
-#' side, url_l: URL for large image 1024 on longest side, height_l: height for
-#' large image 1024 on longest side, width_l: width for large image 1024 on
-#' longest side, url_o: URL for original image, either a jpg, gif or png,
-#' depending on source format, height_o: height for original image, either a
-#' jpg, gif or png, depending on source format, width_o: width for original
-#' image, either a jpg, gif or png, depending on source format.
+#' Full list of variables returned:
 #'
+#' \itemize{
+#'   \item id: photograph's unique id number
+#'   \item owner: the unique id of the Flickr user
+#'   \item secret: photograph unique secret number
+#'   \item server: Flickr server data
+#'   \item farm: Flickr server data
+#'   \item title: photograph title
+#'   \item ispublic: whether photograph is public; 1 = yes, 0 = no
+#'   \item isfriend whether user is friend; 1 = yes, 0 = no
+#'   \item isfamily whether user is family; 1 = yes, 0 = no
+#'   \item license: use licence of the image see \link{https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html} for details
+#'   \item datetaken: date and time of image capture
+#'   \item datetakengranularity: accuracy of image date see \link{https://www.flickr.com/services/api/misc.dates.html} for more information on dates
+#'   \item datetakenunknown: whether date is unknown see \link{https://www.flickr.com/services/api/misc.dates.html} for more information on dates
+#'   \item count_views: number of view the photograph has had,
+#'   \item count_comments: number of comments on the photograph
+#'   \item count_faves: number of times the photograph has been favourited
+#'   \item tags: user defined tags on the photograph
+#'   \item latitude: latitude of where the image was taken
+#'   \item longitude: longitude of where the image was taken
+#'   \item accuracy: accuracy of spatial reference see \link{https://www.flickr.com/services/api/flickr.photos.search.html } for more information
+#'   \item context: a numeric value representing the photo's geotagginess beyond latitude and longitude \link{https://www.flickr.com/services/api/flickr.photos.search.html } for more information
+#'   \item place_id: unique numeric number representing the location of the photograph
+#'   \item woeid: unique numeric number representing the location of the photograph
+#'   \item geo_is_family: whether only friends can see geo; 1 = yes, 0 = no
+#'   \item geo_is_friend: whether only family can see geo; 1 = yes, 0 = no
+#'   \item geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no
+#'   \item geo_is_public whether geo is public; 1 = yes, 0 = no
+#'   \item url_sq: URL for square image
+#'   \item height_sq: height for square image
+#'   \item width_sq: width for square image
+#'   \item url_t: URL for square image thumbnail image 100 on longest side
+#'   \item height_t: height for thumbnail image 100 on longest side,
+#'   \item width_t: width for thumbnail image 100 on longest side
+#'   \item url_s: URL for small square image 75x75
+#'   \item height_s: height for small square image 75x75
+#'   \item width_s: width for small square image 75x75
+#'   \item url_q: URL for large square image 150x150
+#'   \item height_q: height for large square image 150x150
+#'   \item width_q: width for large square image 150x150
+#'   \item url_m: URL for small image 240 on longest side
+#'   \item height_m: height for small image 240 on longest side
+#'   \item width_m: width for small image 240 on longest side
+#'   \item url_n: URL for small image 320 on longest side
+#'   \item height_n: height for small image 320 on longest side
+#'   \item width_n: width for small image 320 on longest side
+#'   \item url_z: URL for medium image 640 on longest side
+#'   \item height_z: height for medium image 640 on longest side
+#'   \item width_z: width for medium image 640 on longest side
+#'   \item url_c: URL for medium image 800 on longest side
+#'   \item height_c: height for medium image 800 on longest side
+#'   \item width_c: width for medium image 800 on longest side
+#'   \item url_l: URL for large image 1024 on longest side
+#'   \item height_l: height for large image 1024 on longest side
+#'   \item width_l: width for large image 1024 on longest side
+#'   \item url_o: URL for original image, either a jpg, gif or png, depending on source format
+#'   \item height_o: height for original image, either a jpg, gif or png, depending on source format
+#'   \item width_o: width for original image, either a jpg, gif or png, depending on source format
+#'}
 #' @export
 #'
 #' @examples
