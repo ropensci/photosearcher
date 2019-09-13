@@ -6,6 +6,9 @@
 #'   for.
 #'
 #' @return Dataframe of information on given image
+#'
+#' @family Get data for known photograph
+#'
 #' @export
 #'
 #' @examples

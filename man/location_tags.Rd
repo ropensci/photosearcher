@@ -23,3 +23,7 @@ more information on the API method.
 location_tags(woe_id = 35356)
 }
 }
+\seealso{
+Other Information about places: \code{\link{findPlaces}}
+}
+\concept{Information about places}

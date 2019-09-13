@@ -12,7 +12,9 @@
 #' @return data.frame. Information on locations that share the name with the
 #'   search location. Nine variables are returned: place_id, woe_id, latitude,
 #'   longitude, place_url, place_type, place_type_id, timezone, woe_name.
-
+#'
+#' @family Information about places
+#'
 #' @export
 #' @name findPlaces
 #'

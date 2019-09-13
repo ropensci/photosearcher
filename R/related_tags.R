@@ -9,6 +9,9 @@
 #' @param tag character. tag to search.
 #'
 #' @return character. Tags most associated with input tag.
+#'
+#' @family Tag information
+#'
 #' @export
 #'
 #' @examples

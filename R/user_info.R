@@ -12,6 +12,8 @@
 #' @return data.frame. Dataframe of 5 variables from the searched users
 #'   publicly available information: id, occupation, hometown, city, country.
 #'
+#' @family User information
+#'
 #' @export
 #'
 #' @examples

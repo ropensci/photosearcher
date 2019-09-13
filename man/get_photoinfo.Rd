@@ -21,3 +21,8 @@ Returns image metadata for a single photograph.
 get_photoinfo(photo_id = 48704764812)
 }
 }
+\seealso{
+Other Get data for known photograph: \code{\link{download_images}},
+  \code{\link{get_exif}}
+}
+\concept{Get data for known photograph}

@@ -135,19 +135,19 @@ downloaded and saved as a .jpeg in a given save directory.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>download_images</span>(<span class='no'>photo_id</span>, <span class='kw'>saveDir</span> <span class='kw'>=</span> <span class='st'>"downloaded_images"</span>,
-  <span class='kw'>max_image_height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_image_width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>download_images</span>(<span class='no'>photo_id</span>, <span class='kw'>save_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_image_height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>max_image_width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>photo_id</th>
-      <td><p>numeric. id of photo to download, can be single id, list or
-column for photo_search outputs</p></td>
+      <td><p>numeric or character vector. id of photo to download, can be
+single id, list or column for photo_search outputs</p></td>
     </tr>
     <tr>
-      <th>saveDir</th>
+      <th>save_dir</th>
       <td><p>character. name of directory for photos to be saved in. This
 will be created if it doesn't exist.</p></td>
     </tr>
@@ -169,15 +169,15 @@ progress bar.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>character. A vector of the images that the user does not have
-permission to download. Images will be saved to <code>saveDir</code>.</p>
+permission to download. Images will be saved to <code>save_dir</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>download_images</span>(<span class='kw'>photo_id</span> <span class='kw'>=</span> <span class='fl'>48704764812</span>, <span class='kw'>saveDir</span> <span class='kw'>=</span> <span class='st'>"images"</span>)
+<span class='fu'>download_images</span>(<span class='kw'>photo_id</span> <span class='kw'>=</span> <span class='fl'>48704764812</span>, <span class='kw'>save_dir</span> <span class='kw'>=</span> <span class='st'>"images"</span>)
 
 <span class='fu'>download_images</span>(<span class='kw'>photo_id</span> <span class='kw'>=</span> <span class='fl'>48704764812</span>, <span class='kw'>maximum_image_height</span> <span class='kw'>=</span> <span class='fl'>1200</span>,
-<span class='kw'>maximum_image_width</span> <span class='kw'>=</span> <span class='fl'>1200</span>, <span class='kw'>saveDir</span> <span class='kw'>=</span> <span class='st'>"smaller_images"</span>)
+<span class='kw'>maximum_image_width</span> <span class='kw'>=</span> <span class='fl'>1200</span>, <span class='kw'>save_dir</span> <span class='kw'>=</span> <span class='st'>"smaller_images"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

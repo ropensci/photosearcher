@@ -8,6 +8,9 @@
 #'
 #'@return A dataframe of "exchangeable image file format" information for the
 #'  given photograph
+#'
+#'@family Get data for known photograph
+#'
 #'@export
 #'
 #' @examples

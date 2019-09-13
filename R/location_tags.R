@@ -8,6 +8,9 @@
 #' @param woe_id numeric. a "Where on Earth" location tag.
 #'
 #' @return character. List of the top 100 tags associated with the woe_id.
+#'
+#' @family Information about places
+#'
 #' @export
 #'
 #' @examples

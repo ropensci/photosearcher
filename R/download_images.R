@@ -20,6 +20,9 @@
 #'
 #' @return character. A vector of the images that the user does not have
 #'   permission to download. Images will be saved to \code{save_dir}.
+#'
+#' @family Get data for known photograph
+#'
 #' @export
 #'
 #' @examples

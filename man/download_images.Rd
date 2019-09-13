@@ -40,3 +40,8 @@ download_images(photo_id = 48704764812, save_dir = "images")
 download_images(photo_id = 48704764812, maximum_image_height = 1200,
 maximum_image_width = 1200, save_dir = "smaller_images") }
 }
+\seealso{
+Other Get data for known photograph: \code{\link{get_exif}},
+  \code{\link{get_photoinfo}}
+}
+\concept{Get data for known photograph}

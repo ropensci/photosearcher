@@ -11,39 +11,41 @@ photo_search(mindate_taken = "2019-01-01",
   sf_layer = NULL, has_geo = TRUE)
 }
 \arguments{
-\item{mindate_taken}{Character, required. Minimum taken date. Photos with an
-taken date greater than or equal to this value will be returned. The date
-should be in the form of "YYYY-MM-DD".}
+\item{mindate_taken}{Character, or date required. Minimum taken date. Photos
+with an taken date greater than or equal to this value will be returned.
+The date should be in the form of "YYYY-MM-DD".}
 
-\item{maxdate_taken}{Character, required. Maximum taken date. Photos with an
-taken date less than or equal to this value will be returned. The date
-should be in the form of "YYYY-MM-DD".}
+\item{maxdate_taken}{Character, or date required. Maximum taken date. Photos
+with an taken date less than or equal to this value will be returned. The
+date should be in the form of "YYYY-MM-DD".}
 
-\item{mindate_uploaded}{Character, optional. Minimum upload date. Photos with
-an upload date greater than or equal to this value will be returned. The
-date can be in the form of a unix timestamp or mysql datetime.}
+\item{mindate_uploaded}{Character or date, optional. Minimum upload date.
+Photos with an upload date greater than or equal to this value will be
+returned. The date can be in the form of a unix timestamp or mysql
+datetime.}
 
-\item{maxdate_uploaded}{Character, optional. Maximum upload date. Photos with
-an upload date less than or equal to this value will be returned. The date
-can be in the form of a unix timestamp or mysql datetime.}
+\item{maxdate_uploaded}{Character or date, optional. Maximum upload date.
+Photos with an upload date less than or equal to this value will be
+returned. The date can be in the form of a unix timestamp or mysql
+datetime.}
 
-\item{user_id}{Character, optional. The NSID of the user who's photo to
+\item{user_id}{Character, optional. The Flickr ID of the user who's photo to
 search. If this parameter isn't passed then everybody's public photos will
 be searched.}
 
 \item{text}{Character, optional. A free text search. Photos who's title,
 description or tags contain the text will be returned. You can exclude
 results that match a term by prepending it with a - character. Free text
-searches for words in oder provided, for example a search for "climbing
-rock" will be different to "rock climbing"}
+searches for words in order provided, for example a search for "climbing
+rock" will be different to "rock climbing".}
 
-\item{tags}{Character, optional. A comma-delimited list of tags. Photos with
-one or more of the tags listed will be returned. You can exclude results
-that match a term by prepending it with a - character.}
+\item{tags}{Character vector, optional. A comma-delimited list of tags.
+Photos with one or more of the tags listed will be returned. You can
+exclude results that match a term by prepending it with a - character.}
 
-\item{tags_any}{If TRUE, photos containing any of the tags will be returned.
-If FALSE, only photos containg all tags will be returned. Defulted to
-return any tags.}
+\item{tags_any}{Logical, optional. If TRUE, photos containing any of the tags
+will be returned. If FALSE, only photos containg all tags will be returned.
+Defulted to return any tags.}
 
 \item{bbox}{String, optional bounding box of search area provide as:
 "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
@@ -152,5 +154,24 @@ photo_search(
   maxdate_uploaded = "2017-05-05",
   tags = "lake"
   )
+
+photo_search(
+  mindate_taken = "2018-01-01",
+  maxdate_taken = "2018-01-03",
+  tags = c("mountain", "lake"),
+  tags_any = TRUE
+)
+
+photo_search(
+  mindate_taken = "2018-01-01",
+  maxdate_taken = "2018-01-03",
+  tags = c("mountain", "lake"),
+  tags_any = FALSE
+)
+
 }
 }
+\seealso{
+Other Search for images: \code{\link{interesting_list}}
+}
+\concept{Search for images}

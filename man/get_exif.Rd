@@ -23,3 +23,8 @@ information on how Exif data differs from metadata see:
 get_exif(photo_id = 48704764812)
 }
 }
+\seealso{
+Other Get data for known photograph: \code{\link{download_images}},
+  \code{\link{get_photoinfo}}
+}
+\concept{Get data for known photograph}

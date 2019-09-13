@@ -128,8 +128,8 @@
     <pre class="usage"><span class='fu'>photo_search</span>(<span class='kw'>mindate_taken</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>,
   <span class='kw'>maxdate_taken</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>, <span class='kw'>mindate_uploaded</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>maxdate_uploaded</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>woe_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sf_layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags_any</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>woe_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sf_layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,15 +166,23 @@ be searched.</p></td>
     </tr>
     <tr>
       <th>text</th>
-      <td><p>String, optional. A free text search. Photos who's title,
+      <td><p>Character, optional. A free text search. Photos who's title,
 description or tags contain the text will be returned. You can exclude
-results that match a term by prepending it with a - character.</p></td>
+results that match a term by prepending it with a - character. Free text
+searches for words in oder provided, for example a search for "climbing
+rock" will be different to "rock climbing"</p></td>
     </tr>
     <tr>
       <th>tags</th>
-      <td><p>String, optional. A comma-delimited list of tags. Photos with one
-or more of the tags listed will be returned. You can exclude results that
-match a term by prepending it with a - character.</p></td>
+      <td><p>Character, optional. A comma-delimited list of tags. Photos with
+one or more of the tags listed will be returned. You can exclude results
+that match a term by prepending it with a - character.</p></td>
+    </tr>
+    <tr>
+      <th>tags_any</th>
+      <td><p>If TRUE, photos containing any of the tags will be returned.
+If FALSE, only photos containg all tags will be returned. Defulted to
+return any tags.</p></td>
     </tr>
     <tr>
       <th>bbox</th>
@@ -203,15 +211,67 @@ associated spatial data.</p></td>
     <p>data.frame. Output consists of 57 variables including; latitude and
 longitude of photograph, date and time it was taken, associated tags and
 image urls.</p>
-<p>Full list of variables returned: id, owner, secret, server, farm, title,
-ispublic, isfriend, isfamily, license, datetaken, datetakengranularity,
-datetakenunknown, count_views, count_comments, count_faves, tags, latitude,
-longitude, accuracy, context, place_id, woeid, geo_is_family,
-geo_is_friend, geo_is_contact, geo_is_public, url_sq, height_sq, width_sq,
-url_t, height_t, width_t, url_s, height_s,	width_s	url_q, height_q,
-width_q, url_m, height_m, width_m, url_n, height_n, width_n, url_z,
-height_z, width_z, url_c, height_c, width_c, url_l, height_l, width_l,
-url_o, height_o, width_o.</p>
+<p>Full list of variables returned:</p>
+<ul>
+<li><p>id: photograph's unique id number</p></li>
+<li><p>owner: the unique id of the Flickr user</p></li>
+<li><p>secret: photograph unique secret number</p></li>
+<li><p>server: Flickr server data</p></li>
+<li><p>farm: Flickr server data</p></li>
+<li><p>title: photograph title</p></li>
+<li><p>ispublic: whether photograph is public; 1 = yes, 0 = no</p></li>
+<li><p>isfriend whether user is friend; 1 = yes, 0 = no</p></li>
+<li><p>isfamily whether user is family; 1 = yes, 0 = no</p></li>
+<li><p>license: use licence of the image see https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html for details</p></li>
+<li><p>datetaken: date and time of image capture</p></li>
+<li><p>datetakengranularity: accuracy of image date see https://www.flickr.com/services/api/misc.dates.html for more information on dates</p></li>
+<li><p>datetakenunknown: whether date is unknown see https://www.flickr.com/services/api/misc.dates.html for more information on dates</p></li>
+<li><p>count_views: number of view the photograph has had,</p></li>
+<li><p>count_comments: number of comments on the photograph</p></li>
+<li><p>count_faves: number of times the photograph has been favourited</p></li>
+<li><p>tags: user defined tags on the photograph</p></li>
+<li><p>latitude: latitude of where the image was taken</p></li>
+<li><p>longitude: longitude of where the image was taken</p></li>
+<li><p>accuracy: accuracy of spatial reference see https://www.flickr.com/services/api/flickr.photos.search.html  for more information</p></li>
+<li><p>context: a numeric value representing the photo's geotagginess beyond latitude and longitude https://www.flickr.com/services/api/flickr.photos.search.html  for more information</p></li>
+<li><p>place_id: unique numeric number representing the location of the photograph</p></li>
+<li><p>woeid: unique numeric number representing the location of the photograph</p></li>
+<li><p>geo_is_family: whether only friends can see geo; 1 = yes, 0 = no</p></li>
+<li><p>geo_is_friend: whether only family can see geo; 1 = yes, 0 = no</p></li>
+<li><p>geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no</p></li>
+<li><p>geo_is_public whether geo is public; 1 = yes, 0 = no</p></li>
+<li><p>url_sq: URL for square image</p></li>
+<li><p>height_sq: height for square image</p></li>
+<li><p>width_sq: width for square image</p></li>
+<li><p>url_t: URL for square image thumbnail image 100 on longest side</p></li>
+<li><p>height_t: height for thumbnail image 100 on longest side,</p></li>
+<li><p>width_t: width for thumbnail image 100 on longest side</p></li>
+<li><p>url_s: URL for small square image 75x75</p></li>
+<li><p>height_s: height for small square image 75x75</p></li>
+<li><p>width_s: width for small square image 75x75</p></li>
+<li><p>url_q: URL for large square image 150x150</p></li>
+<li><p>height_q: height for large square image 150x150</p></li>
+<li><p>width_q: width for large square image 150x150</p></li>
+<li><p>url_m: URL for small image 240 on longest side</p></li>
+<li><p>height_m: height for small image 240 on longest side</p></li>
+<li><p>width_m: width for small image 240 on longest side</p></li>
+<li><p>url_n: URL for small image 320 on longest side</p></li>
+<li><p>height_n: height for small image 320 on longest side</p></li>
+<li><p>width_n: width for small image 320 on longest side</p></li>
+<li><p>url_z: URL for medium image 640 on longest side</p></li>
+<li><p>height_z: height for medium image 640 on longest side</p></li>
+<li><p>width_z: width for medium image 640 on longest side</p></li>
+<li><p>url_c: URL for medium image 800 on longest side</p></li>
+<li><p>height_c: height for medium image 800 on longest side</p></li>
+<li><p>width_c: width for medium image 800 on longest side</p></li>
+<li><p>url_l: URL for large image 1024 on longest side</p></li>
+<li><p>height_l: height for large image 1024 on longest side</p></li>
+<li><p>width_l: width for large image 1024 on longest side</p></li>
+<li><p>url_o: URL for original image, either a jpg, gif or png, depending on source format</p></li>
+<li><p>height_o: height for original image, either a jpg, gif or png, depending on source format</p></li>
+<li><p>width_o: width for original image, either a jpg, gif or png, depending on source format</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

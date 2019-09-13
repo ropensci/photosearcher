@@ -31,3 +31,7 @@ find_place(place = "New York")
 find_place(place = "England")
 }
 }
+\seealso{
+Other Information about places: \code{\link{location_tags}}
+}
+\concept{Information about places}
