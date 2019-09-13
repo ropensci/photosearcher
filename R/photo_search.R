@@ -9,23 +9,23 @@
 #' \url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
 #' information on the API method.
 #'
-#' @param mindate_taken Character, required. Minimum taken date. Photos with an
-#'   taken date greater than or equal to this value will be returned. The date
-#'   should be in the form of "YYYY-MM-DD".
-#' @param maxdate_taken Character, required. Maximum taken date. Photos with an
-#'   taken date less than or equal to this value will be returned. The date
-#'   should be in the form of "YYYY-MM-DD".
+#' @param mindate_taken Character, or date required. Minimum taken date. Photos
+#'   with an taken date greater than or equal to this value will be returned.
+#'   The date should be in the form of "YYYY-MM-DD".
+#' @param maxdate_taken Character, or date required. Maximum taken date. Photos
+#'   with an taken date less than or equal to this value will be returned. The
+#'   date should be in the form of "YYYY-MM-DD".
 #' @param text Character, optional. A free text search. Photos who's title,
 #'   description or tags contain the text will be returned. You can exclude
 #'   results that match a term by prepending it with a - character. Free text
-#'   searches for words in oder provided, for example a search for "climbing
-#'   rock" will be different to "rock climbing"
-#' @param tags Character, optional. A comma-delimited list of tags. Photos with
-#'   one or more of the tags listed will be returned. You can exclude results
-#'   that match a term by prepending it with a - character.
-#' @param tags_any If TRUE, photos containing any of the tags will be returned.
-#'   If FALSE, only photos containg all tags will be returned. Defulted to
-#'   return any tags.
+#'   searches for words in order provided, for example a search for "climbing
+#'   rock" will be different to "rock climbing".
+#' @param tags Character vector, optional. A comma-delimited list of tags.
+#'   Photos with one or more of the tags listed will be returned. You can
+#'   exclude results that match a term by prepending it with a - character.
+#' @param tags_any Logical, optional. If TRUE, photos containing any of the tags
+#'   will be returned. If FALSE, only photos containg all tags will be returned.
+#'   Defulted to return any tags.
 #' @param bbox String, optional bounding box of search area provide as:
 #'   "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
 #' @param woe_id Numeric, optional "where on earth identifier" can be supplied
@@ -34,13 +34,15 @@
 #'   can be supplied instead of a bbox or woeID.
 #' @param has_geo Logical, optional argument for whether returned photos need
 #'   associated spatial data.
-#' @param mindate_uploaded Character, optional. Minimum upload date. Photos with
-#'   an upload date greater than or equal to this value will be returned. The
-#'   date can be in the form of a unix timestamp or mysql datetime.
-#' @param maxdate_uploaded Character, optional. Maximum upload date. Photos with
-#'   an upload date less than or equal to this value will be returned. The date
-#'   can be in the form of a unix timestamp or mysql datetime.
-#' @param user_id Character, optional. The NSID of the user who's photo to
+#' @param mindate_uploaded Character or date, optional. Minimum upload date.
+#'   Photos with an upload date greater than or equal to this value will be
+#'   returned. The date can be in the form of a unix timestamp or mysql
+#'   datetime.
+#' @param maxdate_uploaded Character or date, optional. Maximum upload date.
+#'   Photos with an upload date less than or equal to this value will be
+#'   returned. The date can be in the form of a unix timestamp or mysql
+#'   datetime.
+#' @param user_id Character, optional. The Flickr ID of the user who's photo to
 #'   search. If this parameter isn't passed then everybody's public photos will
 #'   be searched.
 #'
@@ -48,54 +50,56 @@
 #'   longitude of photograph, date and time it was taken, associated tags and
 #'   image urls.
 #'
-#' Full list of variables returned: id: photographs unique id number, owner: the
-#' unique id of the Flickr user, secret: photograph unique secret number,
-#' server: Flickr server data, farm: Flickr server data, title: photograph
-#' title, ispublic: whether photograph is public; 1 = yes, 0 = no, isfriend
-#' whether user is friend; 1 = yes, 0 = no, isfamily whether user is family; 1 =
-#' yes, 0 = no, license: use licence of the image see \link{
-#' https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html} for
-#' details, datetaken: date and time of image capture, datetakengranularity:
-#' accuracy of image date see \link{
-#' https://www.flickr.com/services/api/misc.dates.html} for more information on
-#' dates, datetakenunknown: whether date is unknown see \link{
-#' https://www.flickr.com/services/api/misc.dates.html} for more information on
-#' dates, count_views: number of view the photograph has had, count_comments:
-#' number of comments on the photograph, count_faves: number of times the
-#' photograph has been favourited, tags: user defined tags on the photograph,
-#' latitude: latitude of where the image was taken, longitude: longitude of
-#' where the image was taken, accuracy: accuracy of spatial reference see \link{
-#' https://www.flickr.com/services/api/flickr.photos.search.html } for more
-#' information, context: a numeric value representing the photo's geotagginess
-#' beyond latitude and longitude \link{
-#' https://www.flickr.com/services/api/flickr.photos.search.html } for more
-#' information, place_id: unique numeric number representing the location of the
-#' photograph, woeid: unique numeric number representing the location of the
-#' photograph, geo_is_family: whether only friends can see geo; 1 = yes, 0 = no,
-#' geo_is_friend: whether only family can see geo; 1 = yes, 0 = no,
-#' geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no,
-#' geo_is_public whether geo is public; 1 = yes, 0 = no, url_sq: URL for square
-#' image, height_sq: height for square image, width_sq: width for square image,
-#' url_t : URL for square image thumbnail image 100 on longest side, height_t:
-#' height for thumbnail image 100 on longest side, width_t: width for thumbnail
-#' image 100 on longest side, url_s: URL for small square image 75x75, height_s:
-#' height for small square image 75x75, width_s	: width for small square image
-#' 75x75, url_q: URL for large square image 150x150, height_q: height for large
-#' square image 150x150, width_q: width for large square image 150x150, url_m:
-#' URL for small image 240 on longest side, height_m: height for small image 240
-#' on longest side, width_m: width for small image 240 on longest side, url_n:
-#' URL for small image 320 on longest side, height_n: height for small image 320
-#' on longest side, width_n: width for small image 320 on longest side, url_z:
-#' URL for medium image 640 on longest side, height_z: height for medium image
-#' 640 on longest side, width_z: width for medium image 640 on longest side,
-#' url_c: URL for medium image 800 on longest side, height_c: height for medium
-#' image 800 on longest side, width_c: width for medium image 800 on longest
-#' side, url_l: URL for large image 1024 on longest side, height_l: height for
-#' large image 1024 on longest side, width_l: width for large image 1024 on
-#' longest side, url_o: URL for original image, either a jpg, gif or png,
-#' depending on source format, height_o: height for original image, either a
-#' jpg, gif or png, depending on source format, width_o: width for original
-#' image, either a jpg, gif or png, depending on source format.
+#'   Full list of variables returned: id: photographs unique id number, owner:
+#'   the unique id of the Flickr user, secret: photograph unique secret number,
+#'   server: Flickr server data, farm: Flickr server data, title: photograph
+#'   title, ispublic: whether photograph is public; 1 = yes, 0 = no, isfriend
+#'   whether user is friend; 1 = yes, 0 = no, isfamily whether user is family; 1
+#'   = yes, 0 = no, license: use licence of the image see \link{
+#'   https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html}
+#'   for details, datetaken: date and time of image capture,
+#'   datetakengranularity: accuracy of image date see \link{
+#'   https://www.flickr.com/services/api/misc.dates.html} for more information
+#'   on dates, datetakenunknown: whether date is unknown see \link{
+#'   https://www.flickr.com/services/api/misc.dates.html} for more information
+#'   on dates, count_views: number of view the photograph has had,
+#'   count_comments: number of comments on the photograph, count_faves: number
+#'   of times the photograph has been favourited, tags: user defined tags on the
+#'   photograph, latitude: latitude of where the image was taken,
+#'   longitude:longitude of where the image was taken, accuracy: accuracy of
+#'   spatial reference see \link{
+#'   https://www.flickr.com/services/api/flickr.photos.search.html } for more
+#'   information, context: a numeric value representing the photo's geotagginess
+#'   beyond latitude and longitude \link{
+#'   https://www.flickr.com/services/api/flickr.photos.search.html } for more
+#'   information, place_id: unique numeric number representing the location of
+#'   the photograph, woeid: unique numeric number representing the location of
+#'   the photograph, geo_is_family: whether only friends can see geo; 1 = yes, 0
+#'   = no, geo_is_friend: whether only family can see geo; 1 = yes, 0 = no,
+#'   geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no,
+#'   geo_is_public whether geo is public; 1 = yes, 0 = no, url_sq: URL for
+#'   square image, height_sq: height for square image, width_sq: width for
+#'   square image, url_t : URL for square image thumbnail image 100 on longest
+#'   side, height_t: height for thumbnail image 100 on longest side, width_t:
+#'   width for thumbnail image 100 on longest side, url_s: URL for small square
+#'   image 75x75, height_s: height for small square image 75x75, width_s	: width
+#'   for small square image 75x75, url_q: URL for large square image 150x150,
+#'   height_q: height for large square image 150x150, width_q: width for large
+#'   square image 150x150, url_m: URL for small image 240 on longest side,
+#'   height_m: height for small image 240 on longest side, width_m: width for
+#'   small image 240 on longest side, url_n: URL for small image 320 on longest
+#'   side, height_n: height for small image 320 on longest side, width_n: width
+#'   for small image 320 on longest side, url_z: URL for medium image 640 on
+#'   longest side, height_z: height for medium image 640 on longest side,
+#'   width_z: width for medium image 640 on longest side, url_c: URL for medium
+#'   image 800 on longest side, height_c: height for medium image 800 on longest
+#'   side, width_c: width for medium image 800 on longest side, url_l: URL for
+#'   large image 1024 on longest side, height_l: height for large image 1024 on
+#'   longest side, width_l: width for large image 1024 on longest side, url_o:
+#'   URL for original image, either a jpg, gif or png, depending on source
+#'   format, height_o: height for original image, either a jpg, gif or png,
+#'   depending on source format, width_o: width for original image, either a
+#'   jpg, gif or png, depending on source format.
 #'
 #' @export
 #'
@@ -116,6 +120,21 @@
 #'   maxdate_uploaded = "2017-05-05",
 #'   tags = "lake"
 #'   )
+#'
+#' photo_search(
+#'   mindate_taken = "2018-01-01",
+#'   maxdate_taken = "2018-01-03",
+#'   tags = c("mountain", "lake"),
+#'   tags_any = TRUE
+#' )
+#'
+#' photo_search(
+#'   mindate_taken = "2018-01-01",
+#'   maxdate_taken = "2018-01-03",
+#'   tags = c("mountain", "lake"),
+#'   tags_any = FALSE
+#' )
+#'
 #' }
 photo_search <-
   function(mindate_taken = "2019-01-01",

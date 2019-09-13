@@ -60,6 +60,8 @@
 #' jpg, gif or png, depending on source format, width_o: width for original
 #' image, either a jpg, gif or png, depending on source format.
 #'
+#' @family Search for images
+#'
 #' @export
 #'
 #' @examples
