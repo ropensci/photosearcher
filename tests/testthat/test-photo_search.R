@@ -76,9 +76,9 @@ test_that("shape files work", {
   national_parks = sf::st_read(system.file("shape/National_Parks_England.shp",
                                            package="photosearcher"))
 
-  shape_test <- photo_search(mindate_taken = "2018-12-20",
+  expect_warning(shape_test <- photo_search(mindate_taken = "2018-12-20",
                              text = "tree",
-                             sf_layer = national_parks)
+                             sf_layer = national_parks))
 
   expect_is(shape_test, "data.frame")
   expect_equal(ncol(shape_test), 68)
