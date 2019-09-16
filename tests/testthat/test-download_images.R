@@ -11,9 +11,9 @@ test_that("output is correct", {
   expect_is(download_test, "data.frame")
   expect_equal(ncol(download_test), 2)
 
-  expect_equal(file.exists("test_images/47259127482_05d7096ed3_o.jpg"), TRUE)
+  expect_equal(file.exists("./47259127482_05d7096ed3_o.jpg"), TRUE)
 
-  file.remove("test_images/47259127482_05d7096ed3_o.jpg")
+  file.remove("./47259127482_05d7096ed3_o.jpg")
 
 
 })
@@ -30,9 +30,9 @@ test_that("height and width can be chosen", {
   expect_is(size_test, "data.frame")
   expect_equal(ncol(size_test), 2)
 
-  expect_equal(file.exists("test_images/47259127482_66561d03eb_b.jpg"), TRUE)
+  expect_equal(file.exists("./47259127482_66561d03eb_b.jpg"), TRUE)
 
-  file.remove("test_images/47259127482_66561d03eb_b.jpg")
+  file.remove("./47259127482_66561d03eb_b.jpg")
 
 })
 
@@ -68,7 +68,7 @@ test_that("if photo has no permission, skip", {
   no_perm_test <- download_images(photo_id = "1231231",
                                   save_dir = ".")
 
-  expect_is(nono_perm__test, "data.frame")
+  expect_is(no_perm__test, "data.frame")
   expect_equal(ncol(no_perm__test), 2)
 
 })
@@ -82,13 +82,15 @@ test_that("overwrite files works", {
   overwrite_test <- download_images(photo_id = 48704764812,
                                save_dir = ".")
 
-  overwrite_false_test <- download_images(photo_id = 48704764812,
+  overwrite_false_test <- download_images(photo_id = c(48704764812,
+                                                       48704764812),
                                      save_dir = ".",
                                      overwrite_file = FALSE)
 
   expect_equal(overwrite_false_test$downloaded, "No: file already existed")
 
-  overwrite_true_test <- download_images(photo_id = 48704764812,
+  overwrite_true_test <- download_images(photo_id = c(48704764812,
+                                                      48704764812),
                                           save_dir = ".",
                                           overwrite_file = TRUE)
 

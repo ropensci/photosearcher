@@ -38,6 +38,7 @@ test_that("output is correct", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
+
   tree_test <- photo_search(text = "tree")
   expect_is(tree_test, "data.frame")
   expect_equal(ncol(tree_test), 57)
@@ -60,22 +61,30 @@ test_that("output is correct", {
   expect_is(large_search, "data.frame")
   expect_equal(ncol(large_search), 57)
 
-  skip("Shape files not loading correctly")
-  shape_file <- sf::read_sf(
-    ".\\testhat\\helper_shape_file\\National_Parks_England.shp")
-  shape_test <- photo_search(mindate_taken = "2019-01-01",
-                             sf_layer = shape_file)
-  expect_is(shape_test, "data.frame")
-  expect_equal(ncol(shape_test), 68)
-  rm(shape_file)
-
   skip("Flickr location services are down")
   woeid_test <- photo_search(woe_id = 2347568)
   expect_is(woeid_test, "data.frame")
   expect_equal(ncol(woeid_test), 57)
 })
 
+test_that("shape files work", {
 
+  skip_on_cran()
+  write.table("6a2ac025703c4b98aae141842eae8b1d",
+              file = "photosearcher_key.sysdata")
+
+  national_parks = sf::st_read(system.file("shape/National_Parks_England.shp",
+                                           package="photosearcher"))
+
+  shape_test <- photo_search(mindate_taken = "2018-12-20",
+                             text = "tree",
+                             sf_layer = national_parks)
+
+  expect_is(shape_test, "data.frame")
+  expect_equal(ncol(shape_test), 68)
+  rm(national_parks)
+
+})
 
 test_that("invalid API keys fails correctly", {
 
