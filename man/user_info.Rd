@@ -25,8 +25,6 @@ more information on the API method.
 \examples{
 \dontrun{
 user_info(user_id = "155421853@N05")
-
-user_info(user_id = photo_search_outputs$owner)
 }
 }
 \concept{User information}

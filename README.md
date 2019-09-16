@@ -20,11 +20,19 @@ and examples of the functions check out the [package
 vignette](https://nfox29.github.io/photosearcher/articles/photosearcher.html).
 
 We have produced this package to help facilitate reproducible code for
-answering research questions. Flickr is currently used a wide range of
-research fields including biology and life sciences, computer and
-information sciences and medicine and health sciences. [Click
+answering research questions. In the PLoS journals alone there are over
+180 articles with Flickr in their keywords. [Click
 here](https://nfox29.github.io/photosearcher/articles/flickr_in_research.html)
-for an overview of other topics that have utilised Flickr.
+for an overview of the use of Flickr in PLoS journals. Articles using
+Flickr are published in a wide range of journals for a wide range of
+research fields including [biology and life
+sciences](https://www.nature.com/articles/s41598-017-18007-4), [computer
+and information
+sciences](https://www.inderscience.com/info/inarticle.php?artid=99808),
+[medicine and health
+sciences](https://www.sciencedirect.com/science/article/abs/pii/S0272494418303086)
+and
+[politics](https://journals.sagepub.com/doi/full/10.1177/1470357218780530?casa_token=UubfU8-MbuAAAAAA%3AAQBSE3ipGOdMi33J6ISalSySECPxvmxvmgDys3-ni7Z5EuQHNGlPMhOxjq6hyfPLmo1tFEIJYCiR).
 
 ## Terms of use
 
@@ -50,10 +58,15 @@ called when using any other function.
 ## Package functions
 
 The package currently focuses on the ability to use the Flickr API to
-search for images and their metadata through the flickr.photos.search
-method. The package does however support a number of other Flickr API
-call methods including the flickr.tags.getRelated and
-flickr.places.tagsForPlace methods. The Flickr website offers full [API
+search for images and their metadata through the `photo_search` function
+([see the flickr.photos.search
+method](https://www.flickr.com/services/api/flickr.photos.search.html))
+for more information. These photographs can be downloaded using
+`download_images` function which saves the images as a .jpeg file.
+
+The package also allows users to find the top tags for a given location
+(`location_tags`) and the tags most commonly associated with a given tag
+(`related_tags`). The Flickr website offers full [API
 Documentation](https://www.flickr.com/services/api/) for all of its call
 methods.
 
@@ -67,8 +80,8 @@ in the UK and Ireland.
 library(photosearcher)
 
 rock_climbing <- photo_search(
-  mindate = "2010-01-01",
-  maxdate = "2018-01-01",
+  mindate_taken = "2010-01-01",
+  maxdate_taken = "2018-01-01",
   text = "rock climbing",
   bbox = "-12.875977,49.210420,2.636719,59.977005",
   has_geo = TRUE

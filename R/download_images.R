@@ -29,10 +29,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' download_images(photo_id = 48704764812, save_dir = "images")
+#' download_images(photo_id = 48704764812, save_dir = ".")
 #'
-#' download_images(photo_id = 48704764812, maximum_image_height = 1200,
-#' maximum_image_width = 1200, save_dir = "smaller_images") }
+#' download_images(photo_id = 48704764812, max_image_height = 1200,
+#' max_image_width = 1200, save_dir = ".") }
+
 download_images <- function(photo_id,
                             save_dir = NULL,
                             max_image_height = NULL,

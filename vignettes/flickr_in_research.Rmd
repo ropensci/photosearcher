@@ -23,7 +23,7 @@ get_kw <- function(x) {
 
 # Flickr papers
 
-To understand how Flickr is currently being use in scientific research we investigated the decipline and scope of articles with the keyword `Flickr` in the [PLoS journals](https://www.plos.org/).
+To understand how Flickr is currently being use in scientific research we investigated the discipline and scope of articles with the keyword `flickr` in the [PLoS journals](https://www.plos.org/).
 
 ```{r}
 plos <- rplos::searchplos(q='flickr', 
@@ -38,7 +38,7 @@ There are a total of `r nrow(plos)` papers with the keyword `flickr` in the PLoS
 
 # Subject frequency
 
-To understand the diciplines of science using Flickr we calculated the frequence of papers in each research field:
+To understand which disciplines of science are using Flickr we calculated the frequency of papers in each research field:
 
 ```{r}
 plos %>% 

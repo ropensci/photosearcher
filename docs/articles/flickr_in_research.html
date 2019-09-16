@@ -93,7 +93,7 @@
 <div id="flickr-papers" class="section level1">
 <h1 class="hasAnchor">
 <a href="#flickr-papers" class="anchor"></a>Flickr papers</h1>
-<p>To understand how Flickr is currently being use in scientific research we investigated the decipline and scope of articles with the keyword <code>Flickr</code> in the <a href="https://www.plos.org/">PLoS journals</a>.</p>
+<p>To understand how Flickr is currently being use in scientific research we investigated the discipline and scope of articles with the keyword <code>flickr</code> in the <a href="https://www.plos.org/">PLoS journals</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">plos &lt;-<span class="st"> </span>rplos<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/rplos/topics/searchplos">searchplos</a></span>(<span class="dt">q=</span><span class="st">'flickr'</span>, </a>
 <a class="sourceLine" id="cb1-2" title="2">                          <span class="dt">fl=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'id'</span>,<span class="st">'publication_date'</span>,<span class="st">'subject'</span>, <span class="st">'subject_level_1'</span>),</a>
 <a class="sourceLine" id="cb1-3" title="3">                          <span class="dt">limit =</span> <span class="dv">200</span>)<span class="op">$</span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -105,7 +105,7 @@
 <div id="subject-frequency" class="section level1">
 <h1 class="hasAnchor">
 <a href="#subject-frequency" class="anchor"></a>Subject frequency</h1>
-<p>To understand the diciplines of science using Flickr we calculated the frequence of papers in each research field:</p>
+<p>To understand which disciplines of science are using Flickr we calculated the frequency of papers in each research field:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">plos <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw">pull</span>(subjects) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="dt">collapse =</span> <span class="st">","</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>

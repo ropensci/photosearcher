@@ -12,8 +12,8 @@ photo_search(mindate_taken = "2019-01-01",
 }
 \arguments{
 \item{mindate_taken}{Character, or date required. Minimum taken date. Photos
-with an taken date greater than or equal to this value will be returned.
-The date should be in the form of "YYYY-MM-DD".}
+with an taken date greater than or equal to this value will be returned. The
+date should be in the form of "YYYY-MM-DD".}
 
 \item{maxdate_taken}{Character, or date required. Maximum taken date. Photos
 with an taken date less than or equal to this value will be returned. The
@@ -21,13 +21,11 @@ date should be in the form of "YYYY-MM-DD".}
 
 \item{mindate_uploaded}{Character or date, optional. Minimum upload date.
 Photos with an upload date greater than or equal to this value will be
-returned. The date can be in the form of a unix timestamp or mysql
-datetime.}
+returned. The date can be in the form of a unix timestamp or mysql datetime.}
 
 \item{maxdate_uploaded}{Character or date, optional. Maximum upload date.
 Photos with an upload date less than or equal to this value will be
-returned. The date can be in the form of a unix timestamp or mysql
-datetime.}
+returned. The date can be in the form of a unix timestamp or mysql datetime.}
 
 \item{user_id}{Character, optional. The Flickr ID of the user who's photo to
 search. If this parameter isn't passed then everybody's public photos will
@@ -39,13 +37,13 @@ results that match a term by prepending it with a - character. Free text
 searches for words in order provided, for example a search for "climbing
 rock" will be different to "rock climbing".}
 
-\item{tags}{Character vector, optional. A comma-delimited list of tags.
-Photos with one or more of the tags listed will be returned. You can
-exclude results that match a term by prepending it with a - character.}
+\item{tags}{Character vector, optional. A comma-delimited list of tags. Photos
+with one or more of the tags listed will be returned. You can exclude
+results that match a term by prepending it with a - character.}
 
 \item{tags_any}{Logical, optional. If TRUE, photos containing any of the tags
-will be returned. If FALSE, only photos containg all tags will be returned.
-Defulted to return any tags.}
+will be returned. If FALSE, only photos containing all tags will be
+returned. Defaulted to return any tags.}
 
 \item{bbox}{String, optional bounding box of search area provide as:
 "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
@@ -56,7 +54,7 @@ instead of bbox. Use \code{\link{find_place}} to obtain woe_id for a place.}
 \item{sf_layer}{A simple features layer, optional, area to search for photos,
 can be supplied instead of a bbox or woeID.}
 
-\item{has_geo}{Logical, optional argument for whether returned photos need
+\item{has_geo}{Logical, optional parameter for whether returned photos need
 associated spatial data.}
 }
 \value{
@@ -66,65 +64,59 @@ image urls.
 
 Full list of variables returned:
 
-\itemize{
-\item id: photograph's unique id number
-\item owner: the unique id of the Flickr user
-\item secret: photograph unique secret number
-\item server: Flickr server data
-\item farm: Flickr server data
-\item title: photograph title
-\item ispublic: whether photograph is public; 1 = yes, 0 = no
-\item isfriend whether user is friend; 1 = yes, 0 = no
-\item isfamily whether user is family; 1 = yes, 0 = no
-\item license: use licence of the image see \link{https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html} for details
-\item datetaken: date and time of image capture
-\item datetakengranularity: accuracy of image date see \link{https://www.flickr.com/services/api/misc.dates.html} for more information on dates
-\item datetakenunknown: whether date is unknown see \link{https://www.flickr.com/services/api/misc.dates.html} for more information on dates
-\item count_views: number of view the photograph has had,
-\item count_comments: number of comments on the photograph
-\item count_faves: number of times the photograph has been favourited
-\item tags: user defined tags on the photograph
-\item latitude: latitude of where the image was taken
-\item longitude: longitude of where the image was taken
-\item accuracy: accuracy of spatial reference see \link{https://www.flickr.com/services/api/flickr.photos.search.html } for more information
-\item context: a numeric value representing the photo's geotagginess beyond latitude and longitude \link{https://www.flickr.com/services/api/flickr.photos.search.html } for more information
-\item place_id: unique numeric number representing the location of the photograph
-\item woeid: unique numeric number representing the location of the photograph
-\item geo_is_family: whether only friends can see geo; 1 = yes, 0 = no
-\item geo_is_friend: whether only family can see geo; 1 = yes, 0 = no
-\item geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no
-\item geo_is_public whether geo is public; 1 = yes, 0 = no
-\item url_sq: URL for square image
-\item height_sq: height for square image
-\item width_sq: width for square image
-\item url_t: URL for square image thumbnail image 100 on longest side
-\item height_t: height for thumbnail image 100 on longest side,
-\item width_t: width for thumbnail image 100 on longest side
-\item url_s: URL for small square image 75x75
-\item height_s: height for small square image 75x75
-\item width_s: width for small square image 75x75
-\item url_q: URL for large square image 150x150
-\item height_q: height for large square image 150x150
-\item width_q: width for large square image 150x150
-\item url_m: URL for small image 240 on longest side
-\item height_m: height for small image 240 on longest side
-\item width_m: width for small image 240 on longest side
-\item url_n: URL for small image 320 on longest side
-\item height_n: height for small image 320 on longest side
-\item width_n: width for small image 320 on longest side
-\item url_z: URL for medium image 640 on longest side
-\item height_z: height for medium image 640 on longest side
-\item width_z: width for medium image 640 on longest side
-\item url_c: URL for medium image 800 on longest side
-\item height_c: height for medium image 800 on longest side
-\item width_c: width for medium image 800 on longest side
-\item url_l: URL for large image 1024 on longest side
-\item height_l: height for large image 1024 on longest side
-\item width_l: width for large image 1024 on longest side
-\item url_o: URL for original image, either a jpg, gif or png, depending on source format
-\item height_o: height for original image, either a jpg, gif or png, depending on source format
-\item width_o: width for original image, either a jpg, gif or png, depending on source format
-}
+\itemize{ \item id: photograph's unique id number \item owner: the unique id
+of the Flickr user \item secret: photograph unique secret number \item
+server: Flickr server data \item farm: Flickr server data \item title:
+photograph title \item ispublic: whether photograph is public; 1 = yes, 0 =
+no \item isfriend whether user is friend; 1 = yes, 0 = no \item isfamily
+whether user is family; 1 = yes, 0 = no \item license: use licence of the
+image see
+\link{https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html}
+for details \item datetaken: date and time of image capture \item
+datetakengranularity: accuracy of image date see
+\link{https://www.flickr.com/services/api/misc.dates.html} for more
+information on dates \item datetakenunknown: whether date is unknown see
+\link{https://www.flickr.com/services/api/misc.dates.html} for more
+information on dates \item count_views: number of view the photograph has
+had, \item count_comments: number of comments on the photograph \item
+count_faves: number of times the photograph has been favourited \item tags:
+user defined tags on the photograph \item latitude: latitude of where the
+image was taken \item longitude: longitude of where the image was taken
+\item accuracy: accuracy of spatial reference see
+\link{https://www.flickr.com/services/api/flickr.photos.search.html } for
+more information \item context: a numeric value representing the photo's
+geotagginess beyond latitude and longitude
+\link{https://www.flickr.com/services/api/flickr.photos.search.html } for
+more information \item place_id: unique numeric number representing the
+location of the photograph \item woeid: unique numeric number representing
+the location of the photograph \item geo_is_family: whether only friends can
+see geo; 1 = yes, 0 = no \item geo_is_friend: whether only family can see
+geo; 1 = yes, 0 = no \item geo_is_contact: whether only contact can see geo;
+1 = yes, 0 = no \item geo_is_public whether geo is public; 1 = yes, 0 = no
+\item url_sq: URL for square image \item height_sq: height for square image
+\item width_sq: width for square image \item url_t: URL for square image
+thumbnail image 100 on longest side \item height_t: height for thumbnail
+image 100 on longest side, \item width_t: width for thumbnail image 100 on
+longest side \item url_s: URL for small square image 75x75 \item height_s:
+height for small square image 75x75 \item width_s: width for small square
+image 75x75 \item url_q: URL for large square image 150x150 \item height_q:
+height for large square image 150x150 \item width_q: width for large square
+image 150x150 \item url_m: URL for small image 240 on longest side \item
+height_m: height for small image 240 on longest side \item width_m: width
+for small image 240 on longest side \item url_n: URL for small image 320 on
+longest side \item height_n: height for small image 320 on longest side
+\item width_n: width for small image 320 on longest side \item url_z: URL
+for medium image 640 on longest side \item height_z: height for medium image
+640 on longest side \item width_z: width for medium image 640 on longest
+side \item url_c: URL for medium image 800 on longest side \item height_c:
+height for medium image 800 on longest side \item width_c: width for medium
+image 800 on longest side \item url_l: URL for large image 1024 on longest
+side \item height_l: height for large image 1024 on longest side \item
+width_l: width for large image 1024 on longest side \item url_o: URL for
+original image, either a jpg, gif or png, depending on source format \item
+height_o: height for original image, either a jpg, gif or png, depending on
+source format \item width_o: width for original image, either a jpg, gif or
+png, depending on source format }
 }
 \description{
 Returns image metadata for photos matching the search terms.

@@ -141,6 +141,77 @@ The date should be in the form of "YYYY-MM-DD".</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>data.frame. Output consists of 57 variables including; latitude and
+longitude of photograph, date and time it was taken, associated tags and
+image urls.</p>
+<p>Full list of variables returned:</p>
+<ul>
+<li><p>id: photograph's unique id number</p></li>
+<li><p>owner: the unique id of the Flickr user</p></li>
+<li><p>secret: photograph unique secret number</p></li>
+<li><p>server: Flickr server data</p></li>
+<li><p>farm: Flickr server data</p></li>
+<li><p>title: photograph title</p></li>
+<li><p>ispublic: whether photograph is public; 1 = yes, 0 = no</p></li>
+<li><p>isfriend whether user is friend; 1 = yes, 0 = no</p></li>
+<li><p>isfamily whether user is family; 1 = yes, 0 = no</p></li>
+<li><p>license: use licence of the image see https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html for details</p></li>
+<li><p>datetaken: date and time of image capture</p></li>
+<li><p>datetakengranularity: accuracy of image date see https://www.flickr.com/services/api/misc.dates.html for more information on dates</p></li>
+<li><p>datetakenunknown: whether date is unknown see https://www.flickr.com/services/api/misc.dates.html for more information on dates</p></li>
+<li><p>count_views: number of view the photograph has had,</p></li>
+<li><p>count_comments: number of comments on the photograph</p></li>
+<li><p>count_faves: number of times the photograph has been favourited</p></li>
+<li><p>tags: user defined tags on the photograph</p></li>
+<li><p>latitude: latitude of where the image was taken</p></li>
+<li><p>longitude: longitude of where the image was taken</p></li>
+<li><p>accuracy: accuracy of spatial reference see https://www.flickr.com/services/api/flickr.photos.search.html  for more information</p></li>
+<li><p>context: a numeric value representing the photo's geotagginess beyond latitude and longitude https://www.flickr.com/services/api/flickr.photos.search.html  for more information</p></li>
+<li><p>place_id: unique numeric number representing the location of the photograph</p></li>
+<li><p>woeid: unique numeric number representing the location of the photograph</p></li>
+<li><p>geo_is_family: whether only friends can see geo; 1 = yes, 0 = no</p></li>
+<li><p>geo_is_friend: whether only family can see geo; 1 = yes, 0 = no</p></li>
+<li><p>geo_is_contact: whether only contact can see geo; 1 = yes, 0 = no</p></li>
+<li><p>geo_is_public whether geo is public; 1 = yes, 0 = no</p></li>
+<li><p>url_sq: URL for square image</p></li>
+<li><p>height_sq: height for square image</p></li>
+<li><p>width_sq: width for square image</p></li>
+<li><p>url_t: URL for square image thumbnail image 100 on longest side</p></li>
+<li><p>height_t: height for thumbnail image 100 on longest side,</p></li>
+<li><p>width_t: width for thumbnail image 100 on longest side</p></li>
+<li><p>url_s: URL for small square image 75x75</p></li>
+<li><p>height_s: height for small square image 75x75</p></li>
+<li><p>width_s: width for small square image 75x75</p></li>
+<li><p>url_q: URL for large square image 150x150</p></li>
+<li><p>height_q: height for large square image 150x150</p></li>
+<li><p>width_q: width for large square image 150x150</p></li>
+<li><p>url_m: URL for small image 240 on longest side</p></li>
+<li><p>height_m: height for small image 240 on longest side</p></li>
+<li><p>width_m: width for small image 240 on longest side</p></li>
+<li><p>url_n: URL for small image 320 on longest side</p></li>
+<li><p>height_n: height for small image 320 on longest side</p></li>
+<li><p>width_n: width for small image 320 on longest side</p></li>
+<li><p>url_z: URL for medium image 640 on longest side</p></li>
+<li><p>height_z: height for medium image 640 on longest side</p></li>
+<li><p>width_z: width for medium image 640 on longest side</p></li>
+<li><p>url_c: URL for medium image 800 on longest side</p></li>
+<li><p>height_c: height for medium image 800 on longest side</p></li>
+<li><p>width_c: width for medium image 800 on longest side</p></li>
+<li><p>url_l: URL for large image 1024 on longest side</p></li>
+<li><p>height_l: height for large image 1024 on longest side</p></li>
+<li><p>width_l: width for large image 1024 on longest side</p></li>
+<li><p>url_o: URL for original image, either a jpg, gif or png, depending on source format</p></li>
+<li><p>height_o: height for original image, either a jpg, gif or png, depending on source format</p></li>
+<li><p>width_o: width for original image, either a jpg, gif or png, depending on source format</p></li>
+</ul>
+
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other Search for images: <code><a href='photo_search.html'>photo_search</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
@@ -156,7 +227,11 @@ The date should be in the form of "YYYY-MM-DD".</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

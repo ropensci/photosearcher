@@ -5,7 +5,7 @@
 \title{Download images}
 \usage{
 download_images(photo_id, save_dir = NULL, max_image_height = NULL,
-  max_image_width = NULL, quiet = FALSE)
+  max_image_width = NULL, overwrite_file = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{photo_id}{numeric or character vector. id of photo to download, can be
@@ -16,14 +16,19 @@ will be created if it doesn't exist.}
 
 \item{max_image_height}{numeric. maximum number of pixels for images height}
 
-\item{max_image_width}{numeric. maximum number of pixels for images width #'}
+\item{max_image_width}{numeric. maximum number of pixels for images width}
+
+\item{overwrite_file}{logical. Whether to overwritten existing files. if
+TRUE, files will be overwritten and you will be warned in the output.
+Default is FALSE.}
 
 \item{quiet}{logical. If TRUE, suppress status messages (if any), and the
 progress bar.}
 }
 \value{
-character. A vector of the images that the user does not have
-permission to download. Images will be saved to \code{save_dir}.
+character. A vector of the images attempted to be downloaded and
+whether they were. If an image was not downloaded, information on why is
+provided. Images will be saved to \code{save_dir}.
 }
 \description{
 Downloads images based on their Flickr ID. Uses the flickr.photos.getSizes
@@ -35,10 +40,10 @@ downloaded and saved as a .jpeg in a given save directory.
 }
 \examples{
 \dontrun{
-download_images(photo_id = 48704764812, save_dir = "images")
+download_images(photo_id = 48704764812, save_dir = ".")
 
-download_images(photo_id = 48704764812, maximum_image_height = 1200,
-maximum_image_width = 1200, save_dir = "smaller_images") }
+download_images(photo_id = 48704764812, max_image_height = 1200,
+max_image_width = 1200, save_dir = ".") }
 }
 \seealso{
 Other Get data for known photograph: \code{\link{get_exif}},

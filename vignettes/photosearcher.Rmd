@@ -36,11 +36,33 @@ mountain_lake <- photo_search(mindate_taken = "2019-01-01",
                              has_geo = FALSE)
 ```
 
-Users can also use the `sf` package to search via a simple features layer, this can be used to find images of in a specific location for example to aid in resource management for recreational activites in english national parks. When using an arguement that searches for a location or when `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
+Using the `text` parameter will search only for the phrase given. The `tag` parameter can be search for photographs that contain any of the given tags using `tags_any = TRUE`, or for only photographs that contain all of the given tags using `tags_any = FALSE`.
+
+```{r eval=FALSE}
+#Search for photographs with any of the tags
+tags_any <- photo_search(mindate_taken = "2017-01-01",
+                      maxdate_taken = "2018-01-01",
+                      tags = c("lake", "mountain"),
+                      tags_any = TRUE,
+                      bbox = "-12.875977,49.210420,2.636719,59.977005",
+                      has_geo = TRUE)
+
+#Search for photographs with all of the tags
+tags_all <- photo_search(mindate_taken = "2017-01-01",
+                      maxdate_taken = "2018-01-01",
+                      tags = c("lake", "mountain"),
+                      tags_any = FALSE,
+                      bbox = "-12.875977,49.210420,2.636719,59.977005",
+                      has_geo = TRUE)
+
+```
+
+
+Users can also use the `sf` package to search via a simple features layer, this can be used to find images of in a specific location for example to aid in resource management for recreational activities in English national parks. When using an parameter that searches for a location or when `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
 
 ```{r eval=FALSE}
 #load shape file
-national_parks = sf::st_read(system.file("shape/National_Parks_England.shp", package="photosearcher"))
+national_parks <- sf::st_read(system.file("shape/National_Parks_England.shp", package="photosearcher"))
 
 #Search for photos of foxes in the UK for the year 2017
 parks_hiking <- photo_search(mindate_taken = "2012-01-01",
@@ -56,7 +78,7 @@ The package can also download the images based of of their unique id number. You
 ```{r eval=FALSE}
 #Downloading fox images from photosearch
 downloaded_foxes <- download_images(photo_id = foxes$id[1:5], 
-                                    save_dir =  = ".")
+                                    save_dir = ".")
 
 #Download a specific images based off its id
 single_download <- download_images(photo_id = 48704764812, 
@@ -68,7 +90,7 @@ single_download <- download_images(photo_id = 48704764812,
 The package will only download images that the owner on Flickr has granted download permission. Those without permission will not be downloaded. The function also provides dataframe outlining which photographs were able to be downloaded. Permission to download does not automatically provide permission to use and distribute, check the photographs licence before use. The `photo_search` function provides the licence information for each image.
 
 ## Finding information on a user
-The Flickr API can also return publically available data on its users. The `user_info` function returns non-identifying information including hometown and occupation.  
+The Flickr API can also return publicly available data on its users. The `user_info` function returns non-identifying information including hometown and occupation. This information could be used in studies aiming to calculate distance people travel to take photographs of certain places or things.  
 
 ```{r eval=FALSE}
 #Find a users hometown
@@ -80,7 +102,7 @@ user$occupation
 ```
 
 ## Get the top tags for a location
-Users can request the top tags for a given location. 
+Users interested in finding popular attractions or activities in \ given location can request the top tags for a given location. 
 
 ```{r eval=FALSE}
 #Find the tags for Southampton, UK
@@ -93,6 +115,7 @@ new_york <- location_tags(woe_id = 	2347591)
 The woe_id argument is a Flickr specific place identifier. A places woeID can be found using the `find_place` function or using [online tools](http://woeid.rosselliot.co.nz/). 
 
 ## Find a locations woeID
+Users can also call on the Flickr API to find information about a given location.
 ```{r eval=FALSE}
   #Find woeID for Kuala Lumpur
   kuala_lumpur <- find_place(place = "Kuala Lumpur")
@@ -123,7 +146,7 @@ The Flickr API can also return Exchangeable image file format (Exif) data. For m
 ```
 
 ## Finding information on a single photo
-As well as searching for metadata on photographs based up on search terms, users can also find information on a single photograp using its unique photograph number.
+As well as searching for metadata on photographs based up on search terms, users can also find information on a single photograph using its unique photograph number.
 ```{r eval=FALSE}
   #Find information about a single photo
   single_photo <- get_photoinfo(photo_id = 48704764812)
@@ -131,7 +154,7 @@ As well as searching for metadata on photographs based up on search terms, users
 
 ## Find interesting photographs 
 
-Flickr has an [algorithm](http://www.steves-digicams.com/knowledge-center/how-tos/online-sharing-social-networking/what-is-flickr-interestingness.html#b) for selecting a list of 500 interesting images for each day. Users can get this list using the `interesting_list` funciton.
+Flickr has an [algorithm](http://www.steves-digicams.com/knowledge-center/how-tos/online-sharing-social-networking/what-is-flickr-interestingness.html#b) for selecting a list of 500 interesting images for each day. Users can get this list using the `interesting_list` function.
 
 ```{r eval=FALSE}
   #Find information about a single photo
