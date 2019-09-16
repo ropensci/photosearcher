@@ -68,8 +68,8 @@ test_that("if photo has no permission, skip", {
   no_perm_test <- download_images(photo_id = "1231231",
                                   save_dir = ".")
 
-  expect_is(no_perm__test, "data.frame")
-  expect_equal(ncol(no_perm__test), 2)
+  expect_is(no_perm_test, "data.frame")
+  expect_equal(ncol(no_perm_test), 2)
 
 })
 
@@ -87,14 +87,16 @@ test_that("overwrite files works", {
                                      save_dir = ".",
                                      overwrite_file = FALSE)
 
-  expect_equal(overwrite_false_test$downloaded, "No: file already existed")
+  expect_is(overwrite_false_test, "data.frame")
+  expect_equal(ncol(overwrite_false_test), 2)
 
   overwrite_true_test <- download_images(photo_id = c(48704764812,
                                                       48704764812),
                                           save_dir = ".",
                                           overwrite_file = TRUE)
 
-  expect_equal(overwrite_true_test$downloaded, "Yes: file overwritten")
+  expect_is(overwrite_true_test, "data.frame")
+  expect_equal(ncol(overwrite_true_test), 2)
 
 
 })
@@ -106,8 +108,12 @@ test_that("save_dir is needed", {
               file = "photosearcher_key.sysdata")
 
   expect_error(download_images(photo_id = 47259127482,
-                               save_dir = NULL),
+                               save_dir = "asjdnflajsndflja"),
                "Please supply a save directory")
+
+  expect_error(download_images(photo_id = 47259127482,
+                               save_dir = NULL),
+               "invalid filename argument")
 
 })
 
