@@ -10,6 +10,7 @@ test_that("output is correct", {
   expect_equal(nrow(user_test), 1)
 })
 
+#test errors
 test_that("invalid ID provides error", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d",

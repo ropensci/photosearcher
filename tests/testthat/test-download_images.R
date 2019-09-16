@@ -6,7 +6,7 @@ test_that("output is correct", {
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
   download_test <- download_images(photo_id = 47259127482,
-                                   save_dir = "test_images")
+                                   save_dir = ".")
 
   expect_is(download_test, "data.frame")
   expect_equal(ncol(download_test), 2)
@@ -25,7 +25,7 @@ test_that("height and width can be chosen", {
   size_test <- download_images(photo_id = 47259127482,
                                    max_image_height = 1200,
                                    max_image_width = 1200,
-                                   save_dir = "test_images")
+                                   save_dir = ".")
 
   expect_is(size_test, "data.frame")
   expect_equal(ncol(size_test), 2)
@@ -43,7 +43,7 @@ test_that("if no photos match height and width, skip", {
   size_test <- download_images(photo_id = 47259127482,
                                max_image_height = 1,
                                max_image_width = 1,
-                               save_dir = "test_images")
+                               save_dir = ".")
 
   expect_is(size_test, "data.frame")
   expect_equal(ncol(size_test), 2)
@@ -54,7 +54,7 @@ test_that("if photo is not found, skip", {
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
   notreal_test <- download_images(photo_id = "not a real photo",
-                                  save_dir = "test_images")
+                                  save_dir = ".")
 
   expect_is(notreal_test, "data.frame")
   expect_equal(ncol(notreal_test), 2)
@@ -65,20 +65,55 @@ test_that("if photo has no permission, skip", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
-  notreal_test <- download_images(photo_id = "1231231",
-                                  save_dir = "test_images")
+  no_perm_test <- download_images(photo_id = "1231231",
+                                  save_dir = ".")
 
-  expect_is(notreal_test, "data.frame")
-  expect_equal(ncol(notreal_test), 2)
+  expect_is(nono_perm__test, "data.frame")
+  expect_equal(ncol(no_perm__test), 2)
 
 })
 
+#test overwrite status
+test_that("overwrite files works", {
+  skip_on_cran()
+  write.table("6a2ac025703c4b98aae141842eae8b1d",
+              file = "photosearcher_key.sysdata")
+
+  overwrite_test <- download_images(photo_id = 48704764812,
+                               save_dir = ".")
+
+  overwrite_false_test <- download_images(photo_id = 48704764812,
+                                     save_dir = ".",
+                                     overwrite_file = FALSE)
+
+  expect_equal(overwrite_false_test$downloaded, "No: file already existed")
+
+  overwrite_true_test <- download_images(photo_id = 48704764812,
+                                          save_dir = ".",
+                                          overwrite_file = TRUE)
+
+  expect_equal(overwrite_true_test$downloaded, "Yes: file overwritten")
+
+
+})
+
+#test errors
+test_that("save_dir is needed", {
+  skip_on_cran()
+  write.table("6a2ac025703c4b98aae141842eae8b1d",
+              file = "photosearcher_key.sysdata")
+
+  expect_error(download_images(photo_id = 47259127482,
+                               save_dir = NULL),
+               "Please supply a save directory")
+
+})
 
 test_that("invalid API keys fails correctly", {
 
   skip_on_cran()
   write.table("notarealkey", file = "photosearcher_key.sysdata")
   expect_error(download_images(photo_id = 47259127482,
-                               save_dir = "test_images"),
+                               save_dir = "."),
                "Invalid API Key: correct this in photosearcher_key.sysdata")
 })

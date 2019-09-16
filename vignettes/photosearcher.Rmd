@@ -36,11 +36,11 @@ mountain_lake <- photo_search(mindate_taken = "2019-01-01",
                              has_geo = FALSE)
 ```
 
-Users can also use the `sf` package to search via a simple features layer, this can be used to find images of in a specific location for example to aid in resource management for recreational activites in english national parks. When using an arguemtn that searches for a location or when `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
+Users can also use the `sf` package to search via a simple features layer, this can be used to find images of in a specific location for example to aid in resource management for recreational activites in english national parks. When using an arguement that searches for a location or when `has_geo == TRUE` only metadata about images with latitude and longitude information will be retrieved. 
 
 ```{r eval=FALSE}
 #load shape file
-national_parks <- sf::read_sf(dsn = ".\\data\\shape_file\\National_Parks_England.shp")
+national_parks = sf::st_read(system.file("shape/National_Parks_England.shp", package="photosearcher"))
 
 #Search for photos of foxes in the UK for the year 2017
 parks_hiking <- photo_search(mindate_taken = "2012-01-01",
@@ -56,11 +56,11 @@ The package can also download the images based of of their unique id number. You
 ```{r eval=FALSE}
 #Downloading fox images from photosearch
 downloaded_foxes <- download_images(photo_id = foxes$id[1:5], 
-                                    saveDir = "Fox images")
+                                    save_dir =  = ".")
 
 #Download a specific images based off its id
 single_download <- download_images(photo_id = 48704764812, 
-                                   saveDir = "single_test",
+                                   save_dir = ".",
                                    max_image_height = 1200,
                                    max_image_width = 1200)
 ```

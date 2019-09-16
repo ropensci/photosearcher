@@ -11,15 +11,17 @@
 #'   single id, list or column for photo_search outputs
 #' @param save_dir character. name of directory for photos to be saved in. This
 #'   will be created if it doesn't exist.
-#'
 #' @param max_image_height numeric. maximum number of pixels for images height
-#'
-#' @param max_image_width numeric. maximum number of pixels for images width #'
+#' @param max_image_width numeric. maximum number of pixels for images width
+#' @param overwrite_file logical. Whether to overwritten existing files. if
+#'   TRUE, files will be overwritten and you will be warned in the output.
+#'   Default is FALSE.
 #' @param quiet logical. If TRUE, suppress status messages (if any), and the
 #'   progress bar.
 #'
-#' @return character. A vector of the images that the user does not have
-#'   permission to download. Images will be saved to \code{save_dir}.
+#' @return character. A vector of the images attempted to be downloaded and
+#'   whether they were. If an image was not downloaded, information on why is
+#'   provided. Images will be saved to \code{save_dir}.
 #'
 #' @family Get data for known photograph
 #'
@@ -35,28 +37,29 @@ download_images <- function(photo_id,
                             save_dir = NULL,
                             max_image_height = NULL,
                             max_image_width = NULL,
+                            overwrite_file = FALSE,
                             quiet = FALSE) {
 
   # this checks for the presence of a key, if no key it prompts the user to
   # create one, it then checks the validity of the key
   api_key <- create_and_check_key()
 
-  if (is.null(save_dir)){
+  # check directory
+  if (!dir.exists(save_dir)) {
 
     stop("Please supply a save directory")
 
   }
 
-  # create save_dir
-  if (!dir.exists(save_dir)) {
-    ui_info(paste("save_dir",
-                  save_dir, "does not exist, I will create it for you"))
-    dir.create(save_dir, recursive = TRUE)
-  }
-
   downloadable <- dplyr::bind_rows(
     lapply(photo_id, function(x) download_image_single(
-      x, save_dir, api_key, max_image_height, max_image_width, quiet)))
+      x,
+      save_dir,
+      api_key,
+      max_image_height,
+      max_image_width,
+      overwrite_file,
+      quiet)))
 
 
   return(downloadable)
@@ -68,8 +71,10 @@ download_image_single <- function(photo_id,
                                   save_dir,
                                   api_key,
                                   max_image_height,
-                                  max_image_width, quiet) {
-  can_download <- NULL
+                                  max_image_width,
+                                  overwrite_file,
+                                  quiet) {
+  downloaded <- NULL
 
   z <- paste("https://api.flickr.com/services/rest/",
              "?method=flickr.photos.getSizes&api_key=",
@@ -85,7 +90,7 @@ download_image_single <- function(photo_id,
   if (warn[2, ] == "Photo not found"){
 
     out <- data.frame(id = photo_id,
-                      can_download = "Photo not found",
+                      downloaded = "No: photo not found",
                       stringsAsFactors = FALSE)
 
   } else {
@@ -125,11 +130,6 @@ download_image_single <- function(photo_id,
 
         if (nrow(tmp_df) > 0){
 
-
-          out <- data.frame(id = photo_id,
-                            can_download = "Yes",
-                            stringsAsFactors = FALSE)
-
           # download biggest possible image
           to_download <- tmp_df$source[nrow(tmp_df)]
 
@@ -139,22 +139,45 @@ download_image_single <- function(photo_id,
 
           if (file.exists(check_file2)){
 
-            warning(paste(check_file, " exists, file will be overwritten"))
+            if (isFALSE(overwrite_file)){
+
+              out <- data.frame(id = photo_id,
+                                downloaded = "No: file already existed",
+                                stringsAsFactors = FALSE)
+
+            } else {
+
+              utils::download.file(
+                url = to_download,
+                destfile = file.path(save_dir, basename(to_download)),
+                mode = "wb",
+                quiet = quiet)
+
+              out <- data.frame(id = photo_id,
+                                downloaded = "Yes: file overwritten",
+                                stringsAsFactors = FALSE)
+
+            }
 
 
-          }
+          } else {
 
-          utils::download.file(
-            url = to_download,
-            destfile = file.path(save_dir, basename(to_download)),
-            mode = "wb",
-            quiet = quiet
-          )
+            utils::download.file(
+              url = to_download,
+              destfile = file.path(save_dir, basename(to_download)),
+              mode = "wb",
+              quiet = quiet)
+
+            out <- data.frame(id = photo_id,
+                              downloaded = "Yes: downloaded",
+                              stringsAsFactors = FALSE)
+
+            }
 
         } else {
 
           out <- data.frame(id = photo_id,
-                            can_download = "No photos meeting size criteria",
+                            downloaded = "No: no photos meeting size criteria",
                             stringsAsFactors = FALSE)
 
         }
@@ -163,7 +186,7 @@ download_image_single <- function(photo_id,
       } else {
 
       out <- data.frame(id = photo_id,
-                        can_download = "No",
+                        downloaded = "No: no download permission",
                         stringsAsFactors = FALSE)
       }
    }
