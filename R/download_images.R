@@ -7,10 +7,13 @@
 #' more information on the API method. If permission is available the image is
 #' downloaded and saved as a .jpeg in a given save directory.
 #'
+#' Please be aware that download times will vary depending on number of
+#' photographs, size of photographs, internet speed and other factors can affect
+#' this. Downloading a large amount of photographs may take some time.
+#'
 #' @param photo_id numeric or character vector. id of photo to download, can be
 #'   single id, list or column for photo_search outputs
-#' @param save_dir character. name of directory for photos to be saved in. This
-#'   will be created if it doesn't exist.
+#' @param save_dir character. name of directory for photos to be saved in.
 #' @param max_image_height numeric. maximum number of pixels for images height
 #' @param max_image_width numeric. maximum number of pixels for images width
 #' @param overwrite_file logical. Whether to overwritten existing files. if

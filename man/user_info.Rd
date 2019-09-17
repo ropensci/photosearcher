@@ -11,8 +11,8 @@ user_info(user_id)
 for.}
 }
 \value{
-data.frame. Dataframe of 5 variables from the searched users
-publicly available information: id, occupation, hometown, city, country.
+data.frame. Dataframe of 5 variables from the searched users publicly
+available information: id, occupation, hometown, city, country.
 }
 \description{
 Takes Flickr user ID and returns the profile data.
@@ -21,6 +21,9 @@ Takes Flickr user ID and returns the profile data.
 Uses the flickr.profile.getProfile API method from the Flickr API. See
 \url{https://www.flickr.com/services/api/flickr.profile.getProfile.html} for
 more information on the API method.
+
+See \url{https://www.pixsy.com/academy/flickr-id/} for a guide on finding
+your Flickr ID.
 }
 \examples{
 \dontrun{

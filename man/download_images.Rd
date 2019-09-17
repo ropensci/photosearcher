@@ -11,8 +11,7 @@ download_images(photo_id, save_dir = NULL, max_image_height = NULL,
 \item{photo_id}{numeric or character vector. id of photo to download, can be
 single id, list or column for photo_search outputs}
 
-\item{save_dir}{character. name of directory for photos to be saved in. This
-will be created if it doesn't exist.}
+\item{save_dir}{character. name of directory for photos to be saved in.}
 
 \item{max_image_height}{numeric. maximum number of pixels for images height}
 
@@ -37,6 +36,11 @@ download an image. See
 \url{https://www.flickr.com/services/api/flickr.photos.getSizes.html} for
 more information on the API method. If permission is available the image is
 downloaded and saved as a .jpeg in a given save directory.
+}
+\details{
+Please be aware that download times will vary depending on number of
+photographs, size of photographs, internet speed and other factors.
+Downloading a large amount of photographs may take some time.
 }
 \examples{
 \dontrun{

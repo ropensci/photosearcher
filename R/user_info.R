@@ -6,11 +6,14 @@
 #' \url{https://www.flickr.com/services/api/flickr.profile.getProfile.html} for
 #' more information on the API method.
 #'
+#' See \url{https://www.pixsy.com/academy/flickr-id/} for a guide on finding
+#' your Flickr ID.
+#'
 #' @param user_id character. The id of the user you wish to obtain information
 #'   for.
 #'
-#' @return data.frame. Dataframe of 5 variables from the searched users
-#'   publicly available information: id, occupation, hometown, city, country.
+#' @return data.frame. Dataframe of 5 variables from the searched users publicly
+#'   available information: id, occupation, hometown, city, country.
 #'
 #' @family User information
 #'
