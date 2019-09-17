@@ -8,8 +8,8 @@
 #' downloaded and saved as a .jpeg in a given save directory.
 #'
 #' Please be aware that download times will vary depending on number of
-#' photographs, size of photographs, internet speed and other factors can affect
-#' this. Downloading a large amount of photographs may take some time.
+#' photographs, size of photographs, internet speed and other factors.
+#' Downloading a large amount of photographs may take some time.
 #'
 #' @param photo_id numeric or character vector. id of photo to download, can be
 #'   single id, list or column for photo_search outputs
