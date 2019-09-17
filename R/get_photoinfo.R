@@ -62,6 +62,7 @@ get_photoinfo <- function(photo_id = NULL){
 
   out[cols.num] <- sapply(out[cols.num],as.numeric)
 
+  out$dateuploaded <- as.POSIXct(out$dateuploaded, origin="1970-01-01")
 
   return(out)
 
