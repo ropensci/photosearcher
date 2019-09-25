@@ -115,7 +115,7 @@ ui_info <- function(x, .envir = parent.frame()) {
 # this checks for the presence of a key, if no key it prompts the user to create
 # one, it then checks the validity of the key
 create_and_check_key <- function() {
-  if (!file.exists("api_key.txt")) {
+  if (!file.exists("photosearcher_key.sysdata")) {
     ui_todo(
       "Create a Flickr API key at https://www.flickr.com/services/apps/create/")
 
@@ -124,12 +124,12 @@ create_and_check_key <- function() {
     ui_todo("Enter your Flickr API key:")
 
     utils::write.table(readline(),
-                       file = "api_key.txt",
+                       file = "photosearcher_key.sysdata",
                        col.names = FALSE,
                        row.names = FALSE)
   }
 
-  api_key <- utils::read.table("api_key.txt", stringsAsFactors = FALSE)
+  api_key <- utils::read.table("photosearcher_key.sysdata", stringsAsFactors = FALSE)
 
   base_url <- paste("https://api.flickr.com/services/rest/",
                     "?method=flickr.photos.search&api_key=",
@@ -141,7 +141,7 @@ create_and_check_key <- function() {
   warn <- as.character(unlist(pages_data))
 
   if ((warn[2]) == ("Invalid API Key (Key has invalid format)")) {
-    stop("Invalid API Key: correct this in api_key.txt")
+    stop("Invalid API Key: correct this in photosearcher_key.sysdata")
   }
 
   return(api_key)
