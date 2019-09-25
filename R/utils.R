@@ -15,6 +15,11 @@ get_url <- function(mindate_taken,
                     woe_id = NULL,
                     has_geo = TRUE) {
 
+  # remove whitespace to allow proper encoding
+  text <- gsub(" ", "+", trimws(text))
+  tags <- gsub(" ", "+", trimws(tags))
+  tags <- paste(tags, collapse = ",")
+
   base_url <- paste("https://api.flickr.com/services/rest/",
                     "?method=flickr.photos.search&api_key=", api_key,
                     "&text=", text,
@@ -46,20 +51,20 @@ get_url <- function(mindate_taken,
 search_url <- function(base_url) {
 
   # get total number of results
-  r <- httr::GET(base_url, encoding = "ISO-8859")
+  r <- httr::GET(base_url)
 
   # put first error catch here
   count_stat <- 0
 
   while (r$status_code != 200 & count_stat < 3) {
     Sys.sleep(0.5)
-    r <- httr::GET(base_url, encoding = "ISO-8859")
+    r <- httr::GET(base_url)
     count_stat <- count_stat + 1
   }
 
   if (r$status_code != 200) {
     warning("Status code:", r$status, " for ", base_url,
-            " - message: ", httr::content(r, "text", encoding = "ISO-8859"))
+            " - message: ", httr::content(r, "text"))
   }
 
   error <- tryCatch({
@@ -110,7 +115,7 @@ ui_info <- function(x, .envir = parent.frame()) {
 # this checks for the presence of a key, if no key it prompts the user to create
 # one, it then checks the validity of the key
 create_and_check_key <- function() {
-  if (!file.exists("photosearcher_key.sysdata")) {
+  if (!file.exists("api_key.txt")) {
     ui_todo(
       "Create a Flickr API key at https://www.flickr.com/services/apps/create/")
 
@@ -119,13 +124,12 @@ create_and_check_key <- function() {
     ui_todo("Enter your Flickr API key:")
 
     utils::write.table(readline(),
-                       file = "photosearcher_key.sysdata",
+                       file = "api_key.txt",
                        col.names = FALSE,
                        row.names = FALSE)
   }
 
-  api_key <- utils::read.table("photosearcher_key.sysdata",
-                               stringsAsFactors = FALSE)
+  api_key <- utils::read.table("api_key.txt", stringsAsFactors = FALSE)
 
   base_url <- paste("https://api.flickr.com/services/rest/",
                     "?method=flickr.photos.search&api_key=",
@@ -137,7 +141,7 @@ create_and_check_key <- function() {
   warn <- as.character(unlist(pages_data))
 
   if ((warn[2]) == ("Invalid API Key (Key has invalid format)")) {
-    stop("Invalid API Key: correct this in photosearcher_key.sysdata")
+    stop("Invalid API Key: correct this in api_key.txt")
   }
 
   return(api_key)
@@ -152,7 +156,7 @@ check_location <- function(api_key = NULL) {
                             "&woe_id=35356",
                             sep = "")
 
-    r <- httr::GET(known_location, encoding = "ISO-8859")
+    r <- httr::GET(known_location)
     photo_xml <- xml2::read_xml(r)
     known_warn <- data.frame(xml2::xml_attrs(xml2::xml_children(photo_xml)))
 
@@ -196,9 +200,24 @@ parse_pic <- function(pics = NULL){
   cols.num <- c("id",
                 "server",
                 "farm",
+                "ispublic",
+                "isfriend",
+                "isfamily",
+                "license",
+                "datetakengranularity",
+                "datetakenunknown",
+                "count_views",
+                "count_faves",
+                "count_comments",
                 "latitude",
                 "longitude",
+                "accuracy",
+                "context",
                 "woeid",
+                "geo_is_family",
+                "geo_is_friend",
+                "geo_is_contact",
+                "geo_is_public",
                 "height_sq",
                 "width_sq",
                 "height_t",
@@ -221,24 +240,6 @@ parse_pic <- function(pics = NULL){
                 "width_o")
 
   pics[cols.num] <- sapply(pics[cols.num],as.numeric)
-
-  cols.num <- c("ispublic",
-                "isfriend",
-                "isfamily",
-                "license",
-                "datetakengranularity",
-                "datetakenunknown",
-                "count_views",
-                "count_faves",
-                "count_comments",
-                "accuracy",
-                "context",
-                "geo_is_family",
-                "geo_is_friend",
-                "geo_is_contact",
-                "geo_is_public")
-
-  pics[cols.num] <- sapply(pics[cols.num],as.integer)
 
   return(pics)
 

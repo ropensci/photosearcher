@@ -154,9 +154,7 @@ photo_search <-
            woe_id = NULL,
            sf_layer = NULL,
            has_geo = TRUE) {
-    text <- gsub(" ", "+", trimws(text))
-    tags <- gsub(" ", "+", trimws(tags))
-    tags <- paste(tags, collapse = ",")
+
     pics <- NULL
 
 
