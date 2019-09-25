@@ -15,7 +15,7 @@ test_that("invalid date provides error", {
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
 
-  expect_error(interesting_list(date = "not a real date"),
+  expect_error(interesting_list(date = "1900"),
                "Not a valid date string")
 
 })

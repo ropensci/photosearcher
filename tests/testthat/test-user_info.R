@@ -16,8 +16,8 @@ test_that("invalid ID provides error", {
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
 
-  expect_warning(user_info(user_id = c("not a real id", "33816646@N06")),
-                 "User ID not a real id is not valid")
+  expect_warning(user_info(user_id = c("1", "33816646@N06")),
+                 "User ID 1 is not valid")
 
 })
 

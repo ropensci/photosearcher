@@ -53,7 +53,7 @@ test_that("if photo is not found, skip", {
   skip_on_cran()
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
-  notreal_test <- download_images(photo_id = "not a real photo",
+  notreal_test <- download_images(photo_id = "1",
                                   save_dir = ".")
 
   expect_is(notreal_test, "data.frame")
