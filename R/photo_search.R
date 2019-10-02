@@ -156,6 +156,7 @@ photo_search <-
            has_geo = TRUE) {
 
     pics <- NULL
+    num_calls <- 0
 
 
     # create dfs so large searches can be subset dynamically
@@ -224,6 +225,9 @@ photo_search <-
 
       photo_xml <- search_url(base_url = base_url)
 
+      #add to number of needed calls
+      num_calls <- num_calls + 1
+
       find_errors(error_xml = photo_xml)
 
       if (!is.null(photo_xml)) {
@@ -281,6 +285,9 @@ photo_search <-
 
             # this new one works here
             photo_xml <- search_url(base_url = base_url)
+
+            #add to number of needed calls
+            num_calls <- num_calls + 1
 
             if (!is.null(photo_xml)) {
               photo_atts <- xml2::xml_find_all(

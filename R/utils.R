@@ -20,6 +20,9 @@ get_url <- function(mindate_taken,
   tags <- gsub(" ", "+", trimws(tags))
   tags <- paste(tags, collapse = ",")
 
+  mindate_taken <- gsub(" ", "+", trimws(mindate_taken))
+  maxdate_taken <- gsub(" ", "+", trimws(maxdate_taken))
+
   base_url <- paste("https://api.flickr.com/services/rest/",
                     "?method=flickr.photos.search&api_key=", api_key,
                     "&text=", text,
@@ -200,24 +203,9 @@ parse_pic <- function(pics = NULL){
   cols.num <- c("id",
                 "server",
                 "farm",
-                "ispublic",
-                "isfriend",
-                "isfamily",
-                "license",
-                "datetakengranularity",
-                "datetakenunknown",
-                "count_views",
-                "count_faves",
-                "count_comments",
                 "latitude",
                 "longitude",
-                "accuracy",
-                "context",
                 "woeid",
-                "geo_is_family",
-                "geo_is_friend",
-                "geo_is_contact",
-                "geo_is_public",
                 "height_sq",
                 "width_sq",
                 "height_t",
@@ -240,6 +228,24 @@ parse_pic <- function(pics = NULL){
                 "width_o")
 
   pics[cols.num] <- sapply(pics[cols.num],as.numeric)
+
+  cols.num <- c("ispublic",
+                "isfriend",
+                "isfamily",
+                "license",
+                "datetakengranularity",
+                "datetakenunknown",
+                "count_views",
+                "count_faves",
+                "count_comments",
+                "accuracy",
+                "context",
+                "geo_is_family",
+                "geo_is_friend",
+                "geo_is_contact",
+                "geo_is_public")
+
+  pics[cols.num] <- sapply(pics[cols.num],as.integer)
 
   return(pics)
 
