@@ -195,7 +195,45 @@ photo_search <-
 
         tags_any <- "all"
 
-      }
+    }
+
+    #find number of results
+    # set search dates
+    mindate_taken <- as.POSIXct(date_df[1, "mindate_taken"])
+    maxdate_taken <- as.POSIXct(date_df[1, "maxdate_taken"])
+
+    # rest page to 1
+    i <- 1
+
+    base_url <- get_url(
+      mindate_taken = mindate_taken,
+      maxdate_taken = maxdate_taken,
+      mindate_uploaded = mindate_uploaded,
+      maxdate_uploaded = maxdate_uploaded,
+      user_id = user_id,
+      api_key = api_key,
+      page = i,
+      text = text,
+      tags = tags,
+      tag_mode = tags_any,
+      bbox = bbox,
+      woe_id = woe_id,
+      has_geo = has_geo
+    )
+
+    photo_xml <- search_url(base_url = base_url)
+
+    find_errors(error_xml = photo_xml)
+
+    if (!is.null(photo_xml)) {
+      pages_data <- data.frame(
+        xml2::xml_attrs(xml2::xml_children(photo_xml)))
+      pages_data[] <- lapply(
+        pages_data, FUN = function(x) as.integer(as.character(x)))
+      all_total <- pages_data["total", ]
+    }
+
+    pb <- txtProgressBar(min = 0, max = all_total, style = 3)
 
     # start while loop - until all dates are looped through
     while (nrow(date_df) > 0) {
@@ -267,7 +305,6 @@ photo_search <-
         else if (total <= 4000 && total_pages > 0) {
 
           # get data second error catch here
-          pics_tmp <- NULL
 
           # loop thru pages of photos and save the list in a DF
           for (i in c(1:total_pages)) {
@@ -296,12 +333,13 @@ photo_search <-
                 xml2::xml_attrs(photo_atts), function(x) data.frame(
                   as.list(x), stringsAsFactors = FALSE)))
 
-              pics_tmp <- dplyr::bind_rows(pics_tmp, tmp_df)
+              pics <- dplyr::bind_rows(pics, tmp_df)
+
+              setTxtProgressBar(pb, nrow(pics))
+
               tmp_df <- NULL
             }
           }
-
-          pics <- dplyr::bind_rows(pics, pics_tmp)
 
           date_df <- date_df[-1, ]
         }
@@ -337,6 +375,11 @@ photo_search <-
 
     pics <- parse_pic(pics = pics)
 
+    pics <- dplyr::distinct(pics)
+
+
+    setTxtProgressBar(pb, all_total)
+    close(pb)
 
     # end
     return(pics)
