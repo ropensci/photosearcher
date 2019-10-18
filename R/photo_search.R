@@ -212,8 +212,6 @@ photo_search <-
 
       if (mindate_taken > maxdate_taken){
 
-        print("didn't get data")
-
         date_df <- date_df[-1, ]
 
       } else {
@@ -234,8 +232,6 @@ photo_search <-
           has_geo = has_geo
         )
 
-        print(base_url)
-
         photo_xml <- search_url(base_url = base_url)
 
         #add to number of needed calls
@@ -250,8 +246,6 @@ photo_search <-
             pages_data, FUN = function(x) as.integer(as.character(x)))
           total_pages <- pages_data["pages", ]
           total <- pages_data["total", ]
-
-          print((total))
 
           if (total > 0 && total > 4000){
 
@@ -295,9 +289,6 @@ photo_search <-
               data.frame(mindate_taken = pics$datetaken[nrow(pics)],
                          maxdate_taken = maxdate_taken))
 
-            print(nrow(pics))
-            print(pics$datetaken[nrow(pics)])
-
           } else if (total > 0 && total > 4000){
 
             for (i in 1:total){
@@ -336,9 +327,6 @@ photo_search <-
 
             # create dataframe with minmaxdate_takens
             date_df <- date_df[-1, ]
-
-            print(nrow(pics))
-            print(pics$datetaken[nrow(pics)])
 
           } else {
 
