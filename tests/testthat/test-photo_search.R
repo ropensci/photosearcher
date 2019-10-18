@@ -39,32 +39,34 @@ test_that("output is correct", {
   write.table("6a2ac025703c4b98aae141842eae8b1d",
               file = "photosearcher_key.sysdata")
 
-  tree_test <- photo_search(text = "tree")
+  tree_test <- photo_search(text = "tree",
+                            maxdate_taken = "2019-01-06")
   expect_is(tree_test, "data.frame")
-  expect_equal(ncol(tree_test), 57)
+  expect_equal(ncol(tree_test), 59)
 
   bbox_test <- photo_search(
-    bbox = "-140.625000,-47.517201,167.695313,69.162558")
+    bbox = "-140.625000,-47.517201,167.695313,69.162558",
+    maxdate_taken = "2019-01-05")
   expect_is(bbox_test, "data.frame")
-  expect_equal(ncol(bbox_test), 57)
+  expect_equal(ncol(bbox_test), 59)
 
 
   date_test <- photo_search(mindate_uploaded = "2019-01-01",
                             maxdate_uploaded = "2019-02-01",
                             text = "lake")
   expect_is(date_test, "data.frame")
-  expect_equal(ncol(date_test), 57)
+  expect_equal(ncol(date_test), 59)
 
   large_search <- photo_search(mindate_taken = "2018-12-20",
                                maxdate_taken = "2019-01-01",
                                text = "lake")
   expect_is(large_search, "data.frame")
-  expect_equal(ncol(large_search), 57)
+  expect_equal(ncol(large_search), 59)
 
   skip("Flickr location services are down")
   woeid_test <- photo_search(woe_id = 2347568)
   expect_is(woeid_test, "data.frame")
-  expect_equal(ncol(woeid_test), 57)
+  expect_equal(ncol(woeid_test), 59)
 })
 
 test_that("shape files work", {
@@ -77,11 +79,10 @@ test_that("shape files work", {
                                            package="photosearcher"))
 
   expect_warning(shape_test <- photo_search(mindate_taken = "2018-12-20",
-                             text = "tree",
                              sf_layer = national_parks))
 
   expect_is(shape_test, "data.frame")
-  expect_equal(ncol(shape_test), 68)
+  expect_equal(ncol(shape_test), 70)
   rm(national_parks)
 
 })

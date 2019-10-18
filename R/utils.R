@@ -15,6 +15,19 @@ get_url <- function(mindate_taken,
                     woe_id = NULL,
                     has_geo = TRUE) {
 
+  if (is.null(mindate_uploaded)){
+
+    mindate_uploaded = mindate_taken
+
+  }
+
+  if (is.null(maxdate_uploaded)){
+
+    maxdate_uploaded = maxdate_taken
+
+  }
+
+
   # remove whitespace to allow proper encoding
   text <- gsub(" ", "+", trimws(text))
   tags <- gsub(" ", "+", trimws(tags))
@@ -41,8 +54,10 @@ get_url <- function(mindate_taken,
                     ifelse(has_geo, paste0("&has_geo=", has_geo), ""),
                     "&extras=", "description,date_taken,geo,tags,license,",
                     "url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,",
-                    "url_l,url_o,count_views,count_comments,count_faves",
+                    "url_l,url_o,count_views,count_comments,count_faves,",
+                    "date_upload,last_update",
                     "&page=", page,
+                    "&sort=date-taken-asc",
                     "&format=", "rest",
                     sep = ""
   )

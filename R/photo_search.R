@@ -193,47 +193,9 @@ photo_search <-
 
     } else {
 
-        tags_any <- "all"
+      tags_any <- "all"
 
     }
-
-    #find number of results
-    # set search dates
-    mindate_taken <- as.POSIXct(date_df[1, "mindate_taken"])
-    maxdate_taken <- as.POSIXct(date_df[1, "maxdate_taken"])
-
-    # rest page to 1
-    i <- 1
-
-    base_url <- get_url(
-      mindate_taken = mindate_taken,
-      maxdate_taken = maxdate_taken,
-      mindate_uploaded = mindate_uploaded,
-      maxdate_uploaded = maxdate_uploaded,
-      user_id = user_id,
-      api_key = api_key,
-      page = i,
-      text = text,
-      tags = tags,
-      tag_mode = tags_any,
-      bbox = bbox,
-      woe_id = woe_id,
-      has_geo = has_geo
-    )
-
-    photo_xml <- search_url(base_url = base_url)
-
-    find_errors(error_xml = photo_xml)
-
-    if (!is.null(photo_xml)) {
-      pages_data <- data.frame(
-        xml2::xml_attrs(xml2::xml_children(photo_xml)))
-      pages_data[] <- lapply(
-        pages_data, FUN = function(x) as.integer(as.character(x)))
-      all_total <- pages_data["total", ]
-    }
-
-    pb <- txtProgressBar(min = 0, max = all_total, style = 3)
 
     # start while loop - until all dates are looped through
     while (nrow(date_df) > 0) {
@@ -242,113 +204,157 @@ photo_search <-
       mindate_taken <- as.POSIXct(date_df[1, "mindate_taken"])
       maxdate_taken <- as.POSIXct(date_df[1, "maxdate_taken"])
 
-      # rest page to 1
-      i <- 1
+      #flickr seems to search 8 hours in advance of
+      mindate_taken <- mindate_taken - 28800
 
-      base_url <- get_url(
-        mindate_taken = mindate_taken,
-        maxdate_taken = maxdate_taken,
-        mindate_uploaded = mindate_uploaded,
-        maxdate_uploaded = maxdate_uploaded,
-        user_id = user_id,
-        api_key = api_key,
-        page = i,
-        text = text,
-        tags = tags,
-        tag_mode = tags_any,
-        bbox = bbox,
-        woe_id = woe_id,
-        has_geo = has_geo
-      )
+      mindate_unix <- as.numeric(mindate_taken)
+      maxdate_unix <- as.numeric(maxdate_taken)
 
-      photo_xml <- search_url(base_url = base_url)
+      if (mindate_taken > maxdate_taken){
 
-      #add to number of needed calls
-      num_calls <- num_calls + 1
+        print("didn't get data")
 
-      find_errors(error_xml = photo_xml)
+        date_df <- date_df[-1, ]
 
-      if (!is.null(photo_xml)) {
-        pages_data <- data.frame(
-          xml2::xml_attrs(xml2::xml_children(photo_xml)))
-        pages_data[] <- lapply(
-          pages_data, FUN = function(x) as.integer(as.character(x)))
-        total_pages <- pages_data["pages", ]
-        total <- pages_data["total", ]
+      } else {
 
-        # if total > 4000 and dates are not 1 second apart, split
-        if (total > 4000 && (seq(
-          mindate_taken, length.out = 2, by = "1 secs")[2] != maxdate_taken)) {
-          x <- ceiling(total / 4000)
+        base_url <- get_url(
+          mindate_taken = mindate_unix,
+          maxdate_taken = maxdate_unix,
+          mindate_uploaded = mindate_uploaded,
+          maxdate_uploaded = maxdate_uploaded,
+          user_id = user_id,
+          api_key = api_key,
+          page = 1,
+          text = text,
+          tags = tags,
+          tag_mode = tags_any,
+          bbox = bbox,
+          woe_id = woe_id,
+          has_geo = has_geo
+        )
 
-          dates <- seq(
-            as.POSIXct(mindate_taken),
-            as.POSIXct(maxdate_taken), length.out = x + 1)
+        print(base_url)
 
-          # create dataframe with minmaxdate_takens
-          date_df <- rbind(
-            date_df[-1, ],
-            data.frame(mindate_taken = dates[1:(length(dates) - 1)],
-                                      maxdate_taken = dates[2:length(dates)]))
-        }
+        photo_xml <- search_url(base_url = base_url)
 
-        # if > 4000 and single seconds skip
-        else if (total > 4000 && (
-          seq(mindate_taken,
-              length.out = 2, by = "1 secs")[2] == maxdate_taken)) {
-          warning(mindate_taken, " skipped: too many API results")
+        #add to number of needed calls
+        num_calls <- num_calls + 1
 
-          date_df <- date_df[-1, ]
-        }
+        find_errors(error_xml = photo_xml)
 
-        # if all conditions are satisfied get data
-        else if (total <= 4000 && total_pages > 0) {
+        if (!is.null(photo_xml)) {
+          pages_data <- data.frame(
+            xml2::xml_attrs(xml2::xml_children(photo_xml)))
+          pages_data[] <- lapply(
+            pages_data, FUN = function(x) as.integer(as.character(x)))
+          total_pages <- pages_data["pages", ]
+          total <- pages_data["total", ]
 
-          # get data second error catch here
+          print((total))
 
-          # loop thru pages of photos and save the list in a DF
-          for (i in c(1:total_pages)) {
-            base_url <- get_url(
-              mindate_taken = mindate_taken,
-              maxdate_taken = maxdate_taken,
-              api_key = api_key,
-              page = i,
-              text = text,
-              tags = tags,
-              bbox = bbox,
-              woe_id = woe_id,
-              has_geo = has_geo
-            )
+          if (total > 0 && total > 4000){
 
-            # this new one works here
-            photo_xml <- search_url(base_url = base_url)
+            for (i in 1:16){
 
-            #add to number of needed calls
-            num_calls <- num_calls + 1
+              base_url <- get_url(
+                mindate_taken = mindate_unix,
+                maxdate_taken = maxdate_unix,
+                mindate_uploaded = mindate_uploaded,
+                maxdate_uploaded = maxdate_uploaded,
+                user_id = user_id,
+                api_key = api_key,
+                page = i,
+                text = text,
+                tags = tags,
+                tag_mode = tags_any,
+                bbox = bbox,
+                woe_id = woe_id,
+                has_geo = has_geo
+              )
 
-            if (!is.null(photo_xml)) {
-              photo_atts <- xml2::xml_find_all(
-                photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
-              tmp_df <- dplyr::bind_rows(lapply(
-                xml2::xml_attrs(photo_atts), function(x) data.frame(
-                  as.list(x), stringsAsFactors = FALSE)))
+                photo_xml <- search_url(base_url = base_url)
 
-              pics <- dplyr::bind_rows(pics, tmp_df)
+                if (!is.null(photo_xml)) {
+                  photo_atts <- xml2::xml_find_all(
+                    photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
+                  tmp_df <- dplyr::bind_rows(lapply(
+                    xml2::xml_attrs(photo_atts), function(x) data.frame(
+                      as.list(x), stringsAsFactors = FALSE)))
 
-              setTxtProgressBar(pb, nrow(pics))
+                  pics <- dplyr::bind_rows(pics, tmp_df)
 
-              tmp_df <- NULL
+                  tmp_df <- NULL
+                }
+
             }
+
+            # create dataframe with minmaxdate_takens
+            date_df <- rbind(
+              date_df[-1, ],
+              data.frame(mindate_taken = pics$datetaken[nrow(pics)],
+                         maxdate_taken = maxdate_taken))
+
+            print(nrow(pics))
+            print(pics$datetaken[nrow(pics)])
+
+          } else if (total > 0 && total > 4000){
+
+            for (i in 1:total){
+
+              base_url <- get_url(
+                mindate_taken = mindate_unix,
+                maxdate_taken = maxdate_unix,
+                mindate_uploaded = mindate_uploaded,
+                maxdate_uploaded = maxdate_uploaded,
+                user_id = user_id,
+                api_key = api_key,
+                page = i,
+                text = text,
+                tags = tags,
+                tag_mode = tags_any,
+                bbox = bbox,
+                woe_id = woe_id,
+                has_geo = has_geo
+              )
+
+              photo_xml <- search_url(base_url = base_url)
+
+              if (!is.null(photo_xml)) {
+                photo_atts <- xml2::xml_find_all(
+                  photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
+                tmp_df <- dplyr::bind_rows(lapply(
+                  xml2::xml_attrs(photo_atts), function(x) data.frame(
+                    as.list(x), stringsAsFactors = FALSE)))
+
+                pics <- dplyr::bind_rows(pics, tmp_df)
+
+                tmp_df <- NULL
+              }
+
+            }
+
+            # create dataframe with minmaxdate_takens
+            date_df <- date_df[-1, ]
+
+            print(nrow(pics))
+            print(pics$datetaken[nrow(pics)])
+
+          } else {
+
+            date_df <- date_df[-1, ]
+
           }
 
+
+        } else {
+
           date_df <- date_df[-1, ]
+
         }
 
-        # else search is empty, skip
-        else {
-          date_df <- date_df[-1, ]
-        }
       }
+
     }
 
     # is using sf_layer clip results to layer
@@ -376,10 +382,6 @@ photo_search <-
     pics <- parse_pic(pics = pics)
 
     pics <- dplyr::distinct(pics)
-
-
-    setTxtProgressBar(pb, all_total)
-    close(pb)
 
     # end
     return(pics)
