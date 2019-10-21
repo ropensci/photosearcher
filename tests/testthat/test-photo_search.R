@@ -40,13 +40,14 @@ test_that("output is correct", {
               file = "photosearcher_key.sysdata")
 
   tree_test <- photo_search(text = "tree",
-                            maxdate_taken = "2019-01-06")
+                            maxdate_taken = "2019-01-02")
   expect_is(tree_test, "data.frame")
   expect_equal(ncol(tree_test), 59)
 
   bbox_test <- photo_search(
     bbox = "-140.625000,-47.517201,167.695313,69.162558",
-    maxdate_taken = "2019-01-05")
+    mindate_taken = "2019-01-01 16:00:00",
+    maxdate_taken = "2019-01-01 23:00:00")
   expect_is(bbox_test, "data.frame")
   expect_equal(ncol(bbox_test), 59)
 
@@ -56,12 +57,6 @@ test_that("output is correct", {
                             text = "lake")
   expect_is(date_test, "data.frame")
   expect_equal(ncol(date_test), 59)
-
-  large_search <- photo_search(mindate_taken = "2018-12-20",
-                               maxdate_taken = "2019-01-01",
-                               text = "lake")
-  expect_is(large_search, "data.frame")
-  expect_equal(ncol(large_search), 59)
 
   skip("Flickr location services are down")
   woeid_test <- photo_search(woe_id = 2347568)
