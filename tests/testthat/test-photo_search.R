@@ -79,7 +79,8 @@ test_that("shape files work", {
                                            package="photosearcher"))
 
   expect_warning(shape_test <- photo_search(mindate_taken = "2018-12-20",
-                             sf_layer = national_parks))
+                             sf_layer = national_parks,
+                             text = "walk"))
 
   expect_is(shape_test, "data.frame")
   expect_equal(ncol(shape_test), 70)

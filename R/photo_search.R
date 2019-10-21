@@ -289,9 +289,9 @@ photo_search <-
               data.frame(mindate_taken = pics$datetaken[nrow(pics)],
                          maxdate_taken = maxdate_taken))
 
-          } else if (total > 0 && total > 4000){
+          } else if (total > 0 && total < 4000){
 
-            for (i in 1:total){
+            for (i in 1:total_pages){
 
               base_url <- get_url(
                 mindate_taken = mindate_unix,
