@@ -78,7 +78,7 @@ test_that("shape files work", {
                              text = "walk"))
 
   expect_is(shape_test, "data.frame")
-  expect_equal(ncol(shape_test), 70)
+  expect_equal(ncol(shape_test), 61)
   rm(national_parks)
 
 })

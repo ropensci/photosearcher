@@ -269,6 +269,9 @@ photo_search <-
 
                 photo_xml <- search_url(base_url = base_url)
 
+                #add to number of needed calls
+                num_calls <- num_calls + 1
+
                 if (!is.null(photo_xml)) {
                   photo_atts <- xml2::xml_find_all(
                     photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
@@ -286,7 +289,7 @@ photo_search <-
             # create dataframe with minmaxdate_takens
             date_df <- rbind(
               date_df[-1, ],
-              data.frame(mindate_taken = pics$datetaken[nrow(pics)],
+              data.frame(mindate_taken = max(pics$datetaken),
                          maxdate_taken = maxdate_taken))
 
           } else if (total > 0 && total < 4000){
@@ -310,6 +313,9 @@ photo_search <-
               )
 
               photo_xml <- search_url(base_url = base_url)
+
+              #add to number of needed calls
+              num_calls <- num_calls + 1
 
               if (!is.null(photo_xml)) {
                 photo_atts <- xml2::xml_find_all(
@@ -345,6 +351,12 @@ photo_search <-
 
     }
 
+    if (is.null(pics)){
+
+      stop("No photographs meeting criteria")
+
+    }
+
     # is using sf_layer clip results to layer
     if (!is.null(sf_layer)) {
       with_geom <- sf::st_as_sf(pics,
@@ -358,12 +370,10 @@ photo_search <-
       sf_layer <- sf::st_transform(
         sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
 
-      pics <- sf::st_intersection(pics, sf_layer)
-    }
 
-    if (is.null(pics)){
-
-      stop("No photographs meeting criteria")
+      pics$within <- sf::st_intersects(pics, sf_layer)
+      pics$within <- as.character(pics$within)
+      pics <- dplyr::filter(pics, pics$within != "integer(0)")
 
     }
 
