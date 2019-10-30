@@ -9,6 +9,12 @@
 #'\url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
 #'information on the API method.
 #'
+#'When running the function you need an API key saved as
+#'photosearch_key.sysdata in your working directory. If this is the first
+#'function you run you will be prompted to create and enter your API key. The
+#'API key will then be saved as photosearcher_key.sysdata in your working
+#'directory and is used for all function.
+#'
 #'@param mindate_taken Character, or date required. Minimum taken date. Photos
 #'  with an taken date greater than or equal to this value will be returned. The
 #'  date should be in the form of "YYYY-MM-DD".
@@ -28,7 +34,7 @@
 #'  returned. Defaulted to return any tags.
 #'@param bbox String, optional bounding box of search area provide as:
 #'  "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
-#'@param woe_id Numeric, optional "where on earth identifier" can be supplied
+#'@param woe_id String, optional "where on earth identifier" can be supplied
 #'  instead of bbox. Use \code{\link{find_place}} to obtain woe_id for a place.
 #'@param sf_layer A simple features layer, optional, area to search for photos,
 #'  can be supplied instead of a bbox or woeID.
@@ -58,7 +64,7 @@
 #'  whether user is family; 1 = yes, 0 = no \item license: use licence of the
 #'  image see
 #'  \link{https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html}
-#'  for details \item datetaken: date and time of image capture \item
+#'   for details \item datetaken: date and time of image capture \item
 #'  datetakengranularity: accuracy of image date see
 #'  \link{https://www.flickr.com/services/api/misc.dates.html} for more
 #'  information on dates \item datetakenunknown: whether date is unknown see

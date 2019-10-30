@@ -191,7 +191,7 @@ returned. Defaulted to return any tags.</p></td>
     </tr>
     <tr>
       <th>woe_id</th>
-      <td><p>Numeric, optional "where on earth identifier" can be supplied
+      <td><p>String, optional "where on earth identifier" can be supplied
 instead of bbox. Use <code><a href='findPlaces.html'>find_place</a></code> to obtain woe_id for a place.</p></td>
     </tr>
     <tr>
@@ -323,6 +323,11 @@ ensure this is met the function requires both a minimum and a maximum date
 that searched photographs were taken on. See
 <a href='https://www.flickr.com/services/api/flickr.photos.search.html'>https://www.flickr.com/services/api/flickr.photos.search.html</a> for more
 information on the API method.</p>
+<p>When running the function you need an API key saved as
+photosearch_key.sysdata in your working directory. If this is the first
+function you run you will be prompted to create and enter your API key. The
+API key will then be saved as photosearcher_key.sysdata in your working
+directory and is used for all function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

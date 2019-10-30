@@ -48,7 +48,7 @@ returned. Defaulted to return any tags.}
 \item{bbox}{String, optional bounding box of search area provide as:
 "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".}
 
-\item{woe_id}{Numeric, optional "where on earth identifier" can be supplied
+\item{woe_id}{String, optional "where on earth identifier" can be supplied
 instead of bbox. Use \code{\link{find_place}} to obtain woe_id for a place.}
 
 \item{sf_layer}{A simple features layer, optional, area to search for photos,
@@ -128,6 +128,12 @@ ensure this is met the function requires both a minimum and a maximum date
 that searched photographs were taken on. See
 \url{https://www.flickr.com/services/api/flickr.photos.search.html} for more
 information on the API method.
+
+When running the function you need an API key saved as
+photosearch_key.sysdata in your working directory. If this is the first
+function you run you will be prompted to create and enter your API key. The
+API key will then be saved as photosearcher_key.sysdata in your working
+directory and is used for all function.
 }
 \examples{
 \dontrun{

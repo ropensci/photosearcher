@@ -6,6 +6,12 @@
 #' \url{https://www.flickr.com/services/api/flickr.tags.getRelated.html} for
 #' more information on the API method.
 #'
+#'When running the function you need an API key saved as
+#'photosearch_key.sysdata in your working directory. If this is the first
+#'function you run you will be prompted to create and enter your API key. The
+#'API key will then be saved as photosearcher_key.sysdata in your working
+#'directory and is used for all function.
+#'
 #' @param tag character. tag to search.
 #'
 #' @return character. Tags most associated with input tag.

@@ -11,6 +11,12 @@
 #' photographs, size of photographs, internet speed and other factors.
 #' Downloading a large amount of photographs may take some time.
 #'
+#'When running the function you need an API key saved as
+#'photosearch_key.sysdata in your working directory. If this is the first
+#'function you run you will be prompted to create and enter your API key. The
+#'API key will then be saved as photosearcher_key.sysdata in your working
+#'directory and is used for all function.
+#'
 #' @param photo_id numeric or character vector. id of photo to download, can be
 #'   single id, list or column for photo_search outputs
 #' @param save_dir character. name of directory for photos to be saved in.

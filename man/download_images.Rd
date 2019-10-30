@@ -41,6 +41,12 @@ downloaded and saved as a .jpeg in a given save directory.
 Please be aware that download times will vary depending on number of
 photographs, size of photographs, internet speed and other factors.
 Downloading a large amount of photographs may take some time.
+
+When running the function you need an API key saved as
+photosearch_key.sysdata in your working directory. If this is the first
+function you run you will be prompted to create and enter your API key. The
+API key will then be saved as photosearcher_key.sysdata in your working
+directory and is used for all function.
 }
 \examples{
 \dontrun{

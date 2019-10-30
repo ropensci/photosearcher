@@ -23,6 +23,12 @@ Takes user defined location and returns location data for the search. Uses
 the flickr.places.find API method from the Flickr API. See
 \url{https://www.flickr.com/services/api/flickr.places.find.html} for more
 information on the API method.
+
+When running the function you need an API key saved as
+photosearch_key.sysdata in your working directory. If this is the first
+function you run you will be prompted to create and enter your API key. The
+API key will then be saved as photosearcher_key.sysdata in your working
+directory and is used for all function.
 }
 \examples{
 \dontrun{

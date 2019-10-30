@@ -4,6 +4,12 @@
 #' information on how this list is calculated see:
 #' \link{http://www.steves-digicams.com/knowledge-center/how-tos/online-sharing-social-networking/what-is-flickr-interestingness.html#b}
 #'
+#'When running the function you need an API key saved as
+#'photosearch_key.sysdata in your working directory. If this is the first
+#'function you run you will be prompted to create and enter your API key. The
+#'API key will then be saved as photosearcher_key.sysdata in your working
+#'directory and is used for all function.
+#'
 #' @param date Character, required. Interestingness list for the date provided.
 #'   The date should be in the form of "YYYY-MM-DD".
 #'

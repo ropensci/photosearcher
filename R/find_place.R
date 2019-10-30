@@ -7,6 +7,13 @@
 #' \url{https://www.flickr.com/services/api/flickr.places.find.html} for more
 #' information on the API method.
 #'
+#'When running the function you need an API key saved as
+#'photosearch_key.sysdata in your working directory. If this is the first
+#'function you run you will be prompted to create and enter your API key. The
+#'API key will then be saved as photosearcher_key.sysdata in your working
+#'directory and is used for all function.
+#'
+#'
 #' @param place character. The place for the query
 #'
 #' @return data.frame. Information on locations that share the name with the

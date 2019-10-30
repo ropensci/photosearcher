@@ -58,8 +58,9 @@ devtools::install_github("nfox29/photosearcher")
 The package requires a valid API key from the [Flickr development
 page](https://www.flickr.com/services/apps/create/). The first time you
 call a function from the package, you will be prompted to create and
-enter your API key. The API key will then be saved as a .txt file and be
-called when using any other function.
+enter your API key. The API key will then be saved as
+photosearcher\_key.sysdata in your working directory and is used for all
+function.
 
 ## Package functions
 

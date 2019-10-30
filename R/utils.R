@@ -244,23 +244,67 @@ parse_pic <- function(pics = NULL){
 
   pics[cols.num] <- sapply(pics[cols.num],as.numeric)
 
-  cols.num <- c("ispublic",
-                "isfriend",
-                "isfamily",
-                "license",
+  cols.num <- c("license",
                 "datetakengranularity",
                 "datetakenunknown",
                 "count_views",
                 "count_faves",
                 "count_comments",
                 "accuracy",
-                "context",
+                "context")
+
+  pics[cols.num] <- sapply(pics[cols.num],as.integer)
+
+  cols.num <- c("ispublic",
+                "isfriend",
+                "isfamily",
                 "geo_is_family",
                 "geo_is_friend",
                 "geo_is_contact",
                 "geo_is_public")
 
-  pics[cols.num] <- sapply(pics[cols.num],as.integer)
+  pics[cols.num] <- sapply(pics[cols.num],as.logical)
+
+  #format all dates to dates
+  pics$dateupload <- as.POSIXct(as.numeric(pics$dateupload),
+                                tz = "GMT", origin="1970-01-01")
+
+  pics$lastupdate <- as.POSIXct(as.numeric(pics$lastupdate),
+                               tz = "GMT", origin="1970-01-01")
+
+  #provide clearer license information
+  license_names <- c("All Rights Reserved",
+                     "Attribution-NonCommercial-ShareAlike License",
+                     "Attribution-NonCommercial License",
+                     "Attribution-NonCommercial-NoDerivs License",
+                     "Attribution License",
+                     "Attribution-ShareAlike License",
+                     "Attribution-NoDerivs License",
+                     "No known copyright restrictions",
+                     "United States Government Work",
+                     "Public Domain Dedication (CC0)",
+                     "Public Domain Mark"
+  )
+
+  license_urls <- c("NA",
+                    "https://creativecommons.org/licenses/by-nc-sa/2.0/",
+                    "https://creativecommons.org/licenses/by-nc/2.0/",
+                    "https://creativecommons.org/licenses/by-nc-nd/2.0/",
+                    "https://creativecommons.org/licenses/by/2.0/",
+                    "https://creativecommons.org/licenses/by-sa/2.0/",
+                    "https://creativecommons.org/licenses/by-nd/2.0/",
+                    "https://www.flickr.com/commons/usage/",
+                    "http://www.usa.gov/copyright.shtml",
+                    "https://creativecommons.org/publicdomain/zero/1.0/",
+                    "https://creativecommons.org/publicdomain/mark/1.0/"
+  )
+
+  license_info <- data.frame(license = 0:10,
+                             license_name = license_names,
+                             license_url = license_urls,
+                             stringsAsFactors = FALSE)
+
+  pics <- merge(pics, license_info, by = "license")
 
   return(pics)
 

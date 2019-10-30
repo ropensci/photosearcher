@@ -4,6 +4,12 @@
 #'information on how Exif data differs from metadata see:
 #'\link{https://www.flickr.com/services/api/flickr.photos.getExif.html}
 #'
+#'When running the function you need an API key saved as
+#'photosearch_key.sysdata in your working directory. If this is the first
+#'function you run you will be prompted to create and enter your API key. The
+#'API key will then be saved as photosearcher_key.sysdata in your working
+#'directory and is used for all function.
+#'
 #'@param photo_id Id of photograph
 #'
 #'@return A dataframe of "exchangeable image file format" information for the

@@ -42,26 +42,26 @@ test_that("output is correct", {
   tree_test <- photo_search(text = "tree",
                             maxdate_taken = "2019-01-02")
   expect_is(tree_test, "data.frame")
-  expect_equal(ncol(tree_test), 59)
+  expect_equal(ncol(tree_test), 61)
 
   bbox_test <- photo_search(
     bbox = "-140.625000,-47.517201,167.695313,69.162558",
     mindate_taken = "2019-01-01 16:00:00",
     maxdate_taken = "2019-01-01 23:00:00")
   expect_is(bbox_test, "data.frame")
-  expect_equal(ncol(bbox_test), 59)
+  expect_equal(ncol(bbox_test), 61)
 
 
   date_test <- photo_search(mindate_uploaded = "2019-01-01",
                             maxdate_uploaded = "2019-02-01",
                             text = "lake")
   expect_is(date_test, "data.frame")
-  expect_equal(ncol(date_test), 59)
+  expect_equal(ncol(date_test), 61)
 
   skip("Flickr location services are down")
   woeid_test <- photo_search(woe_id = 2347568)
   expect_is(woeid_test, "data.frame")
-  expect_equal(ncol(woeid_test), 59)
+  expect_equal(ncol(woeid_test), 61)
 })
 
 test_that("shape files work", {
@@ -78,7 +78,7 @@ test_that("shape files work", {
                              text = "walk"))
 
   expect_is(shape_test, "data.frame")
-  expect_equal(ncol(shape_test), 61)
+  expect_equal(ncol(shape_test), 63)
   rm(national_parks)
 
 })
