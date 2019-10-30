@@ -4,11 +4,10 @@
 \alias{photo_search}
 \title{Search for photo metadata}
 \usage{
-photo_search(mindate_taken = "2019-01-01",
-  maxdate_taken = "2019-01-01", mindate_uploaded = NULL,
-  maxdate_uploaded = NULL, user_id = NULL, text = NULL,
-  tags = NULL, tags_any = TRUE, bbox = NULL, woe_id = NULL,
-  sf_layer = NULL, has_geo = TRUE)
+photo_search(mindate_taken = NULL, maxdate_taken = NULL,
+  mindate_uploaded = NULL, maxdate_uploaded = NULL, user_id = NULL,
+  text = NULL, tags = NULL, tags_any = TRUE, bbox = NULL,
+  woe_id = NULL, sf_layer = NULL, has_geo = TRUE)
 }
 \arguments{
 \item{mindate_taken}{Character, or date required. Minimum taken date. Photos
@@ -130,7 +129,7 @@ that searched photographs were taken on. See
 information on the API method.
 
 When running the function you need an API key saved as
-photosearch_key.sysdata in your working directory. If this is the first
+photosearcher_key.sysdata in your working directory. If this is the first
 function you run you will be prompted to create and enter your API key. The
 API key will then be saved as photosearcher_key.sysdata in your working
 directory and is used for all function.

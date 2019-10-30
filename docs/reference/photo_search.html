@@ -125,11 +125,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>photo_search</span>(<span class='kw'>mindate_taken</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>,
-  <span class='kw'>maxdate_taken</span> <span class='kw'>=</span> <span class='st'>"2019-01-01"</span>, <span class='kw'>mindate_uploaded</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>maxdate_uploaded</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags_any</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>woe_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sf_layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>photo_search</span>(<span class='kw'>mindate_taken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>maxdate_taken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mindate_uploaded</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>maxdate_uploaded</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags_any</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>woe_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sf_layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_geo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -324,7 +323,7 @@ that searched photographs were taken on. See
 <a href='https://www.flickr.com/services/api/flickr.photos.search.html'>https://www.flickr.com/services/api/flickr.photos.search.html</a> for more
 information on the API method.</p>
 <p>When running the function you need an API key saved as
-photosearch_key.sysdata in your working directory. If this is the first
+photosearcher_key.sysdata in your working directory. If this is the first
 function you run you will be prompted to create and enter your API key. The
 API key will then be saved as photosearcher_key.sysdata in your working
 directory and is used for all function.</p>
