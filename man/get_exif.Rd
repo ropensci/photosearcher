@@ -16,7 +16,7 @@ given photograph
 \description{
 Returns Exchangeable image file format data for a single photograph. For more
 information on how Exif data differs from metadata see:
-\link{https://www.flickr.com/services/api/flickr.photos.getExif.html}
+\url{https://www.flickr.com/services/api/flickr.photos.getExif.html}
 }
 \details{
 When running the function you need an API key saved as

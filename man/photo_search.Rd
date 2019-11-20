@@ -70,22 +70,22 @@ photograph title \item ispublic: whether photograph is public; 1 = yes, 0 =
 no \item isfriend whether user is friend; 1 = yes, 0 = no \item isfamily
 whether user is family; 1 = yes, 0 = no \item license: use licence of the
 image see
-\link{https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html}
+\url{https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html}
 for details \item datetaken: date and time of image capture \item
 datetakengranularity: accuracy of image date see
-\link{https://www.flickr.com/services/api/misc.dates.html} for more
+\url{https://www.flickr.com/services/api/misc.dates.html} for more
 information on dates \item datetakenunknown: whether date is unknown see
-\link{https://www.flickr.com/services/api/misc.dates.html} for more
+\url{https://www.flickr.com/services/api/misc.dates.html} for more
 information on dates \item count_views: number of view the photograph has
 had, \item count_comments: number of comments on the photograph \item
 count_faves: number of times the photograph has been favourited \item tags:
 user defined tags on the photograph \item latitude: latitude of where the
 image was taken \item longitude: longitude of where the image was taken
 \item accuracy: accuracy of spatial reference see
-\link{https://www.flickr.com/services/api/flickr.photos.search.html } for
+\url{https://www.flickr.com/services/api/flickr.photos.search.html } for
 more information \item context: a numeric value representing the photo's
 geotagginess beyond latitude and longitude
-\link{https://www.flickr.com/services/api/flickr.photos.search.html } for
+\url{https://www.flickr.com/services/api/flickr.photos.search.html } for
 more information \item place_id: unique numeric number representing the
 location of the photograph \item woeid: unique numeric number representing
 the location of the photograph \item geo_is_family: whether only friends can

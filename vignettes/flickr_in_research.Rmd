@@ -1,8 +1,12 @@
 ---
 title: "Flickr in research"
-output: 
-  html_document: 
-    df_print: kable
+author: "Nathan Fox"
+date: "2019-29-04"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Flickr in research}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
