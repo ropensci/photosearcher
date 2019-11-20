@@ -90,3 +90,5 @@ ggplot() +
 This package requires an internet connection as well as a connection to the Flickr API, which may not be constantly available. 
 
 If you discover a bug not associated with connection to the API that is not already a [reported issue](https://github.com/nfox29/photosearcher/issues), please [open a new issue](https://github.com/nfox29/photosearcher/issues/new) providing a reproducible example.
+
+[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
