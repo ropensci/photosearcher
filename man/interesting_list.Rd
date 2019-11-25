@@ -38,7 +38,7 @@ Full list of variables returned:
 \item latitude: latitude of where the image was taken
 \item longitude: longitude of where the image was taken
 \item accuracy: accuracy of spatial reference see \url{https://www.flickr.com/services/api/flickr.photos.search.html } for more information
-\item context: a numeric value representing the photo's geotagginess beyond latitude and longitude \link{https://www.flickr.com/services/api/flickr.photos.search.html } for more information
+\item context: a numeric value representing the photo's geotagginess beyond latitude and longitude \url{https://www.flickr.com/services/api/flickr.photos.search.html } for more information
 \item place_id: unique numeric number representing the location of the photograph
 \item woeid: unique numeric number representing the location of the photograph
 \item geo_is_family: whether only friends can see geo; 1 = yes, 0 = no

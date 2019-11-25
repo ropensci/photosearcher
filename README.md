@@ -1,9 +1,9 @@
 
 [![Travis build
-status](https://travis-ci.org/nfox29/photosearcher.svg?branch=master)](https://travis-ci.org/nfox29/photosearcher)
+status](https://travis-ci.org/ropensci/photosearcher.svg?branch=master)](https://travis-ci.org/ropensci/photosearcher)
 
 [![Codecov test
-coverage](https://codecov.io/gh/nfox29/photosearcher/branch/master/graph/badge.svg)](https://codecov.io/gh/nfox29/photosearcher?branch=master)
+coverage](https://codecov.io/gh/nfox29/photosearcher/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/photosearcher?branch=master)
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
@@ -21,14 +21,14 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 The goal of photosearcher is to provide a repeatable methodology for
 accessing the Flickr API. More information can be found on the [package
-website](https://nfox29.github.io/photosearcher/). For more information
-and examples of the functions check out the [package
-vignette](https://nfox29.github.io/photosearcher/articles/photosearcher.html).
+website](https://ropensci.github.io/photosearcher/). For more
+information and examples of the functions check out the [package
+vignette](https://ropensci.github.io/photosearcher/articles/photosearcher.html).
 
 We have produced this package to help facilitate reproducible code for
 answering research questions. In the PLoS journals alone there are over
 180 articles with Flickr in their keywords. [Click
-here](https://nfox29.github.io/photosearcher/articles/flickr_in_research.html)
+here](https://ropensci.github.io/photosearcher/articles/flickr_in_research.html)
 for an overview of the use of Flickr in PLoS journals. Articles using
 Flickr are published in a wide range of journals for a wide range of
 research fields including [biology and life
@@ -122,6 +122,8 @@ the Flickr API, which may not be constantly available.
 
 If you discover a bug not associated with connection to the API that is
 not already a [reported
-issue](https://github.com/nfox29/photosearcher/issues), please [open a
-new issue](https://github.com/nfox29/photosearcher/issues/new) providing
-a reproducible example.
+issue](https://github.com/ropensci/photosearcher/issues), please [open a
+new issue](https://github.com/ropensci/photosearcher/issues/new)
+providing a reproducible example.
+
+[![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

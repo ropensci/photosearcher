@@ -1,9 +1,9 @@
 ---
 output: github_document
 ---
-[![Travis build status](https://travis-ci.org/nfox29/photosearcher.svg?branch=master)](https://travis-ci.org/nfox29/photosearcher)
+[![Travis build status](https://travis-ci.org/ropensci/photosearcher.svg?branch=master)](https://travis-ci.org/ropensci/photosearcher)
 
-[![Codecov test coverage](https://codecov.io/gh/nfox29/photosearcher/branch/master/graph/badge.svg)](https://codecov.io/gh/nfox29/photosearcher?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/nfox29/photosearcher/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/photosearcher?branch=master)
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
@@ -25,9 +25,9 @@ knitr::opts_chunk$set(
 </p>
 
 
-The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API. More information can be found on the [package website](https://nfox29.github.io/photosearcher/). For more information and examples of the functions check out the [package vignette](https://nfox29.github.io/photosearcher/articles/photosearcher.html).
+The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API. More information can be found on the [package website](https://ropensci.github.io/photosearcher/). For more information and examples of the functions check out the [package vignette](https://ropensci.github.io/photosearcher/articles/photosearcher.html).
 
-We have produced this package to help facilitate reproducible code for answering research questions. In the PLoS journals alone there are over 180 articles with Flickr in their keywords. [Click here]( https://nfox29.github.io/photosearcher/articles/flickr_in_research.html) for an overview of the use of Flickr in PLoS journals. Articles using Flickr are published in a wide range of journals for a wide range of research fields including [biology and life sciences](https://www.nature.com/articles/s41598-017-18007-4), [computer and information sciences](https://www.inderscience.com/info/inarticle.php?artid=99808), [medicine and health sciences](https://www.sciencedirect.com/science/article/abs/pii/S0272494418303086) and [politics](https://journals.sagepub.com/doi/full/10.1177/1470357218780530?casa_token=UubfU8-MbuAAAAAA%3AAQBSE3ipGOdMi33J6ISalSySECPxvmxvmgDys3-ni7Z5EuQHNGlPMhOxjq6hyfPLmo1tFEIJYCiR).
+We have produced this package to help facilitate reproducible code for answering research questions. In the PLoS journals alone there are over 180 articles with Flickr in their keywords. [Click here]( https://ropensci.github.io/photosearcher/articles/flickr_in_research.html) for an overview of the use of Flickr in PLoS journals. Articles using Flickr are published in a wide range of journals for a wide range of research fields including [biology and life sciences](https://www.nature.com/articles/s41598-017-18007-4), [computer and information sciences](https://www.inderscience.com/info/inarticle.php?artid=99808), [medicine and health sciences](https://www.sciencedirect.com/science/article/abs/pii/S0272494418303086) and [politics](https://journals.sagepub.com/doi/full/10.1177/1470357218780530?casa_token=UubfU8-MbuAAAAAA%3AAQBSE3ipGOdMi33J6ISalSySECPxvmxvmgDys3-ni7Z5EuQHNGlPMhOxjq6hyfPLmo1tFEIJYCiR).
 
 ## Terms of use
 
@@ -89,6 +89,6 @@ ggplot() +
 
 This package requires an internet connection as well as a connection to the Flickr API, which may not be constantly available. 
 
-If you discover a bug not associated with connection to the API that is not already a [reported issue](https://github.com/nfox29/photosearcher/issues), please [open a new issue](https://github.com/nfox29/photosearcher/issues/new) providing a reproducible example.
+If you discover a bug not associated with connection to the API that is not already a [reported issue](https://github.com/ropensci/photosearcher/issues), please [open a new issue](https://github.com/ropensci/photosearcher/issues/new) providing a reproducible example.
 
 [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

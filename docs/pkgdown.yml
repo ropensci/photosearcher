@@ -4,4 +4,7 @@ pkgdown_sha: ~
 articles:
   flickr_in_research: flickr_in_research.html
   photosearcher: photosearcher.html
+urls:
+  reference: https://docs.ropensci.org/photosearcher/reference
+  article: https://docs.ropensci.org/photosearcher/articles
 
