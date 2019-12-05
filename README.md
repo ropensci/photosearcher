@@ -18,14 +18,14 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 The goal of photosearcher is to provide a repeatable methodology for
 accessing the Flickr API. More information can be found on the [package
-website](https://ropensci.github.io/photosearcher/). For more
+website](https://docs.ropensci.org/photosearcher/). For more
 information and examples of the functions check out the [package
-vignette](https://ropensci.github.io/photosearcher/articles/photosearcher.html).
+vignette](https://docs.ropensci.org/photosearcher/articles/photosearcher.html).
 
 We have produced this package to help facilitate reproducible code for
 answering research questions. In the PLoS journals alone there are over
 180 articles with Flickr in their keywords. [Click
-here](https://ropensci.github.io/photosearcher/articles/flickr_in_research.html)
+here](https://docs.ropensci.org/photosearcher/articles/flickr_in_research.html)
 for an overview of the use of Flickr in PLoS journals. Articles using
 Flickr are published in a wide range of journals for a wide range of
 research fields including [biology and life
