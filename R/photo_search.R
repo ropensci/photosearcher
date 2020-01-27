@@ -108,7 +108,8 @@
 #'  original image, either a jpg, gif or png, depending on source format \item
 #'  height_o: height for original image, either a jpg, gif or png, depending on
 #'  source format \item width_o: width for original image, either a jpg, gif or
-#'  png, depending on source format }
+#'  png, depending on source format \item description: Flickr user generated
+#'  text description of the photograph}
 #'
 #'@family Search for images
 #'
@@ -179,6 +180,7 @@ photo_search <-
         (!is.null(bbox) & !is.null(sf_layer))) {
       stop("Specify search location as only one of: woe_id, bbox or sf_layer.")
     }
+
 
     # change sf_layer to bbox
     if (!is.null(sf_layer)) {
@@ -253,6 +255,8 @@ photo_search <-
           total_pages <- pages_data["pages", ]
           total <- pages_data["total", ]
 
+          print(total)
+
           if (total > 0 && total > 4000){
 
             for (i in 1:16){
@@ -285,9 +289,38 @@ photo_search <-
                     xml2::xml_attrs(photo_atts), function(x) data.frame(
                       as.list(x), stringsAsFactors = FALSE)))
 
+                  #description is stored in seperate node
+                  photo_atts2 <- xml2::xml_find_all(
+                    photo_xml, "//description", ns = xml2::xml_ns(photo_xml))
+
+                  descriptions <- NULL
+
+                  for (i in 1:length(photo_atts2)){
+
+                    tmp_df2 <- data.frame(description = paste(photo_atts2[i]))
+
+                    descriptions <- rbind(descriptions, tmp_df2)
+
+                    tmp_df2 <- NULL
+
+                  }
+
+                  descriptions$description <- gsub("<description>", "",
+                                                   descriptions$description)
+
+                  descriptions$description <- gsub("<description/>", "",
+                                                   descriptions$description)
+
+                  descriptions$description <- gsub("</description>", "",
+                                                   descriptions$description)
+
+                  #bind photos to descriptions
+                  tmp_df <- cbind(tmp_df, descriptions)
+
                   pics <- dplyr::bind_rows(pics, tmp_df)
 
                   tmp_df <- NULL
+
                 }
 
             }
@@ -329,6 +362,34 @@ photo_search <-
                 tmp_df <- dplyr::bind_rows(lapply(
                   xml2::xml_attrs(photo_atts), function(x) data.frame(
                     as.list(x), stringsAsFactors = FALSE)))
+
+                #description is stored in seperate node
+                photo_atts2 <- xml2::xml_find_all(
+                  photo_xml, "//description", ns = xml2::xml_ns(photo_xml))
+
+                descriptions <- NULL
+
+                for (i in 1:length(photo_atts2)){
+
+                  tmp_df2 <- data.frame(description = paste(photo_atts2[i]))
+
+                  descriptions <- rbind(descriptions, tmp_df2)
+
+                  tmp_df2 <- NULL
+
+                }
+
+                descriptions$description <- gsub("<description>", "",
+                                                 descriptions$description)
+
+                descriptions$description <- gsub("<description/>", "",
+                                                 descriptions$description)
+
+                descriptions$description <- gsub("</description>", "",
+                                                 descriptions$description)
+
+                #bind photos to descriptions
+                tmp_df <- cbind(tmp_df, descriptions)
 
                 pics <- dplyr::bind_rows(pics, tmp_df)
 
@@ -386,6 +447,9 @@ photo_search <-
     pics <- parse_pic(pics = pics)
 
     pics <- dplyr::distinct(pics)
+
+    print(num_calls)
+
 
     # end
     return(pics)
