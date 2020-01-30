@@ -255,7 +255,7 @@ photo_search <-
           total_pages <- pages_data["pages", ]
           total <- pages_data["total", ]
 
-          print(total)
+
 
           if (total > 0 && total > 4000){
 
@@ -448,7 +448,7 @@ photo_search <-
 
     pics <- dplyr::distinct(pics)
 
-    print(num_calls)
+
 
 
     # end
