@@ -84,10 +84,10 @@ test_that("shape files work", {
   national_parks <- sf::st_read(system.file("shape/National_Parks_England.shp",
                                            package="photosearcher"))
 
-  expect_warning(shape_test <- photo_search(mindate_taken = "2018-12-28",
+  shape_test <- photo_search(mindate_taken = "2018-12-28",
                                             maxdate_taken = "2019-01-01",
                                             sf_layer = national_parks,
-                                            text = "walk"))
+                                            text = "walk")
 
   expect_is(shape_test, "data.frame")
   expect_equal(ncol(shape_test), 64)
