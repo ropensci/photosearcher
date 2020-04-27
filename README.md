@@ -18,8 +18,8 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 The goal of photosearcher is to provide a repeatable methodology for
 accessing the Flickr API. More information can be found on the [package
-website](https://docs.ropensci.org/photosearcher/). For more
-information and examples of the functions check out the [package
+website](https://docs.ropensci.org/photosearcher/). For more information
+and examples of the functions check out the [package
 vignette](https://docs.ropensci.org/photosearcher/articles/photosearcher.html).
 
 We have produced this package to help facilitate reproducible code for
