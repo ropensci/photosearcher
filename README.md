@@ -12,7 +12,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 <p align="left">
 
-<img src=".//inst//images//photosearcher_hex.png" height="200">
+<img src=".//man/figures/photosearcher_hex.png" height="200">
 
 </p>
 
