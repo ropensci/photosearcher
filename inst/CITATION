@@ -1,0 +1,16 @@
+citHeader("To cite photosearcher in publications use: Nathan Fox, Tom August, Francesca Mancini, Katherine E. Parks, Felix Eigenbrod, James M. Bullock, Louis Sutter, Laura J. Graham, “photosearcher” package in R: An accessible and reproducible method for harvesting large datasets from Flickr, SoftwareX, Volume 12, 2020, 100624,ISSN 2352-7110, https://doi.org/10.1016/j.softx.2020.100624.")
+
+citEntry(
+  entry    = "Article",
+  title    = “photosearcher” package in R: An accessible and reproducible method for harvesting large datasets from Flickr,
+  author   = Nathan Fox, Tom August, Francesca Mancini, Katherine E. Parks, Felix Eigenbrod, James M. Bullock, Louis Sutter, Laura J. Graham,,
+  journal  = SoftwareX,
+  year     = 2020,
+  volume   = 12,
+  number   = 1,
+  pages    = 100624,
+  url      = https://doi.org/10.1016/j.softx.2020.100624,
+  textVersion = paste(
+
+  )
+)

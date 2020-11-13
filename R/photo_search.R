@@ -165,6 +165,11 @@ photo_search <-
     pics <- NULL
     num_calls <- 0
 
+    # check that only one search location is given
+    if (is.null(mindate_taken) | is.null(maxdate_taken)) {
+      stop("Specify a mindate and maxdate taken.")
+    }
+
 
     # create dfs so large searches can be subset dynamically
     date_df <- data.frame(mindate_taken = mindate_taken,
