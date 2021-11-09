@@ -4,7 +4,7 @@ citEntry(
   entry    = "Article",
   title    = "'photosearcher' package in R: An accessible and reproducible method for harvesting large datasets from Flickr",
   author   = "Nathan Fox, Tom August, Francesca Mancini, Katherine E. Parks, Felix Eigenbrod, James M. Bullock, Louis Sutter, Laura J. Graham",
-  journal  = SoftwareX,
+  journal  = "SoftwareX",
   year     = 2020,
   volume   = 12,
   number   = 1,
