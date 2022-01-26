@@ -8,7 +8,7 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# photosearcher
+# photosearcher <a href="https://docs.ropensci.org/photosearcher"><img src="man/figures/logo.png" align="right" height="132" /></a>
 
 <p align="left">
 

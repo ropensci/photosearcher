@@ -11,12 +11,8 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# photosearcher
 
-<p align = "left">
-<img src=".//man/figures/photosearcher_hex.png" height="200">
-</p>
-
+# photosearcher <a href="https://docs.ropensci.org/photosearcher"><img src="man/figures/logo.png" align="right" height="132" /></a>
 
 The goal of photosearcher is to provide a repeatable methodology for accessing the Flickr API. More information can be found on the [package website](https://docs.ropensci.org/photosearcher/). For more information and examples of the functions check out the [package vignette](https://docs.ropensci.org/photosearcher/articles/photosearcher.html).
 
