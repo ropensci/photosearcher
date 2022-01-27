@@ -10,12 +10,6 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 # photosearcher <a href="https://docs.ropensci.org/photosearcher"><img src="man/figures/logo.png" align="right" height="132" /></a>
 
-<p align="left">
-
-<img src=".//man/figures/photosearcher_hex.png" height="200">
-
-</p>
-
 The goal of photosearcher is to provide a repeatable methodology for
 accessing the Flickr API. More information can be found on the [package
 website](https://docs.ropensci.org/photosearcher/). For more information
