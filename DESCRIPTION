@@ -23,7 +23,9 @@ Imports:
     glue,
     clisymbols,
     crayon,
-    sf
+    sf,
+    dplyr,
+    lubridate
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 URL: https://docs.ropensci.org/photosearcher 
