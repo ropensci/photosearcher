@@ -19,17 +19,16 @@ Language: en_GB
 Imports: 
     xml2,
     httr,
-    dplyr,
     glue,
     clisymbols,
     crayon,
     sf,
-    dplyr,
-    lubridate
+    lubridate,
+    dplyr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 URL: https://docs.ropensci.org/photosearcher 
-(website) https://github.com/ropensci/photosearcher
+(website) https: //github.com/ropensci/photosearcher
 BugReports: https://github.com/ropensci/photosearcher/issues
 Suggests: 
     httptest,
