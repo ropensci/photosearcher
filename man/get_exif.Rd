@@ -31,7 +31,8 @@ get_exif(photo_id = 48704764812)
 }
 }
 \seealso{
-Other Get data for known photograph: \code{\link{download_images}},
-  \code{\link{get_photoinfo}}
+Other Get data for known photograph: 
+\code{\link{download_images}()},
+\code{\link{get_photoinfo}()}
 }
 \concept{Get data for known photograph}

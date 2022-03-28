@@ -38,6 +38,7 @@ find_place(place = "England")
 }
 }
 \seealso{
-Other Information about places: \code{\link{location_tags}}
+Other Information about places: 
+\code{\link{location_tags}()}
 }
 \concept{Information about places}

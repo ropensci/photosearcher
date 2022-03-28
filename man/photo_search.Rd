@@ -4,10 +4,20 @@
 \alias{photo_search}
 \title{Search for photo metadata}
 \usage{
-photo_search(mindate_taken = NULL, maxdate_taken = NULL,
-  mindate_uploaded = NULL, maxdate_uploaded = NULL, user_id = NULL,
-  text = NULL, tags = NULL, tags_any = TRUE, bbox = NULL,
-  woe_id = NULL, sf_layer = NULL, has_geo = TRUE)
+photo_search(
+  mindate_taken = NULL,
+  maxdate_taken = NULL,
+  mindate_uploaded = NULL,
+  maxdate_uploaded = NULL,
+  user_id = NULL,
+  text = NULL,
+  tags = NULL,
+  tags_any = TRUE,
+  bbox = NULL,
+  woe_id = NULL,
+  sf_layer = NULL,
+  has_geo = TRUE
+)
 }
 \arguments{
 \item{mindate_taken}{Character, or date required. Minimum taken date. Photos
@@ -115,7 +125,8 @@ width_l: width for large image 1024 on longest side \item url_o: URL for
 original image, either a jpg, gif or png, depending on source format \item
 height_o: height for original image, either a jpg, gif or png, depending on
 source format \item width_o: width for original image, either a jpg, gif or
-png, depending on source format }
+png, depending on source format \item description: Flickr user generated
+text description of the photograph}
 }
 \description{
 Returns image metadata for photos matching the search terms.
@@ -169,6 +180,7 @@ photo_search(
 }
 }
 \seealso{
-Other Search for images: \code{\link{interesting_list}}
+Other Search for images: 
+\code{\link{interesting_list}()}
 }
 \concept{Search for images}

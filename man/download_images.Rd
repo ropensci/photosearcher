@@ -4,8 +4,14 @@
 \alias{download_images}
 \title{Download images}
 \usage{
-download_images(photo_id, save_dir = NULL, max_image_height = NULL,
-  max_image_width = NULL, overwrite_file = FALSE, quiet = FALSE)
+download_images(
+  photo_id,
+  save_dir = NULL,
+  max_image_height = NULL,
+  max_image_width = NULL,
+  overwrite_file = FALSE,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{photo_id}{numeric or character vector. id of photo to download, can be
@@ -56,7 +62,8 @@ download_images(photo_id = 48704764812, max_image_height = 1200,
 max_image_width = 1200, save_dir = ".") }
 }
 \seealso{
-Other Get data for known photograph: \code{\link{get_exif}},
-  \code{\link{get_photoinfo}}
+Other Get data for known photograph: 
+\code{\link{get_exif}()},
+\code{\link{get_photoinfo}()}
 }
 \concept{Get data for known photograph}

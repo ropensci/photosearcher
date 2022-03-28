@@ -101,6 +101,7 @@ interesting_list(date = "2011-11-25")
 }
 }
 \seealso{
-Other Search for images: \code{\link{photo_search}}
+Other Search for images: 
+\code{\link{photo_search}()}
 }
 \concept{Search for images}
