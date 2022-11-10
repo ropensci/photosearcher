@@ -13,34 +13,8 @@ test_that("fails correctly", {
                             mindate_taken = "2019-01-01",
                             maxdate_taken = "2019-02-01"),
                "Not a valid bounding box")
-
-  #whilst flickr services are down
-  expect_error(photo_search(woe_id = "35356"),
-               "Flickr location services are down")
-
-  #no photographs meet criteria
-  expect_error(photo_search(tags = c("big", "dog", "mad", "ship", "hot", "old"),
-               tags_any = FALSE),
-               mindate_taken = "2019-01-01",
-               maxdate_taken = "2019-02-01")
-
-  expect_error(photo_search(mindate_taken = "2017-01-01",
-                            maxdate_taken = "2017-01-01",
-                            user_id = "155421853@N05"))
-
 })
 
-test_that("bbox + woe_id fails correctly", {
-  write.table("6a2ac025703c4b98aae141842eae8b1d",
-              file = "photosearcher_key.sysdata")
-  expect_error(
-    photo_search(bbox = "-7.86,54.62,-1.0,58.83",
-                 woe_id = 12578048,
-                 mindate_taken = "2019-01-01",
-                 maxdate_taken = "2019-02-01"),
-    "Specify search location as only one of: woe_id, bbox or sf_layer."
-  )
-})
 
 test_that("output is correct", {
   skip_on_cran()
@@ -69,10 +43,6 @@ test_that("output is correct", {
   expect_is(date_test, "data.frame")
   expect_equal(ncol(date_test), 62)
 
-  skip("Flickr location services are down")
-  woeid_test <- photo_search(woe_id = 2347568)
-  expect_is(woeid_test, "data.frame")
-  expect_equal(ncol(woeid_test), 62)
 })
 
 test_that("shape files work", {

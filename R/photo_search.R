@@ -26,29 +26,16 @@
 #'  results that match a term by prepending it with a - character. Free text
 #'  searches for words in order provided, for example a search for "climbing
 #'  rock" will be different to "rock climbing".
-#'@param tags Character vector, optional. A comma-delimited list of tags. Photos
-#'  with one or more of the tags listed will be returned. You can exclude
-#'  results that match a term by prepending it with a - character.
-#'@param tags_any Logical, optional. If TRUE, photos containing any of the tags
-#'  will be returned. If FALSE, only photos containing all tags will be
-#'  returned. Defaulted to return any tags.
 #'@param bbox String, optional bounding box of search area provide as:
 #'  "minimum_longitude,minimum_latitude,maximum_longitude,maximum_latitude".
-#'@param woe_id String, optional "where on earth identifier" can be supplied
-#'  instead of bbox. Use \code{\link{find_place}} to obtain woe_id for a place.
 #'@param sf_layer A simple features layer, optional, area to search for photos,
 #'  can be supplied instead of a bbox or woeID.
-#'@param has_geo Logical, optional parameter for whether returned photos need
-#'  associated spatial data.
 #'@param mindate_uploaded Character or date, optional. Minimum upload date.
 #'  Photos with an upload date greater than or equal to this value will be
 #'  returned. The date can be in the form of a unix timestamp or mysql datetime.
 #'@param maxdate_uploaded Character or date, optional. Maximum upload date.
 #'  Photos with an upload date less than or equal to this value will be
 #'  returned. The date can be in the form of a unix timestamp or mysql datetime.
-#'@param user_id Character, optional. The Flickr ID of the user who's photo to
-#'  search. If this parameter isn't passed then everybody's public photos will
-#'  be searched.
 #'
 #'@return data.frame. Output consists of 57 variables including; latitude and
 #'  longitude of photograph, date and time it was taken, associated tags and
@@ -129,61 +116,47 @@
 #'   mindate_taken = "2017-01-01",
 #'   maxdate_taken = "2017-01-02",
 #'   mindate_uploaded = "2017-03-04",
-#'   maxdate_uploaded = "2017-05-05",
-#'   tags = "lake"
+#'   maxdate_uploaded = "2017-05-05"
 #'   )
 #'
 #' photo_search(
 #'   mindate_taken = "2018-01-01",
-#'   maxdate_taken = "2018-01-03",
-#'   tags = c("mountain", "lake"),
-#'   tags_any = TRUE
+#'   maxdate_taken = "2018-01-03"
 #' )
 #'
 #' photo_search(
 #'   mindate_taken = "2018-01-01",
-#'   maxdate_taken = "2018-01-03",
-#'   tags = c("mountain", "lake"),
-#'   tags_any = FALSE
+#'   maxdate_taken = "2018-01-03"
 #' )
 #'
 #' }
+
 photo_search <-
-  function(mindate_taken = NULL,
+  function(bbox = NULL,
+           text = NULL,
+           mindate_taken = NULL,
            maxdate_taken = NULL,
            mindate_uploaded = NULL,
            maxdate_uploaded = NULL,
-           user_id = NULL,
-           text = NULL,
-           tags = NULL,
-           tags_any = TRUE,
-           bbox = NULL,
-           woe_id = NULL,
-           sf_layer = NULL,
-           has_geo = TRUE) {
-
-    pics <- NULL
-    num_calls <- 0
-
-    # check that only one search location is given
-    if (is.null(mindate_taken) | is.null(maxdate_taken)) {
-      stop("Specify a mindate and maxdate taken.")
-    }
+           sf_layer = NULL){
 
 
-    # create dfs so large searches can be subset dynamically
-    date_df <- data.frame(mindate_taken = mindate_taken,
-                          maxdate_taken = maxdate_taken)
+    df <- NULL
+    out <- NULL
 
     # this checks for the presence of a key, if no key it prompts the user to
     # create one, it then checks the validity of the key
     api_key <- create_and_check_key()
 
+    # check that a search location is given
+    if ((is.null(bbox) & is.null(sf_layer))) {
+      stop("Specify search location as one of: bbox or sf_layer.")
+    }
+
+
     # check that only one search location is given
-    if ((!is.null(bbox) & !is.null(woe_id)) |
-        (!is.null(sf_layer) & !is.null(woe_id)) |
-        (!is.null(bbox) & !is.null(sf_layer))) {
-      stop("Specify search location as only one of: woe_id, bbox or sf_layer.")
+    if ((!is.null(bbox) & !is.null(sf_layer))) {
+      stop("Specify search location as only one of: bbox or sf_layer.")
     }
 
 
@@ -194,228 +167,184 @@ photo_search <-
 
     }
 
-    # check flickr location services work
-    if (!is.null(woe_id)) {
-      check_location(api_key = api_key)
+    base_url <- paste("https://www.flickr.com/services/rest/",
+                      "?method=flickr.photos.search&api_key=",api_key,
+                      "&bbox=", bbox,
+                      ifelse(!(is.null(text)), paste0("&text=", text), ""),
+                      ifelse(!(is.null(mindate_taken)), paste0(
+                        "&min_taken_date=", mindate_taken), ""),
+                      ifelse(!(is.null(maxdate_uploaded)), paste0(
+                        "&max_taken_date=", maxdate_taken), ""),
+                      ifelse(!(is.null(mindate_uploaded)), paste0(
+                        "&min_upload_date=", mindate_uploaded), ""),
+                      ifelse(!(is.null(maxdate_uploaded)), paste0(
+                        "&max_upload_date=", maxdate_uploaded), ""),
+                      "&page=1",
+                      "&format=json&nojsoncallback=1",
+                      sep= "")
+
+    #print(base_url)
+
+    #parse api data
+    jsondata <- jsonlite::fromJSON(base_url, flatten = TRUE)
+
+    #get number of photographs from in the grid
+    num_photos <- jsondata[["photos"]][["total"]]
+
+    # check that a search location is given
+    if (num_photos == 0) {
+      stop("No photographs matching criteria. Note: boundless searches may return as zero")
     }
 
-    #specify tag mode
-    if (isTRUE(tags_any)){
+    df <- data.frame(bbox = bbox,
+                     num_photos = num_photos)
 
-      tags_any <- "any"
+    #make highest  grid the top row
+    df <- dplyr::arrange(df, by = -num_photos)
 
-    } else {
+    while(max(df$num_photos) > 4000){
 
-      tags_any <- "all"
+      tmp_bbox <- df$bbox[1]
+
+      #get number of photographs from in the grid
+      num_photos <- df$num_photos[1]
+
+      #estimate the number of needed bboxs if photos were regular
+      bbox_esitmate <- ceiling(num_photos/4000)
+
+      #esitamte number of rows and colums needed in the new grid
+      grid_esitmate <- ceiling(bbox_esitmate / 4) + 1
+
+      #split bbox, to build grid
+      bbox_split <- stringr::str_split(tmp_bbox, ",", simplify = TRUE)
+
+      #build sf bbox
+      g_bbox <- sf::st_bbox(c(xmin = as.numeric(bbox_split[1]),
+                              ymin = as.numeric(bbox_split[2]),
+                              xmax = as.numeric(bbox_split[3]),
+                              ymax = as.numeric(bbox_split[4])),
+                            crs = 4326)
+
+      #sf bbox to poly
+      g_poly <- sf::st_as_sfc(g_bbox)
+
+      #split grid
+      g_grid <- sf::st_make_grid(g_poly, n = c(grid_esitmate, grid_esitmate))
+
+      new_bbox <- data.frame(do.call("rbind",
+                                     lapply(g_grid %>% sf::st_transform(4326),
+                                            sf::st_bbox)))
+
+      #get values for new bbox and add them
+      for(i in 1:nrow(new_bbox)){
+
+        tmp_bbox <- do.call(paste, c(new_bbox[i,], sep=","))
+
+        tmp_url <- paste("https://www.flickr.com/services/rest/",
+                         "?method=flickr.photos.search&api_key=",api_key,
+                         "&bbox=", tmp_bbox,
+                         ifelse(!(is.null(text)), paste0("&text=", text), ""),
+                         ifelse(!(is.null(mindate_taken)), paste0(
+                           "&min_taken_date=", mindate_taken), ""),
+                         ifelse(!(is.null(maxdate_uploaded)), paste0(
+                           "&max_taken_date=", maxdate_taken), ""),
+                         ifelse(!(is.null(mindate_uploaded)), paste0(
+                           "&min_upload_date=", mindate_uploaded), ""),
+                         ifelse(!(is.null(maxdate_uploaded)), paste0(
+                           "&max_upload_date=", maxdate_uploaded), ""),
+                         "&page=1",
+                         "&format=json&nojsoncallback=1",
+                         sep= "")
+
+        #parse api data
+        jsondata <- jsonlite::fromJSON(tmp_url, flatten = TRUE)
+
+        #get number of photographs from in the grid
+        num_photos <- jsondata[["photos"]][["total"]]
+
+        tmp_df <- data.frame(bbox = tmp_bbox,
+                             num_photos = num_photos)
+
+        df <- dplyr::bind_rows(df, tmp_df)
+
+      }
+
+      #remove top value
+      df <- df[-1,]
+
+      #make highest  grid the top row
+      df <- dplyr::arrange(df, by = -num_photos)
 
     }
 
-    # start while loop - until all dates are looped through
-    while (nrow(date_df) > 0) {
+    #now get the pages for each box
+    df <- subset(df, num_photos > 0)
 
-      # set search dates
-      mindate_taken <- as.POSIXct(date_df[1, "mindate_taken"])
-      maxdate_taken <- as.POSIXct(date_df[1, "maxdate_taken"])
+    for(i in 1:nrow(df)){
 
-      #flickr seems to search 8 hours in advance of
-      mindate_taken <- mindate_taken - 28800
+      tmp_bbox <- df$bbox[i]
 
-      mindate_unix <- as.numeric(mindate_taken)
-      maxdate_unix <- as.numeric(maxdate_taken)
+      tmp_url <- paste("https://www.flickr.com/services/rest/",
+                       "?method=flickr.photos.search&api_key=",api_key,
+                       "&bbox=", tmp_bbox,
+                       ifelse(!(is.null(text)), paste0("&text=", text), ""),
+                       ifelse(!(is.null(mindate_taken)), paste0(
+                         "&min_taken_date=", mindate_taken), ""),
+                       ifelse(!(is.null(maxdate_uploaded)), paste0(
+                         "&max_taken_date=", maxdate_taken), ""),
+                       ifelse(!(is.null(mindate_uploaded)), paste0(
+                         "&min_upload_date=", mindate_uploaded), ""),
+                       ifelse(!(is.null(maxdate_uploaded)), paste0(
+                         "&max_upload_date=", maxdate_uploaded), ""),
+                       "&per_page=500",
+                       "&page=1",
+                       "&format=json&nojsoncallback=1",
+                       sep= ""
+      )
 
-      if (mindate_taken > maxdate_taken){
+      #parse api data
+      jsondata <- jsonlite::fromJSON(tmp_url, flatten = TRUE)
 
-        date_df <- date_df[-1, ]
+      #get number of photographs
+      num_photos <- jsondata[["photos"]][["total"]]
 
-      } else {
+      #get number of pages
+      num_pages <- jsondata[["photos"]][["pages"]]
 
-        base_url <- get_url(
-          mindate_taken = mindate_unix,
-          maxdate_taken = maxdate_unix,
-          mindate_uploaded = mindate_uploaded,
-          maxdate_uploaded = maxdate_uploaded,
-          user_id = user_id,
-          api_key = api_key,
-          page = 1,
-          text = text,
-          tags = tags,
-          tag_mode = tags_any,
-          bbox = bbox,
-          woe_id = woe_id,
-          has_geo = has_geo
-        )
+      #print(num_pages)
 
-        photo_xml <- search_url(base_url = base_url)
+      if (num_photos > 0){
 
-        #add to number of needed calls
-        num_calls <- num_calls + 1
+        for (j in 1:num_pages){
 
-        find_errors(error_xml = photo_xml)
+          tmp_url <- paste("https://www.flickr.com/services/rest/",
+                           "?method=flickr.photos.search&api_key=",api_key,
+                           "&bbox=", tmp_bbox,
+                           ifelse(!(is.null(text)), paste0("&text=", text), ""),
+                           ifelse(!(is.null(mindate_taken)), paste0(
+                             "&min_taken_date=", mindate_taken), ""),
+                           ifelse(!(is.null(maxdate_uploaded)), paste0(
+                             "&max_taken_date=", maxdate_taken), ""),
+                           ifelse(!(is.null(mindate_uploaded)), paste0(
+                             "&min_upload_date=", mindate_uploaded), ""),
+                           ifelse(!(is.null(maxdate_uploaded)), paste0(
+                             "&max_upload_date=", maxdate_uploaded), ""),
+                           "&extras=", "date_taken,geo,tags,license,",
+                           "url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,",
+                           "url_l,url_o,count_views,count_comments,count_faves,",
+                           "date_upload,last_update,description",
+                           "&per_page=500",
+                           "&page=", j, #page is now j
+                           "&format=json&nojsoncallback=1",
+                           sep= "")
 
-        if (!is.null(photo_xml)) {
-          pages_data <- data.frame(
-            xml2::xml_attrs(xml2::xml_children(photo_xml)))
-          pages_data[] <- lapply(
-            pages_data, FUN = function(x) as.integer(as.character(x)))
-          total_pages <- pages_data["pages", ]
-          total <- pages_data["total", ]
+          #parse api data
+          jsondata <- jsonlite::fromJSON(tmp_url, flatten = TRUE)
 
+          tmp_out <- data.frame(lapply(jsondata[["photos"]][["photo"]],
+                                       as.character))
 
-
-          if (total > 0 && total > 4000){
-
-            for (i in 1:16){
-
-              base_url <- get_url(
-                mindate_taken = mindate_unix,
-                maxdate_taken = maxdate_unix,
-                mindate_uploaded = mindate_uploaded,
-                maxdate_uploaded = maxdate_uploaded,
-                user_id = user_id,
-                api_key = api_key,
-                page = i,
-                text = text,
-                tags = tags,
-                tag_mode = tags_any,
-                bbox = bbox,
-                woe_id = woe_id,
-                has_geo = has_geo
-              )
-
-                photo_xml <- search_url(base_url = base_url)
-
-                #add to number of needed calls
-                num_calls <- num_calls + 1
-
-                if (!is.null(photo_xml)) {
-                  photo_atts <- xml2::xml_find_all(
-                    photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
-                  tmp_df <- dplyr::bind_rows(lapply(
-                    xml2::xml_attrs(photo_atts), function(x) data.frame(
-                      as.list(x), stringsAsFactors = FALSE)))
-
-                  #description is stored in seperate node
-                  photo_atts2 <- xml2::xml_find_all(
-                    photo_xml, "//description", ns = xml2::xml_ns(photo_xml))
-
-                  descriptions <- NULL
-
-                  for (i in 1:length(photo_atts2)){
-
-                    tmp_df2 <- data.frame(description = paste(photo_atts2[i]))
-
-                    descriptions <- rbind(descriptions, tmp_df2)
-
-                    tmp_df2 <- NULL
-
-                  }
-
-                  descriptions$description <- gsub("<description>", "",
-                                                   descriptions$description)
-
-                  descriptions$description <- gsub("<description/>", "",
-                                                   descriptions$description)
-
-                  descriptions$description <- gsub("</description>", "",
-                                                   descriptions$description)
-
-                  #bind photos to descriptions
-                  tmp_df <- cbind(tmp_df, descriptions)
-
-                  pics <- dplyr::bind_rows(pics, tmp_df)
-
-                  tmp_df <- NULL
-
-                }
-
-            }
-
-            # create dataframe with minmaxdate_takens
-            date_df <- rbind(
-              date_df[-1, ],
-              data.frame(mindate_taken = max(pics$datetaken),
-                         maxdate_taken = maxdate_taken))
-
-          } else if (total > 0 && total < 4000){
-
-            for (i in 1:total_pages){
-
-              base_url <- get_url(
-                mindate_taken = mindate_unix,
-                maxdate_taken = maxdate_unix,
-                mindate_uploaded = mindate_uploaded,
-                maxdate_uploaded = maxdate_uploaded,
-                user_id = user_id,
-                api_key = api_key,
-                page = i,
-                text = text,
-                tags = tags,
-                tag_mode = tags_any,
-                bbox = bbox,
-                woe_id = woe_id,
-                has_geo = has_geo
-              )
-
-              photo_xml <- search_url(base_url = base_url)
-
-              #add to number of needed calls
-              num_calls <- num_calls + 1
-
-              if (!is.null(photo_xml)) {
-                photo_atts <- xml2::xml_find_all(
-                  photo_xml, "//photo", ns = xml2::xml_ns(photo_xml))
-                tmp_df <- dplyr::bind_rows(lapply(
-                  xml2::xml_attrs(photo_atts), function(x) data.frame(
-                    as.list(x), stringsAsFactors = FALSE)))
-
-                #description is stored in seperate node
-                photo_atts2 <- xml2::xml_find_all(
-                  photo_xml, "//description", ns = xml2::xml_ns(photo_xml))
-
-                descriptions <- NULL
-
-                for (i in 1:length(photo_atts2)){
-
-                  tmp_df2 <- data.frame(description = paste(photo_atts2[i]))
-
-                  descriptions <- rbind(descriptions, tmp_df2)
-
-                  tmp_df2 <- NULL
-
-                }
-
-                descriptions$description <- gsub("<description>", "",
-                                                 descriptions$description)
-
-                descriptions$description <- gsub("<description/>", "",
-                                                 descriptions$description)
-
-                descriptions$description <- gsub("</description>", "",
-                                                 descriptions$description)
-
-                #bind photos to descriptions
-                tmp_df <- cbind(tmp_df, descriptions)
-
-                pics <- dplyr::bind_rows(pics, tmp_df)
-
-                tmp_df <- NULL
-              }
-
-            }
-
-            # create dataframe with minmaxdate_takens
-            date_df <- date_df[-1, ]
-
-          } else {
-
-            date_df <- date_df[-1, ]
-
-          }
-
-
-        } else {
-
-          date_df <- date_df[-1, ]
+          out <- dplyr::bind_rows(out, tmp_out)
 
         }
 
@@ -423,39 +352,30 @@ photo_search <-
 
     }
 
-    if (is.null(pics)){
-
-      stop("No photographs meeting criteria")
-
-    }
-
     # is using sf_layer clip results to layer
     if (!is.null(sf_layer)) {
-      with_geom <- sf::st_as_sf(pics,
+      with_geom <- sf::st_as_sf(out,
                                 coords = c("longitude", "latitude"),
                                 crs = 4326)
 
-      pics <- cbind(with_geom,
-                    longitude = pics$longitude,
-                    latitude = pics$latitude)
+      out <- cbind(with_geom,
+                   longitude = out$longitude,
+                   latitude = out$latitude)
 
       sf_layer <- sf::st_transform(
         sf_layer, crs = "+proj=longlat +datum=WGS84 +no_defs")
 
 
-      pics$within <- sf::st_intersects(pics, sf_layer)
-      pics$within <- as.character(pics$within)
-      pics <- dplyr::filter(pics, pics$within != "integer(0)")
+      out$within <- sf::st_intersects(out, sf_layer)
+      out$within <- as.character(out$within)
+      out <- dplyr::filter(out, out$within != "integer(0)")
 
     }
 
-    pics <- parse_pic(pics = pics)
+    out <- parse_pic(pics = out)
 
-    pics <- dplyr::distinct(pics)
+    out <- dplyr::distinct(out)
 
+    return(out)
 
-
-
-    # end
-    return(pics)
   }
