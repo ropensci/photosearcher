@@ -153,6 +153,11 @@ photo_search <-
       stop("Specify search location as one of: bbox or sf_layer.")
     }
 
+    # check that a search location is given
+    if (is.null(text)) {
+      stop("Currently boundless searchers are crashing the API, please add a search text")
+    }
+
 
     # check that only one search location is given
     if ((!is.null(bbox) & !is.null(sf_layer))) {
@@ -280,7 +285,17 @@ photo_search <-
     #now get the pages for each box
     df <- subset(df, num_photos > 0)
 
+    #initiate progress bar
+    pb = utils::txtProgressBar(min = 0,
+                               max = nrow(df),
+                               initial = 0)
+
+  print(nrow(df))
+
     for(i in 1:nrow(df)){
+
+      #update progress bar
+      utils::setTxtProgressBar(pb, i)
 
       tmp_bbox <- df$bbox[i]
 
@@ -375,6 +390,8 @@ photo_search <-
     out <- parse_pic(pics = out)
 
     out <- dplyr::distinct(out)
+
+    close(pb)
 
     return(out)
 
