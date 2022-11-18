@@ -7,6 +7,7 @@
 #' @param subreddit
 #' @param start_date
 #' @param end_date
+#' @param sleep_time
 #'
 #' @return
 #' @export
@@ -15,7 +16,8 @@
 reddit_search <- function(search_term = NULL,
                           subreddit = NULL,
                           start_date = "2020-01-01",
-                          end_date = "2021-01-01") {
+                          end_date = "2021-01-01",
+                          sleep_time = 5) {
 
   #combine search terms if multiple
   if(length(search_term) > 1){
@@ -85,6 +87,9 @@ reddit_search <- function(search_term = NULL,
   check <- nrow(pushshift)
 
   while(check > 0) {
+
+    #pause to stop overloading the api
+    Sys.sleep(sleep_time)
 
     #create base url with dates and search terms
     base_url <- paste("https://api.pushshift.io/reddit/submission/search/",
