@@ -154,9 +154,9 @@ photo_search <-
     }
 
     # check that a search location is given
-    if (is.null(text)) {
-      stop("Currently boundless searchers are crashing the API, please add a search text")
-    }
+    #if (is.null(text)) {
+      #stop("Currently boundless searchers are crashing the API, please add a search text")
+    #}
 
 
     # check that only one search location is given
@@ -188,7 +188,7 @@ photo_search <-
                       "&format=json&nojsoncallback=1",
                       sep= "")
 
-    #print(base_url)
+    print(base_url)
 
     #parse api data
     jsondata <- jsonlite::fromJSON(base_url, flatten = TRUE)
@@ -208,6 +208,8 @@ photo_search <-
     df <- dplyr::arrange(df, by = -num_photos)
 
     while(max(df$num_photos) > 4000){
+
+      print(max(df$num_photos))
 
       tmp_bbox <- df$bbox[1]
 
