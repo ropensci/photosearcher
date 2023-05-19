@@ -184,6 +184,7 @@ photo_search <-
                         "&min_upload_date=", mindate_uploaded), ""),
                       ifelse(!(is.null(maxdate_uploaded)), paste0(
                         "&max_upload_date=", maxdate_uploaded), ""),
+                      "&per_page=500",
                       "&page=1",
                       "&format=json&nojsoncallback=1",
                       sep= "")
@@ -259,6 +260,11 @@ photo_search <-
                            "&min_upload_date=", mindate_uploaded), ""),
                          ifelse(!(is.null(maxdate_uploaded)), paste0(
                            "&max_upload_date=", maxdate_uploaded), ""),
+                         "&extras=", "date_taken,geo,tags,license,",
+                         "url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,",
+                         "url_l,url_o,count_views,count_comments,count_faves,",
+                         "date_upload,last_update,description",
+                         "&per_page=500",
                          "&page=1",
                          "&format=json&nojsoncallback=1",
                          sep= "")
@@ -313,6 +319,10 @@ photo_search <-
                          "&min_upload_date=", mindate_uploaded), ""),
                        ifelse(!(is.null(maxdate_uploaded)), paste0(
                          "&max_upload_date=", maxdate_uploaded), ""),
+                       "&extras=", "date_taken,geo,tags,license,",
+                       "url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,",
+                       "url_l,url_o,count_views,count_comments,count_faves,",
+                       "date_upload,last_update,description",
                        "&per_page=500",
                        "&page=1",
                        "&format=json&nojsoncallback=1",
