@@ -199,11 +199,11 @@ photo_search <-
 
     # check that a search location is given
     if (num_photos == 0) {
-      stop("No photographs matching criteria. Note: boundless searches may return as zero")
+      warning("No photographs matching criteria. Note: boundless searches may return as zero")
     }
 
-    df <- data.frame(bbox = bbox,
-                     num_photos = num_photos)
+    else {df <- data.frame(bbox = bbox,
+                           num_photos = num_photos)
 
     #make highest  grid the top row
     df <- dplyr::arrange(df, by = -num_photos)
@@ -298,7 +298,7 @@ photo_search <-
                                max = nrow(df),
                                initial = 0)
 
-  print(nrow(df))
+    print(nrow(df))
 
     for(i in 1:nrow(df)){
 
@@ -406,5 +406,7 @@ photo_search <-
     close(pb)
 
     return(out)
+
+    }
 
   }
