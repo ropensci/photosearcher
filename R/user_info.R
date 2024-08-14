@@ -45,7 +45,9 @@ user_info <- function(user_id) {
                     country = id_info$country,
                     stringsAsFactors = FALSE)
 
-  id_info <- data.frame(lapply(id_info, as.character), stringsAsFactors=FALSE)
+   id_info <- data.frame(lapply(id_info, as.character), stringsAsFactors = FALSE)
+   id_df <- data.frame(id=user_id, sortid=1:length(user_id))
+   id_info <- merge(id_df, id_info, all.x = TRUE, by = "id", sort = FALSE)[,-2]
 
    return(id_info)
 }
