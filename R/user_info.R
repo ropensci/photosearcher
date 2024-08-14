@@ -36,7 +36,7 @@ user_info <- function(user_id) {
   api_key <- create_and_check_key()
 
   id_info <- dplyr::bind_rows(lapply(
-    user_id, function(x) user_info_single(x, api_key)))
+    unique(user_id), function(x) user_info_single(x, api_key)))
 
   id_info <- data.frame(id = id_info$id,
                     occupation = id_info$occupation,
@@ -45,7 +45,9 @@ user_info <- function(user_id) {
                     country = id_info$country,
                     stringsAsFactors = FALSE)
 
-  id_info <- data.frame(lapply(id_info, as.character), stringsAsFactors=FALSE)
+   id_info <- data.frame(lapply(id_info, as.character), stringsAsFactors = FALSE)
+   id_df <- data.frame(id=user_id, sortid=1:length(user_id))
+   id_info <- merge(id_df, id_info, all.x = TRUE, by = "id", sort = FALSE)[,-2]
 
    return(id_info)
 }
