@@ -28,7 +28,6 @@ Imports:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 URL: https://docs.ropensci.org/photosearcher 
-(website) https: //github.com/ropensci/photosearcher
 BugReports: https://github.com/ropensci/photosearcher/issues
 Suggests: 
     httptest,
