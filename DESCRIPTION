@@ -2,8 +2,9 @@ Package: photosearcher
 Title: Photo Searcher
 Version: 1.0
 Authors@R: 
-    c(person("Nathan", "Fox", role = c("aut", "cre"), 
-    email = "nf2g13@soton.ac.uk"),
+    c(person("Isaac", "Bravo", role = c("cre"), 
+    email = "isaac.bravo@tum.de"),
+           person("Nathan", "Fox", role = c("aut")),  
            person("Francesca", "Mancini", role = c("aut")),
            person("Laura", "Graham", role = c("aut")),
            person("Louis", "Sutter", role = c("aut")),
